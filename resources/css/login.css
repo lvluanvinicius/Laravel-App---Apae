@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes moveLoginForm {
+    from {
+        /* opacity: 1; */
+    }
+    to {
+        /* opacity: 0; */
+    }
+}
+
+#box-form-login {
+}
