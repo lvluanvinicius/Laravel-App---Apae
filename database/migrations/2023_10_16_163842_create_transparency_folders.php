@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('website_info', function (Blueprint $table) {
+        Schema::create('transparency_folders', function (Blueprint $table) {
             $table->id();
 
-            $table->string('email')->unique();
-            $table->string('contact_number');
+            $table->unsignedBigInteger('cod_transparency_year_fk');
+            $table->string('folders')->unique();
 
             $table->timestamps();
+
+            $table->foreign('cod_transparency_year_fk')->references('id')->on('transparency_year');
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('website_info');
+        Schema::dropIfExists('transparency_folders');
     }
 };

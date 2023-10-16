@@ -11,13 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('website_info', function (Blueprint $table) {
+        Schema::create('transparency', function (Blueprint $table) {
             $table->id();
 
-            $table->string('email')->unique();
-            $table->string('contact_number');
+            $table->unsignedBigInteger('cod_transparency_folders_fk');
+
+            $table->string('filename');
+            $table->string('hash');
+            
 
             $table->timestamps();
+
+            $table->foreign('cod_transparency_folders_fk')->references('id')->on('transparency_folders');
         });
     }
 
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('website_info');
+        Schema::dropIfExists('transparency');
     }
 };

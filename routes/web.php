@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\TransparencyController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UsersController;
@@ -41,6 +42,10 @@ Route::prefix('meu-espaco')->as('client.')->middleware('auth:client')->group(fun
 Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () {
     Route::get('', [DashboardController::class, 'index'])->name('index');
     Route::prefix('users')->resource('users', UsersController::class);
+
+    // Gerenciamento de rotas para portal da transparencia.
+    Route::post('transparency/create-folder-year', [TransparencyController::class, 'createFolderYear'])->name('transparency.create-folder-year');
+    Route::prefix('transparency')->resource('transparency', TransparencyController::class);
 
     // Efetua a alteração do tema.
     Route::put('ui-theme', [SettingsController::class, 'iThemes'])->name('iThemes');

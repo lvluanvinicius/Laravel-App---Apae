@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('website_info', function (Blueprint $table) {
+        Schema::create('transparency_year', function (Blueprint $table) {
             $table->id();
 
-            $table->string('email')->unique();
-            $table->string('contact_number');
+            $table->string('year_folder')->unique();
 
             $table->timestamps();
+
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('website_info');
+        Schema::dropIfExists('transparency_year');
     }
 };

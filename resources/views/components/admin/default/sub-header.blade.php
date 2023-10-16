@@ -1,3 +1,3 @@
-<div class="mt-10 mx-2">
-    {{-- <h1>{{ $title }}</h1> --}}
+<div class="mt-10 mx-2 border-b-2">
+    Teste
 </div>
