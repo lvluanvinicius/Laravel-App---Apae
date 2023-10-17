@@ -44,8 +44,11 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
     Route::prefix('users')->resource('users', UsersController::class);
 
     // Gerenciamento de rotas para portal da transparencia.
-    Route::post('transparency/create-folder-year', [TransparencyController::class, 'createFolderYear'])->name('transparency.create-folder-year');
-    Route::prefix('transparency')->resource('transparency', TransparencyController::class);
+    Route::prefix('transparency')->as('transparency.')->group(function () {
+        Route::get('', [TransparencyController::class, 'index'])->name('index');
+        Route::get('/create-folder-session/{folderYearId}', [TransparencyController::class, 'createFolderSession'])->name('create-folder-session');
+        Route::post('/create-folder-year', [TransparencyController::class, 'createFolderYear'])->name('create-folder-year');
+    });
 
     // Efetua a alteração do tema.
     Route::put('ui-theme', [SettingsController::class, 'iThemes'])->name('iThemes');

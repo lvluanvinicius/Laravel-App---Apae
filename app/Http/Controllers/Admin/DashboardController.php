@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('pages.dashboard.index')->with([
+        return view('pages.admin.dashboard.index')->with([
             'title'     => 'Painel de Controle'
         ]);
     }

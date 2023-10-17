@@ -50,60 +50,22 @@ class TransparencyController extends Controller
 
         // return $dataTransparency;
 
-        return view('pages.admin-transparency.index')->with([
+        return view('pages.admin.transparency.index')->with([
             'title'             => "Portal da Transparência",
             'transparency'      => $dataTransparency,
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function createFolderSession(string $folderYearId) 
     {
-        //
+        $year                   = TransparencyYear::where('id', $folderYearId)->first();
+        return view('pages.admin.transparency.addsession')->with([
+            'title'             => "Nova Sessão",
+            'year'              => $year,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-
+   
     /**
      * Efetua a inserção de um novo ano dentro da transparência.
      *
