@@ -89,21 +89,33 @@
 
                             @foreach ($transparency as $transp)
                                 <li class="flex items-center cursor-pointer">
-                                    <span class="mr-2" id="folderIcon1" onclick="toggleFolder('{{ $transp['year_folder'] }}')">
+                                    <span class="mr-2" id="folderIcon{{ $transp['year_folder'] }}"
+                                        onclick="toggleFolder('{{ $transp['year_folder'] }}')">
                                         <i class="fas fa-folder text-blue-500 text-apae-yellow"></i>
-                                        <span class="font-bold">{{ $transp['year_folder'] }}</span>
                                     </span>
-                                </li>   
-                                @foreach ($transp['folders'] as $trp)
-                                    <ul class="ml-6" id="{{ $transp['year_folder'] }}" style="display: none;">
+                                    <span class="font-bold">{{ $transp['year_folder'] }}</span>
+                                </li>
+                                <ul class="ml-6" id="{{ $transp['year_folder'] }}" style="display: none;">
+                                    @foreach ($transp['folders'] as $trp)
                                         <li class="flex items-center cursor-pointer">
-                                            <span class="mr-2" id="folderIcon1" onclick="toggleFolder('{{ $trp['folders'] }}')">
+                                            <span class="mr-2" id="folderIcon{{ $trp['hash'] }}"
+                                                onclick="toggleFolder('{{ $trp['hash'] }}')">
                                                 <i class="fas fa-folder text-blue-500 text-apae-yellow"></i>
-                                                <span class="font-bold">{{ $trp['folders'] }}</span>
                                             </span>
+                                            <span class="font-bold">{{ $trp['folders'] }}</span>
                                         </li>
-                                    </ul>
-                                @endforeach
+                                        <ul class="ml-6" id="{{ $trp['hash'] }}" style="display: none;">
+                                            @foreach ($trp['files'] as $fs)
+                                                <li class="flex items-center">
+                                                    <span class="mr-2">
+                                                        <i class="fas fa-file text-gray-600 text-apae-cyan"></i>
+                                                    </span>
+                                                    <span>{{ $fs->filename }}</span>
+                                                </li> 
+                                            @endforeach
+                                        </ul>
+                                    @endforeach
+                                </ul>
                             @endforeach
                         </ul>
 
@@ -119,13 +131,16 @@
             function toggleFolder(id) {
                 const folder = document.getElementById(id);
                 const folderIcon = document.getElementById(`folderIcon${id}`);
+                console.log(folderIcon)
+                if (folder) {
 
-                if (folder.style.display === 'none' || folder.style.display === '') {
-                    folder.style.display = 'block';
-                    // folderIcon.innerHTML = '<i class="fas fa-folder-open text-blue-500"></i>';
-                } else {
-                    folder.style.display = 'none';
-                    // folderIcon.innerHTML = '<i class="fas fa-folder text-blue-500"></i>';
+                    if (folder.style.display === 'none' || folder.style.display === '') {
+                        folder.style.display = 'block';
+                        folderIcon.innerHTML = '<i class="fas fa-folder-open text-blue-500 text-apae-yellow"></i>';
+                    } else {
+                        folder.style.display = 'none';
+                        folderIcon.innerHTML = '<i class="fas fa-folder text-blue-500 text-apae-yellow"></i>';
+                    }
                 }
             }
         </script>

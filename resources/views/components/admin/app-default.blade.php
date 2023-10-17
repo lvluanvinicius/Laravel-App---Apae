@@ -22,6 +22,33 @@
 
     @vite(['resources/css/app.css', 'resources/css/app-mobile.css', 'resources/js/app.js'])
 
+    <script>
+ 
+        // Ação para alterar o tema visual da aplicação.
+       function changeTheme() {
+            const FormChangeTheme = document.createElement('form');
+            FormChangeTheme.action = `{{ route('admin.iThemes') }}`;
+            FormChangeTheme.method = "POST";
+            
+            const FormInputMethod = document.createElement('input');
+            FormInputMethod.value = 'PUT';
+            FormInputMethod.name = '_method';
+            FormInputMethod.type = 'hidden';
+            
+
+            const FormInputToken = document.createElement('input');
+            FormInputToken.value = `{{ csrf_token() }}`;
+            FormInputToken.name = '_token';
+            FormInputToken.type = 'hidden';
+
+            FormChangeTheme.appendChild(FormInputMethod);
+            FormChangeTheme.appendChild(FormInputToken);
+
+            document.body.appendChild(FormChangeTheme);
+            FormChangeTheme.submit(); // Enviando requisição.
+        }
+    </script>
+
 
     <title>{{ $pageTitle }}</title>
 </head>
@@ -44,6 +71,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"
         integrity="sha256-t0FDfwj/WoMHIBbmFfuOtZv1wtA977QCfsFR3p1K4No=" crossorigin="anonymous"></script>
     @yield('js-content')
+
+    
 
     {{-- Recuperando valor de error vindo do request. --}}
     @if ($errors->any())

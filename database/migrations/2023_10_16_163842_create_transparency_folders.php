@@ -16,6 +16,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('cod_transparency_year_fk');
             $table->string('folders')->unique();
+            $table->string('hash')->unique();
 
             $table->timestamps();
 

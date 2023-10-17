@@ -26,7 +26,7 @@ class TransparencyController extends Controller
         // Recuperando valores das pastas pais de anos.
         foreach($years as $y) {
             // Recuperando as pastas.
-            $folders = TransparencyFolders::where('cod_transparency_year_fk', $y->id)->get(['id', 'cod_transparency_year_fk','folders']);
+            $folders = TransparencyFolders::where('cod_transparency_year_fk', $y->id)->get(['id', 'cod_transparency_year_fk','folders', 'hash']);
 
             $newFolders = [];
             foreach($folders as $fd) {
@@ -34,6 +34,7 @@ class TransparencyController extends Controller
                 array_push($newFolders, [
                     'id'                => $fd->id,
                     'folders'           => $fd->folders,
+                    'hash'              => $fd->hash,
                     'files'             => $files,
                 ]);
             }
@@ -121,7 +122,7 @@ class TransparencyController extends Controller
                 if (checkdate(1, 1, (int)$foldName)) {
                     // Instanciando modelo. 
                     $yearTransparency = TransparencyYear::create([
-                        "year_folder"   => $foldName
+                        "year_folder"   => $foldName,
                     ]);
 
                     // Validando a criação da pasta.
@@ -153,3 +154,20 @@ class TransparencyController extends Controller
         }
     }
 }
+
+
+// // Gaurda a hash que ira usar na pasta.
+// $hashString = "";
+
+// // Gerando uma has para o arquivo.
+// $validate = true;
+// while ($validate) {
+//     // Gerando Hash.
+//     $s = md5($foldName . rand(100, 100000000));
+
+//     // Checa se existe a hash gerada, se não existir irá parar o loop e salvar em banco.
+//     if (!TransparencyFolders::where('hash', $s)->first()) {
+//         $hashString = $s;
+//         $validate = false;
+//     }
+// }
