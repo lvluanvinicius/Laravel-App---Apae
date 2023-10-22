@@ -51,10 +51,15 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
         Route::get('/create-file-session/{folderSession}', [TransparencyController::class, 'createFileSession'])->name('create-file-session');
         Route::get('/create-file-session/file/{folderSession}', [TransparencyController::class, 'getFilesSession'])->name('get-file-session');
 
-        // POST
+        // POST 
         Route::post('/create-folder-year', [TransparencyController::class, 'createFolderYear'])->name('create-folder-year');
         Route::post('/create-folder-session/{folderYearId}', [TransparencyController::class, 'createFolderSessionStore'])->name('create-folder-session-store');
         Route::post('/create-file-session/file/{folderSession}', [TransparencyController::class, 'createFileSessionStore'])->name('create-file-session-store');
+
+        // DELETE
+        Route::delete('/destroy-folder-year/{folderYearId}', [TransparencyController::class, 'destroyFolderYear'])->name('destroy-folder-year');
+        Route::delete('/destroy-folder-session/{folderSession}', [TransparencyController::class, 'destroySessionFolder'])->name('destroy-folder-session');
+        Route::delete('/destroy-file-session/{fileId}', [TransparencyController::class, 'destroyFilesSession'])->name('destroy-file-session');
     });
 
     // Efetua a alteração do tema.

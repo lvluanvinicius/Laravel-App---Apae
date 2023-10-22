@@ -31,30 +31,44 @@
                 <div class="col-span-2 px-3">
                     <div class="bg-apae-white dark:bg-apae-gray-dark p-8 shadow-md">
 
-                        <ul class="p-4 shadow-inner dark:shadow-apae-white/10 overflow-auto h-[400px]">
+                        <ul class="p-4 shadow-inner dark:shadow-apae-white/10 overflow-auto h-[500px]">
 
                             @foreach ($transparency as $transp)
-                                <li class="flex items-center cursor-pointer">
-                                    <span class="mr-2" id="folderIcon{{ $transp['year_folder'] }}"
+                                <li class="flex items-center justify-between cursor-pointer">
+                                    <div class="flex justify-start items-center">
+                                        <span class="mr-2" id="folderIcon{{ $transp['year_folder'] }}"
                                         onclick="toggleFolder('{{ $transp['year_folder'] }}')">
                                         <i class="fas fa-folder text-blue-500 text-apae-yellow"></i>
                                     </span>
                                     <span class="font-bold">{{ $transp['year_folder'] }}</span>
-                                    <a href="{{ route('admin.transparency.create-folder-session', ['folderYearId' => $transp['id']]) }}" title="Adicionar Sessão" class="!p-0 text-[.8rem] ml-4">
+                                    <a href="{{ route('admin.transparency.create-folder-session', ['folderYearId' => $transp['id']]) }}"
+                                        title="Adicionar Sessão" class="!p-0 text-[.8rem] ml-4">
                                         Adicionar Sessão +
                                     </a>
+                                    </div>
+
+                                    <button onclick="destroyFolderYear({{ $transp['id'] }})" title="Apagar Sessão">
+                                        <i class="fa-solid fa-trash text-apae-danger"></i>
+                                    </button>
 
                                 </li>
-                                <ul class="ml-6" id="{{ $transp['year_folder'] }}" style="display: none;">
+                                <ul class="ml-6" id="{{ $transp['year_folder'] }}" style="display: block;">
                                     @foreach ($transp['folders'] as $trp)
                                         <li class="flex items-center justify-between ">
-                                            <div class="flex items-center justify-star cursor-pointer">
-                                                <span class="mr-2" id="folderIcon{{ $trp['hash'] }}"
-                                                    onclick="toggleFolder('{{ $trp['hash'] }}')">
-                                                    <i class="fas fa-folder text-blue-500 text-apae-yellow"></i>
-                                                </span>
-                                                <span class="font-bold">{{ $trp['folders'] }}</span>
-                                                <a href="{{ route('admin.transparency.create-file-session', ['folderSession' => $trp['id']]) }}" class="!p-0 text-[.8rem] ml-4">Novo arquivo +</a>
+                                            <div class="flex items-center justify-between w-full cursor-pointer">
+                                                <div class="flex justify-start items-center">
+                                                    <span class="mr-2" id="folderIcon{{ $trp['hash'] }}"
+                                                        onclick="toggleFolder('{{ $trp['hash'] }}')">
+                                                        <i class="fas fa-folder text-blue-500 text-apae-yellow"></i>
+                                                    </span>
+                                                    <span class="font-bold">{{ $trp['folders'] }}</span>
+                                                    <a href="{{ route('admin.transparency.create-file-session', ['folderSession' => $trp['id']]) }}"
+                                                        class="!p-0 text-[.8rem] ml-4">Novo arquivo +</a>
+                                                </div>
+
+                                                <button onclick="destroyFolderSession({{ $trp['id'] }})" title="Apagar Sessão">
+                                                    <i class="fa-solid fa-trash text-apae-danger"></i>
+                                                </button>
                                             </div>
 
                                         </li>
@@ -70,10 +84,8 @@
                                                     </div>
 
                                                     <div class="flex items-center gap-4">
-                                                        <button>
-                                                            <i class="fa-solid fa-square-plus text-apae-green"></i>
-                                                        </button>
-                                                        <button>
+                                                        <button onclick="destroyFileSession({{ $fs->id }})"
+                                                            title="Apagar Arquivo">
                                                             <i class="fa-solid fa-trash text-apae-danger"></i>
                                                         </button>
                                                     </div>
@@ -97,7 +109,6 @@
             function toggleFolder(id) {
                 const folder = document.getElementById(id);
                 const folderIcon = document.getElementById(`folderIcon${id}`);
-                console.log(folderIcon)
                 if (folder) {
 
                     if (folder.style.display === 'none' || folder.style.display === '') {
@@ -107,6 +118,84 @@
                         folder.style.display = 'none';
                         folderIcon.innerHTML = '<i class="fas fa-folder text-blue-500 text-apae-yellow"></i>';
                     }
+                }
+            }
+
+            function destroyFileSession(file) {
+                if (confirm('Deseja realmente apagar esse Documento?')) {
+                    const FormDeleteFile = document.createElement('form');
+                    FormDeleteFile.action = `{{ route('admin.transparency.destroy-file-session', ['fileId' => '__FILE__']) }}`
+                        .replace('__FILE__', file);
+                    FormDeleteFile.method = "POST";
+
+                    const FormInputMethod = document.createElement('input');
+                    FormInputMethod.value = 'DELETE';
+                    FormInputMethod.name = '_method';
+                    FormInputMethod.type = 'hidden';
+
+
+                    const FormInputToken = document.createElement('input');
+                    FormInputToken.value = `{{ csrf_token() }}`;
+                    FormInputToken.name = '_token';
+                    FormInputToken.type = 'hidden';
+
+                    FormDeleteFile.appendChild(FormInputMethod);
+                    FormDeleteFile.appendChild(FormInputToken);
+
+                    document.body.appendChild(FormDeleteFile);
+                    FormDeleteFile.submit(); // Enviando requisição.
+                }
+            }
+
+            function destroyFolderSession(folder) {
+                if (confirm('Deseja realmente apagar essa Sessão?')) {
+                    const FormDeleteFolder = document.createElement('form');
+                    FormDeleteFolder.action = `{{ route('admin.transparency.destroy-folder-session', ['folderSession' => '__FOLDER__']) }}`
+                        .replace('__FOLDER__', folder);
+                    FormDeleteFolder.method = "POST";
+
+                    const FormInputMethod = document.createElement('input');
+                    FormInputMethod.value = 'DELETE';
+                    FormInputMethod.name = '_method';
+                    FormInputMethod.type = 'hidden';
+
+
+                    const FormInputToken = document.createElement('input');
+                    FormInputToken.value = `{{ csrf_token() }}`;
+                    FormInputToken.name = '_token';
+                    FormInputToken.type = 'hidden';
+
+                    FormDeleteFolder.appendChild(FormInputMethod);
+                    FormDeleteFolder.appendChild(FormInputToken);
+
+                    document.body.appendChild(FormDeleteFolder);
+                    FormDeleteFolder.submit(); // Enviando requisição.
+                }
+            }
+
+            function destroyFolderYear(folderYear) {
+                if (confirm('Deseja realmente apagar esse Ano?')) {
+                    const FormDeleteFolderYear = document.createElement('form');
+                    FormDeleteFolderYear.action = `{{ route('admin.transparency.destroy-folder-year', ['folderYearId' => '__YEAR__']) }}`
+                        .replace('__YEAR__', folderYear);
+                    FormDeleteFolderYear.method = "POST";
+
+                    const FormInputMethod = document.createElement('input');
+                    FormInputMethod.value = 'DELETE';
+                    FormInputMethod.name = '_method';
+                    FormInputMethod.type = 'hidden';
+
+
+                    const FormInputToken = document.createElement('input');
+                    FormInputToken.value = `{{ csrf_token() }}`;
+                    FormInputToken.name = '_token';
+                    FormInputToken.type = 'hidden';
+
+                    FormDeleteFolderYear.appendChild(FormInputMethod);
+                    FormDeleteFolderYear.appendChild(FormInputToken);
+
+                    document.body.appendChild(FormDeleteFolderYear);
+                    FormDeleteFolderYear.submit(); // Enviando requisição.
                 }
             }
         </script>

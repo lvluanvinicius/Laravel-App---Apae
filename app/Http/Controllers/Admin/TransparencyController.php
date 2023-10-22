@@ -25,8 +25,9 @@ class TransparencyController extends Controller
      * Display a listing of the resource.
      * 
      * @author Luan Santos <lvluansantos@gmail.com>
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         $years              = TransparencyYear::orderBy('year_folder', 'desc')->get();
 
@@ -245,7 +246,15 @@ class TransparencyController extends Controller
         }
     }
 
-    public function getFilesSession(string $folderSession)
+    /**
+     * Recupera todos os arquivos de uma pasta.
+     *
+     * @param string $folderSession
+     * 
+     * @author Luan Santos <lvluansantos@gmail.com>
+     * @return JsonResponse
+     */
+    public function getFilesSession(string $folderSession): JsonResponse
     {
         try {
             // Recuperando pasta. 
@@ -388,6 +397,162 @@ class TransparencyController extends Controller
             return $this->errorWithCode($error->getMessage(), 200, $error->getCode());
         } catch (Exception $error) {
             return $this->error($error->getMessage());
+        }
+    }
+
+    /**
+     * Apaga o ano se não tiver nenhuma sessão relacionada.
+     *
+     * @param string $folderYearId
+     * 
+     * @author Luan Santos <lvluansantos@gmail.com>
+     * @return RedirectResponse
+     */
+    public function destroyFolderYear(string $folderYearId): RedirectResponse 
+    {
+        try {
+            // Recuperando pasta se ela existir. 
+            $folder                 = TransparencyYear::where('id', $folderYearId)->first();
+
+            // Verifica se a pasta ano foi encontrada.
+            if (!$folder) {
+                throw new TransparencyException('Não encontrado o ano para exclusão.', 1201);
+            }
+
+            // Recuperando sessões dessa pasta.
+            $foldersSessions = TransparencyFolders::where('cod_transparency_year_fk', $folderYearId)->get();
+
+            // Verifica se existe uma ou mais sessão na pasta excluída.
+            if (count($foldersSessions) >= 1) {
+                throw new TransparencyException('Ano não pode ser exluído pois possui sessões relacionados.', 1301);
+            }
+
+            // Verifica se a pasta foi excluída corretamente.
+            if ($folder->delete()) {
+                return redirect()->back()->with([
+                    'status'        => true,
+                    'message'       => "Ano excluído com sucesso.",
+                    'type'          => 'Success',
+                ]);
+            }
+
+            throw new TransparencyException('Erro na exclusão do ano ou ele não existe.', 1300);
+
+        } catch (TransparencyException $error) {
+            return redirect()->back()->with([
+                'status'        => false,
+                'message'       => $error->getMessage(),
+                'type'          => 'Error',
+            ]);
+        } catch (Exception $error) {
+            return redirect()->back()->with([
+                'status'        => false,
+                'message'       => $error->getMessage(),
+                'type'          => 'Error',
+            ]);
+        }
+    }
+
+    /**
+     * Exclui uma sesão pasta.
+     *
+     * @param string $folderSession
+     * 
+     * @author Luan Santos <lvluansantos@gmail.com>
+     * @return RedirectResponse
+     */
+    public function destroySessionFolder(string $folderSession): RedirectResponse 
+    {
+        try {
+            // Recuperando pasta sessão para exclusão.
+            $folder                 = TransparencyFolders::where('id', $folderSession)->first();
+
+            // Verifica se a pasta existe.
+            if (!$folder) {
+                throw new TransparencyException('Não encontrada a pasta para exclusão.', 1201);
+            }
+
+            // Recuperando arquivos da sessão.
+            $files                  = Transparency::where('cod_transparency_folders_fk', $folderSession)->get();
+
+            // Validando se existe um ou mais arquivos dentro da sessão.
+            if (count($files) >= 1) {
+                throw new TransparencyException('Sessão não excluída pois possuí arquivos relacionados.', 1203);
+            }
+
+            // Verifica se a pasta foi excluída corretamente.
+            if ($folder->delete()) {
+                return redirect()->back()->with([
+                    'status'        => true,
+                    'message'       => "Sessão excluída com sucesso.",
+                    'type'          => 'Success',
+                ]);
+            }
+
+            throw new TransparencyException('Erro na exclusão da sessão ou ela não existe.', 1202);
+        } catch (TransparencyException $error) {
+            return redirect()->back()->with([
+                'status'        => false,
+                'message'       => $error->getMessage(),
+                'type'          => 'Error',
+            ]);
+        } catch (Exception $error) {
+            return redirect()->back()->with([
+                'status'        => false,
+                'message'       => $error->getMessage(),
+                'type'          => 'Error',
+            ]);
+        }
+    }
+
+    /**
+     * Apaga um arquivo dentro de uma pasta.
+     *
+     * @param string $fileId
+     * 
+     * @author Luan Santos <lvluansantos@gmail.com>
+     * @return RedirectResponse 
+     */
+    public function destroyFilesSession(string $fileId): RedirectResponse 
+    {
+        try {
+            // Recuperando pasta para receber o arquivo.
+            $file               = Transparency::where('id', $fileId)->first();
+
+            // Verifica se a pasta existe.
+            if (!$file) {
+                throw new TransparencyException('Não encontrado documento para exclusão.', 1200);
+            }
+
+            // Verifica se o arquivo foi excluído.
+            if ($file->delete()) {
+                // Recuperando storage path
+                $storagePath = storage_path('app/public/transparency');
+
+                if (file_exists($storagePath . '/' . $file->filename)) {
+                    unlink($storagePath . '/' . $file->filename);
+                }
+
+                return redirect()->back()->with([
+                    'status'        => true,
+                    'message'       => "Documento excluído com sucesso.",
+                    'type'          => 'Success',
+                ]);
+            }
+
+            throw new TransparencyException('Documento não pode ser excluído ou não existe.', 1108);
+        } catch (TransparencyException $error) {
+            return redirect()->back()->with([
+                'status'        => false,
+                'message'       => $error->getMessage(),
+                'type'          => 'Error',
+            ]);
+        } catch (Exception $error) {
+            return redirect()->back()->with([
+                'status'        => false,
+                'message'       => $error->getMessage(),
+                'type'          => 'Error',
+            ]);
         }
     }
 }
