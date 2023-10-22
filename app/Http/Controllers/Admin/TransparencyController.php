@@ -5,17 +5,26 @@ namespace App\Http\Controllers\Admin;
 use App\Exceptions\TransparencyException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TransparencyRequest;
+use App\Models\Settings;
 use App\Models\Transparency;
 use App\Models\TransparencyFolders;
 use App\Models\TransparencyYear;
+use App\Traits\ApiResponse;
 use Exception;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\JsonResponse;
 
 class TransparencyController extends Controller
 {
+    use ApiResponse;
+
     /**
      * Display a listing of the resource.
+     * 
+     * @author Luan Santos <lvluansantos@gmail.com>
      */
     public function index()
     {
@@ -24,12 +33,12 @@ class TransparencyController extends Controller
         $dataTransparency   = [];
 
         // Recuperando valores das pastas pais de anos.
-        foreach($years as $y) {
+        foreach ($years as $y) {
             // Recuperando as pastas.
-            $folders = TransparencyFolders::where('cod_transparency_year_fk', $y->id)->get(['id', 'cod_transparency_year_fk','folders', 'hash']);
+            $folders = TransparencyFolders::where('cod_transparency_year_fk', $y->id)->get(['id', 'cod_transparency_year_fk', 'folders', 'hash']);
 
             $newFolders = [];
-            foreach($folders as $fd) {
+            foreach ($folders as $fd) {
                 $files = Transparency::where('cod_transparency_folders_fk', $fd->id)->get(['id', 'filename', 'hash', 'cod_transparency_folders_fk']);
                 array_push($newFolders, [
                     'id'                => $fd->id,
@@ -44,8 +53,8 @@ class TransparencyController extends Controller
                 'year_folder'       => $y->year_folder,
                 'folders'           => $newFolders,
             ];
-            
-            array_push ($dataTransparency, $nData);
+
+            array_push($dataTransparency, $nData);
         }
 
         // return $dataTransparency;
@@ -56,20 +65,12 @@ class TransparencyController extends Controller
         ]);
     }
 
-    public function createFolderSession(string $folderYearId) 
-    {
-        $year                   = TransparencyYear::where('id', $folderYearId)->first();
-        return view('pages.admin.transparency.addsession')->with([
-            'title'             => "Nova Sessão",
-            'year'              => $year,
-        ]);
-    }
-
-   
     /**
      * Efetua a inserção de um novo ano dentro da transparência.
      *
      * @param TransparencyRequest $request
+     * 
+     * @author Luan Santos <lvluansantos@gmail.com>
      * @return RedirectResponse
      */
     public function createFolderYear(TransparencyRequest $request): RedirectResponse
@@ -115,21 +116,278 @@ class TransparencyController extends Controller
             ]);
         }
     }
+
+    /**
+     * Retorna o display de criação de pasta de sessão.
+     *
+     * @param string $folderYearId
+     * 
+     * @author Luan Santos <lvluansantos@gmail.com>
+     * @return View
+     */
+    public function createFolderSession(string $folderYearId): View
+    {
+        $year                   = TransparencyYear::where('id', $folderYearId)->first();
+        return view('pages.admin.transparency.addsession')->with([
+            'title'             => "Nova Sessão",
+            'year'              => $year,
+        ]);
+    }
+
+
+    /**
+     * Cria uma nova sessão dentro de uma pasta do tipo ano.
+     *
+     * @param Request $request
+     * @param string $folderYearId
+     * 
+     * @author Luan Santos <lvluansantos@gmail.com>
+     * @return RedirectResponse
+     */
+    public function createFolderSessionStore(Request $request, string $folderYearId): RedirectResponse
+    {
+        try {
+            // Recuperando nome da sessão que será criada.
+            $foldName       = $request->folder_session;
+
+            // Recuperando pasta ano (pasta pai).
+            $foldYear       = TransparencyYear::where('id', $folderYearId)->first();
+
+            // Verificando se a pasta ano existe. 
+            if (!$foldYear) {
+                throw new TransparencyException('Não encontrada o ano correspondente.');
+            }
+
+            // Gaurda a hash que ira usar na pasta.
+            $hashString     = "";
+
+            // Gerando uma has para o arquivo.
+            $validate = true;
+            while ($validate) {
+                // Gerando Hash.
+                $s = md5($foldName . rand(100, 100000000));
+
+                // Checa se existe a hash gerada, se não existir irá parar o loop e salvar em banco.
+                if (!TransparencyFolders::where('hash', $s)->first()) {
+                    $hashString = $s;
+                    $validate = false;
+                }
+            }
+
+            // Salvando nova sessão no banco.
+            $newSessFolder = TransparencyFolders::create([
+                'folders'                       => $foldName,
+                'hash'                          => $hashString,
+                'cod_transparency_year_fk'      => $foldYear->id,
+            ]);
+
+            // Verifica se foi criado corretanente a sessão.
+            if ($newSessFolder) {
+                return redirect()->route('admin.transparency.index')->with([
+                    'status'        => true,
+                    'message'       => "Sessão criada com sucesso.",
+                    'type'          => 'Success',
+                ]);
+            }
+
+            throw new TransparencyException('Houve um erro ao tentar criar a nova sessão.');
+        } catch (TransparencyException $error) {
+            return redirect()->back()->with([
+                'status'        => false,
+                'message'       => $error->getMessage(),
+                'type'          => 'Error',
+            ]);
+        } catch (Exception $error) {
+            return redirect()->back()->with([
+                'status'        => false,
+                'message'       => $error->getMessage(),
+                'type'          => 'Error',
+            ]);
+        }
+    }
+
+    /**
+     * Exibe o display de upload de arquivos.
+     *
+     * @param string $folderSession
+     * 
+     * @author Luan Santos <lvluansantos@gmail.com>
+     * @return View|RedirectResponse
+     */
+    public function createFileSession(string $folderSession): View|RedirectResponse
+    {
+        try {
+            // Recuperando pasta para receber o arquivo.
+            $folder                 = TransparencyFolders::where('id', $folderSession)->first();
+
+            // Verifica se a pasta existe.
+            if (!$folder) {
+                throw new TransparencyException('Não encontrada a pasta para inserir documento.', 1200);
+            }
+
+
+            return view('pages.admin.transparency.addfile')->with([
+                'title'             => "Novo arquivo",
+                'folder'            => $folder,
+            ]);
+        } catch (TransparencyException $error) {
+            return redirect()->back()->with([
+                'status'        => false,
+                'message'       => $error->getMessage(),
+                'type'          => 'Error',
+            ]);
+        } catch (Exception $error) {
+            return redirect()->back()->with([
+                'status'        => false,
+                'message'       => $error->getMessage(),
+                'type'          => 'Error',
+            ]);
+        }
+    }
+
+    public function getFilesSession(string $folderSession)
+    {
+        try {
+            // Recuperando pasta. 
+            $folder             = TransparencyFolders::where('id', $folderSession)->first();
+
+            // Verifica se a pasta existe.
+            if (!$folder) {
+                throw new TransparencyException('Não encontrada a pasta para inserir documento.', 1200);
+            }
+
+            // Recuperando arquivos.
+            $files              = Transparency::where('cod_transparency_folders_fk', $folderSession)->get();
+
+            // Verifica se os arquivos foram encontrados.
+            if (!$files) {
+                throw new TransparencyException('Nenhum arquivo encontrado para a pasta informada.', 1106);
+            }
+
+            return $this->success('Arquivos recuperados.', $files->toArray());
+        } catch (TransparencyException $error) {
+            return $this->errorWithCode($error->getMessage(), 200, $error->getCode());
+        } catch (Exception $error) {
+            return $this->error($error->getMessage());
+        }
+    }
+
+    /**
+     * Salva um novo arquivo dentro da base e storage.
+     *
+     * @param Request $request
+     * @param string $folderSession
+     * 
+     * @author Luan Santos <lvluansantos@gmail.com>
+     * @return JsonResponse
+     */
+    public function createFileSessionStore(Request $request, string $folderSession): JsonResponse
+    {
+        try {
+            // Recuperando pasta para receber o arquivo.
+            $folder                 = TransparencyFolders::where('id', $folderSession)->first();
+
+            // Verifica se a pasta existe.
+            if (!$folder) {
+                throw new TransparencyException('Não encontrada a pasta para inserir documento.', 1200);
+            }
+
+            // Verificando se foi encaminhado um arquivo.
+            if (!$request->hasFile('file')) {
+                throw new TransparencyException('Informe um documento.', 1100);
+            }
+
+            // Validando se é um arquivo.
+            if (!$request->file('file')->isValid()) {
+                throw new TransparencyException('Informe um documento válido.', 1101);
+            }
+
+            // Recuperando arquivo.
+            $file               = $request->file('file');
+            $ext                = $file->getClientOriginalExtension();
+            $fileName           = $file->getClientOriginalName();
+            $fileSize           = $file->getSize();
+            $typeFile           = $file->getType();
+
+            // Validando extensão. 
+            $setting = Settings::where('setting_name', 'application_file_extensions')->first('setting_value');
+            // Recupera as extensões.
+            $extensions = unserialize($setting->setting_value);
+
+            // Valida a extensão do arquivo.
+            $validateExts = array_filter($extensions, function ($valExt) use ($ext) {
+                if ($valExt == $ext) {
+                    return true;
+                }
+                return false;
+            });
+
+            // Verificando status da validação das extensões.
+            if (!$validateExts) {
+                throw new TransparencyException("Verifique a extensão do documento, são aceito apenas '" . join('|', $extensions) . "'");
+            }
+
+            // Recuperando storage path
+            $storagePath = storage_path('transparency');
+
+            // Verificando se o arquivo já existe.
+            $checkFile = Transparency::where('filename', $fileName)->first();
+            if ($checkFile) {
+                // Verifica se existe no path.
+                if (file_exists($storagePath . '/' . $fileName . '.' . $ext)) {
+                    throw new TransparencyException('O documento já existe e no diretório de armazenamento.', 1102);
+                }
+                // Se não existir, informa o erro que está registrado na base de dados apenas.
+                throw new TransparencyException('O documento já está registrado na base.', 1103);
+            }
+
+            // Salvando arquivo no diretório.
+            $path = $file->storeAs('public/transparency', $fileName);
+            // Verifica se o arquivo fora salvo com sucesso.
+            if (!$path) {
+                throw new TransparencyException('Erro ao tentar salvar o documento ou diretório é inexistente.', 1104);
+            }
+
+            /**
+             * Salvando dados do arquivo em base. 
+             */
+            $hashString     = "";               # Gaurda a hash que ira usar na pasta.
+
+            // Gerando uma has para o arquivo.
+            $validate = true;
+            while ($validate) {
+                // Gerando Hash.
+                $s = md5($fileName . rand(100, 100000000));
+
+                // Checa se existe a hash gerada, se não existir irá parar o loop e salvar em banco.
+                if (!Transparency::where('hash', $s)->first()) {
+                    $hashString = $s;
+                    $validate = false;
+                }
+            }
+
+            // Inserindo na base.
+            $fileSave = Transparency::create([
+                'cod_transparency_folders_fk'           => $folder->id,
+                'filename'                              => $fileName,
+                'hash'                                  => $hashString,
+                'type_file'                             => $typeFile,
+                'size_file'                             => $fileSize,
+            ]);
+
+            // Verifica se o arquivo foi salvo corretamente.
+            if (!$fileSave) {
+                // Exclui o arquivo no diretório se não for salvo em base.
+                Storage::deleteIfExists($storagePath . '/' . $fileName . '.' . $ext);
+
+                throw new TransparencyException('Não foi possível salvar o documento na base de dados.', 1105);
+            }
+
+            return $this->success('Documento salvo com sucesso.', []);
+        } catch (TransparencyException $error) {
+            return $this->errorWithCode($error->getMessage(), 200, $error->getCode());
+        } catch (Exception $error) {
+            return $this->error($error->getMessage());
+        }
+    }
 }
-
-
-// // Gaurda a hash que ira usar na pasta.
-// $hashString = "";
-
-// // Gerando uma has para o arquivo.
-// $validate = true;
-// while ($validate) {
-//     // Gerando Hash.
-//     $s = md5($foldName . rand(100, 100000000));
-
-//     // Checa se existe a hash gerada, se não existir irá parar o loop e salvar em banco.
-//     if (!TransparencyFolders::where('hash', $s)->first()) {
-//         $hashString = $s;
-//         $validate = false;
-//     }
-// }

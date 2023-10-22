@@ -24,5 +24,6 @@ class TransparencyFolders extends Model
     protected $fillable = [
         "cod_transparency_year_fk",
         "folders",
+        "hash",
     ];
 }

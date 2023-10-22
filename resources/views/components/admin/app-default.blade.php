@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css"
         integrity="sha256-sWZjHQiY9fvheUAOoxrszw9Wphl3zqfVaz1kZKEvot8=" crossorigin="anonymous">
 
+    @yield('head')
+
     @vite(['resources/css/app.css', 'resources/css/app-mobile.css', 'resources/js/app.js'])
 
     <script>
@@ -53,15 +55,14 @@
     <title>{{ $pageTitle }}</title>
 </head>
 
-<body class="dark:bg-apae-secondary {{ $iThemes }}">
+<body class="bg-apae-back-light dark:!bg-apae-gray dark:!text-apae-light {{ $iThemes }}">
 
     <x-admin.default.sidebar logoPath="{{ $logoPath }}" />
 
-    <main class="ml-[200px] apae-content h-[100vh] bg-apae-back-light dark:bg-apae-gray dark:text-apae-light">
+    <main class="ml-[200px] apae-content h-[100vh] bg-apae-back-light dark:bg-apae-gray dark:text-apae-light overflow-auto">
         <x-admin.default.header />
 
         @yield('content')
-
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"

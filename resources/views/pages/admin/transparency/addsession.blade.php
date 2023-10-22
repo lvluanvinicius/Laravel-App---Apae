@@ -3,7 +3,7 @@
         <div class="px-8 mt-10">
             <div class="bg-apae-white dark:bg-apae-gray-dark shadow-md p-8">
 
-                <form action="" method="POST">
+                <form action="{{ route('admin.transparency.create-folder-session-store', ['folderYearId' => request('folderYearId')]) }}" method="POST">
                     @csrf
 
                     <div class="flex flex-wrap">
@@ -11,7 +11,8 @@
                         <input type="text" name="folder_session"  class="bg-apae-gray/10 px-2 py-1 w-full !border-none">
                     </div>
 
-                    <div class="flex flex-wrap mt-4">
+                    <div class="flex flex-wrap mt-4 gap-4">
+                        <a href="{{ route('admin.transparency.index') }}" class="float-right px-6 shadow-md bg-apae-green dark:bg-apae-gray text-apae-white rounded-sm">Cancelar</a>
                         <button class="float-right px-6 shadow-md bg-apae-green dark:bg-apae-gray text-apae-white rounded-sm">Criar</button>
                     </div>
                 </form>

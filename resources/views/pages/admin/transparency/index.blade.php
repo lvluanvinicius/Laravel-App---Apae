@@ -31,7 +31,7 @@
                 <div class="col-span-2 px-3">
                     <div class="bg-apae-white dark:bg-apae-gray-dark p-8 shadow-md">
 
-                        <ul class="p-4 shadow-inner dark:shadow-apae-white/10 overflow-auto">
+                        <ul class="p-4 shadow-inner dark:shadow-apae-white/10 overflow-auto h-[400px]">
 
                             @foreach ($transparency as $transp)
                                 <li class="flex items-center cursor-pointer">
@@ -54,6 +54,7 @@
                                                     <i class="fas fa-folder text-blue-500 text-apae-yellow"></i>
                                                 </span>
                                                 <span class="font-bold">{{ $trp['folders'] }}</span>
+                                                <a href="{{ route('admin.transparency.create-file-session', ['folderSession' => $trp['id']]) }}" class="!p-0 text-[.8rem] ml-4">Novo arquivo +</a>
                                             </div>
 
                                         </li>

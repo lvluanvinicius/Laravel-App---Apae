@@ -5,23 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Transparency extends Model
+class Settings extends Model
 {
     use HasFactory;
 
     /**
-     * Guarda o nome da tabela referenciada ao modelo.
+     * Referencia a tabela do modelo.
      *
      * @var string
      */
-    protected $table = "transparency";
+    protected $table = "settings";
 
     /**
-     * Guarda o nome dos campos que receberão inserção.
+     * Referencia os campos com inserção em massa.
      *
      * @var array
      */
     protected $fillable = [
-        "cod_transparency_folders_fk", "filename", "hash", "type_file", "size_file"
+        "setting_name", "setting_value"
     ];
 }
