@@ -2,13 +2,14 @@
     @section('content')
         <div class="mx-8 mt-4 mb-10">
             <div class="dark:bg-apae-gray-dark dark:text-apae-white text-apae-gray-dark bg-apae-white shadow-md p-6">
-                <form action="{{ route('admin.photos-gallery.store-album') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.photos-gallery.update-album', ['galleryId' => $gallery->id]) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="flex flex-wrap">
                         <label for="gallery_name" class="">Nome do Album: </label>
                         <input type="text" name="gallery_name" id="gallery_name"
                             class="bg-apae-gray/10 px-2 py-1 w-full !border-none !outline-none"
-                            value="{{ old('gallery_name') }}">
+                            value="{{ old('gallery_name') ? old('gallery_name') : $gallery->gallery_name }}">
                     </div>
 
                     <div class="flex flex-wrap py-6">
@@ -17,7 +18,7 @@
                     </div>
 
                     <div class="flex flex-wrap ">
-                        <img src="" alt="" id="preview-image" class="">
+                        <img src="{{ Vite::galleryImages($gallery->gallery_image) }}" alt="" id="preview-image" class="h-52">
                     </div>
 
                     <div class="flex flex-wrap pt-6">
@@ -27,27 +28,22 @@
                         </textarea>
                     </div>
 
-                    <div class="flex flex-wrap py-3 gap-4">
+                    <div class="flex flex-wrap py-3">
                         <button
                             class="float-right px-6 shadow-md bg-apae-green dark:bg-apae-gray text-apae-white rounded-sm">
                             Salvar
                         </button>
-                            <a href="{{ route('admin.photos-gallery.index') }}"
-                                class="float-right px-6 shadow-md bg-apae-green dark:bg-apae-gray text-apae-white rounded-sm">
-                                Cancelar
-                            </a>
                     </div>
 
                 </form>
             </div>
-            
         </div>
     @endsection
 
     @section('js-content')
         <script>
             // Carrega o valor no textarea da sessão se ocorrer erros na verificação dos campos.
-            document.querySelector('#gallery_description').value = `{{ old('gallery_description') }}`;
+            document.querySelector('#gallery_description').value = `{{ old('gallery_description') ? old('gallery_description') : $gallery->gallery_description }}`;
 
             // Seleciona o input da imagem de capa.
             document.getElementById('gallery_cover').addEventListener('change', function(event) {

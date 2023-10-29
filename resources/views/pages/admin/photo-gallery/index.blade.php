@@ -21,7 +21,7 @@
                                 <div
                                     class="absolute bottom-0 left-0 w-full bg-apae-gray-dark/50 py-2 px-2 flex flex-wrap items-center justify-end text-[.8rem] text-apae-white">
                                     <div class="w-full">
-                                        {{ $alb->gallery_description }}
+                                        {{ $alb->gallery_name }}
                                     </div>
                                 </div>
                             </div>

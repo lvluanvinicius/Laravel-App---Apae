@@ -70,13 +70,19 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
         Route::get('create-album', [PhotoGalleryController::class, 'createAlbum'])->name('create-album');
         Route::get('view-gallery/{galleryId}', [PhotoGalleryController::class, 'viewGallery'])->name('view-gallery');
         Route::get('add-image/{galleryId}', [PhotoGalleryController::class, 'addImage'])->name('add-image');
+        Route::get('edit-gallery/{galleryId}', [PhotoGalleryController::class, 'editGallery'])->name('edit-gallery');
 
         // POST
         Route::post('create-album', [PhotoGalleryController::class, 'storeAlbum'])->name('store-album');
         Route::post('create-new-file-image/{galleryId}', [PhotoGalleryController::class, 'createNewFileImage'])->name('create-new-file-image');
 
+        // PUT
+        Route::put('update-album/{galleryId}', [PhotoGalleryController::class, 'updateAlbum'])->name('update-album');
+
+
         // DELETE
         Route::delete('delete-file-image/{imageId}', [PhotoGalleryController::class, 'destroyImage'])->name('delete-file-image');
+        Route::delete('delete-gallery-image/{galleryId}', [PhotoGalleryController::class, 'destroyGalleryAlbum'])->name('delete-gallery-image');
     });
 
     // Efetua a alteração do tema.

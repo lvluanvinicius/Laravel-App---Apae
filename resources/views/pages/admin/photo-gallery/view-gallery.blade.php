@@ -1,12 +1,38 @@
 <x-admin.app-default app_title="" page_title="{{ $title }}">
     @section('content')
         <div class="mx-8 mt-4 mb-10">
-            <div class="w-full mb-5">
+            <div class="w-full mb-5 flex gap-6 flex-wrap justify-between items-center">
                 <a href="{{ route('admin.photos-gallery.add-image', ['galleryId' => request('galleryId')]) }}"
                     class="text-apae-white bg-apae-green dark:bg-apae-gray-dark px-2 py-1 shadow-md">Adicionar Imagens</a>
+
+                <div class="flex gap-4">
+                    <a href="{{ route('admin.photos-gallery.edit-gallery', ['galleryId' => request('galleryId')]) }}"
+                        class="text-apae-white bg-apae-green dark:bg-apae-gray-dark px-2 py-1 shadow-md">
+                        <i class="fa-solid fa-edit text-apae-info mr-2"></i>
+                        Editar Album
+                    </a>
+                    <button onclick="deleteAlbum()"
+                        class="text-apae-white bg-apae-green dark:bg-apae-gray-dark px-2 py-0.5 shadow-md">
+                        <i class="fa-solid fa-trash text-apae-danger mr-2"></i>
+                        Apagar Album
+                    </button>
+                </div>
             </div>
 
             <div class="bg-apae-white dark:bg-apae-gray-dark shadow-lg p-4">
+                <div class="w-full">
+                    <div class="">
+                        <h1 class="font-bold text-[1.1rem]">{{ $gallery->gallery_name }}</h1>
+                        <span class="font-bold text-[.8rem]">Atualizado em:</span>
+                        <span class="text-[.7rem]">{{ date('d/m/Y \a\s H:i:s', strtotime($gallery->updated_at)) }}</span>
+                    </div>
+                    <div class="w-full mt-1">
+                        <h3 class="font-bold text-[.9rem]">Descrição:</h3>
+                        <p class="text-[.8rem]" style="margin: 0;text-indent: 3ch;">
+                            {{ $gallery->gallery_description }}
+                        </p>
+                    </div>
+                </div>
                 <div id="custom-controls-gallery" class="relative w-full" data-carousel="slide">
                     <!-- Carousel wrapper -->
                     <div class="relative h-56 overflow-hidden rounded-lg md:h-96 w-full">
@@ -91,18 +117,19 @@
             }
 
             // Função efetua a exclusão da imagem.
-            async function deleteImage(imageId) {
+            function deleteImage(imageId) {
                 // Recuperando rota de exclusão.
-                const deleteRoute = `{{ route('admin.photos-gallery.delete-file-image', ['imageId' => '__IMAGEID__']) }}`.replace('__IMAGEID__', imageId);
-                
+                const deleteRoute = `{{ route('admin.photos-gallery.delete-file-image', ['imageId' => '__IMAGEID__']) }}`
+                    .replace('__IMAGEID__', imageId);
+
                 // Criando formulário de exclusão.
-                const FormDelete = document.createElement('form');
-                FormDelete.action = deleteRoute;
-                FormDelete.method = 'POST';
+                const FormDeleteImage = document.createElement('form');
+                FormDeleteImage.action = deleteRoute;
+                FormDeleteImage.method = 'POST';
 
                 // Criando input de metodo. 
                 const InputMethod = document.createElement('input');
-                InputMethod.value = 'DELETE'; 
+                InputMethod.value = 'DELETE';
                 InputMethod.name = '_method';
 
                 // Criando input para csrf-token.
@@ -110,13 +137,47 @@
                 InputCSRFToken.value = `{{ csrf_token() }}`;
                 InputCSRFToken.name = '_token';
 
-                FormDelete.appendChild(InputMethod);
-                FormDelete.appendChild(InputCSRFToken);
+                FormDeleteImage.appendChild(InputMethod);
+                FormDeleteImage.appendChild(InputCSRFToken);
 
                 // Adicionando formulario no documento da pagina.
-                document.body.appendChild(FormDelete);
-                FormDelete.submit();
+                document.body.appendChild(FormDeleteImage);
+                FormDeleteImage.submit();
 
+            }
+
+            // Função efetua a exclusão do album.
+            async function deleteAlbum() {
+                if (confirm('Deseja realmente excluír esse album?')) {
+                    // Recuperando rota de exclusão.
+                    const deleteRoute =
+                        `{{ route('admin.photos-gallery.delete-gallery-image', ['galleryId' => request('galleryId')]) }}`;
+
+                    // Criando formulário de exclusão.
+                    const FormDeleteAlbum = document.createElement('form');
+                    FormDeleteAlbum.action = deleteRoute;
+                    FormDeleteAlbum.method = 'POST';
+
+                    // Criando input de metodo. 
+                    const InputMethod = document.createElement('input');
+                    InputMethod.value = 'DELETE';
+                    InputMethod.name = '_method';
+                    InputMethod.type = 'hidden';
+
+                    // Criando input para csrf-token.
+                    const InputCSRFToken = document.createElement('input');
+                    InputCSRFToken.value = `{{ csrf_token() }}`;
+                    InputCSRFToken.name = '_token';
+                    InputCSRFToken.type = 'hidden';
+
+                    FormDeleteAlbum.appendChild(InputMethod);
+                    FormDeleteAlbum.appendChild(InputCSRFToken);
+
+                    // Adicionando formulario no documento da pagina.
+                    document.body.appendChild(FormDeleteAlbum);
+                    FormDeleteAlbum.submit();
+
+                }
             }
         </script>
     @endsection
