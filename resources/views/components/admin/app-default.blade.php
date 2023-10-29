@@ -59,7 +59,7 @@
 
     <x-admin.default.sidebar logoPath="{{ $logoPath }}" />
 
-    <main class="ml-[200px] apae-content h-[100vh] bg-apae-back-light dark:bg-apae-gray dark:text-apae-light overflow-auto">
+    <main class="ml-[200px] apae-content h-[100vh] bg-apae-dark/10 dark:bg-apae-gray dark:text-apae-light overflow-auto">
         <x-admin.default.header />
 
         @yield('content')

@@ -12,8 +12,11 @@
                     </div>
 
                     <div class="flex flex-wrap py-6">
-                        <label for="gallery_cover" class="border p-4 w-full border-dashed text-center text-apae-gray/80 cursor-pointer">Selecione a Capa</label>
-                        <input type="file" id="gallery_cover" name="gallery_cover" class="hidden" value="{{ old('gallery_cover') }}">
+                        <label for="gallery_cover"
+                            class="border p-4 w-full border-dashed text-center text-apae-gray/80 cursor-pointer">Selecione a
+                            Capa</label>
+                        <input type="file" id="gallery_cover" name="gallery_cover" class="hidden"
+                            value="{{ old('gallery_cover') }}">
                     </div>
 
                     <div class="flex flex-wrap ">
@@ -32,15 +35,15 @@
                             class="float-right px-6 shadow-md bg-apae-green dark:bg-apae-gray text-apae-white rounded-sm">
                             Salvar
                         </button>
-                            <a href="{{ route('admin.photos-gallery.index') }}"
-                                class="float-right px-6 shadow-md bg-apae-green dark:bg-apae-gray text-apae-white rounded-sm">
-                                Cancelar
-                            </a>
+                        <a href="{{ route('admin.photos-gallery.index') }}"
+                            class="float-right px-6 shadow-md bg-apae-green dark:bg-apae-gray text-apae-white rounded-sm">
+                            Cancelar
+                        </a>
                     </div>
 
                 </form>
             </div>
-            
+
         </div>
     @endsection
 

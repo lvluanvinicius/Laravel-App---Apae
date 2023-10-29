@@ -2,7 +2,8 @@
     @section('content')
         <div class="mx-8 mt-4 mb-10">
             <div class="dark:bg-apae-gray-dark dark:text-apae-white text-apae-gray-dark bg-apae-white shadow-md p-6">
-                <form action="{{ route('admin.photos-gallery.update-album', ['galleryId' => $gallery->id]) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.photos-gallery.update-album', ['galleryId' => $gallery->id]) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="flex flex-wrap">
@@ -13,12 +14,16 @@
                     </div>
 
                     <div class="flex flex-wrap py-6">
-                        <label for="gallery_cover" class="border p-4 w-full border-dashed text-center text-apae-gray/80 cursor-pointer">Selecione a Capa</label>
-                        <input type="file" id="gallery_cover" name="gallery_cover" class="hidden" value="{{ old('gallery_cover') }}">
+                        <label for="gallery_cover"
+                            class="border p-4 w-full border-dashed text-center text-apae-gray/80 cursor-pointer">Selecione a
+                            Capa</label>
+                        <input type="file" id="gallery_cover" name="gallery_cover" class="hidden"
+                            value="{{ old('gallery_cover') }}">
                     </div>
 
                     <div class="flex flex-wrap ">
-                        <img src="{{ Vite::galleryImages($gallery->gallery_image) }}" alt="" id="preview-image" class="h-52">
+                        <img src="{{ Vite::galleryImages($gallery->gallery_image) }}" alt="" id="preview-image"
+                            class="h-52">
                     </div>
 
                     <div class="flex flex-wrap pt-6">
@@ -28,11 +33,15 @@
                         </textarea>
                     </div>
 
-                    <div class="flex flex-wrap py-3">
+                    <div class="flex flex-wrap py-3 gap-4">
                         <button
                             class="float-right px-6 shadow-md bg-apae-green dark:bg-apae-gray text-apae-white rounded-sm">
                             Salvar
                         </button>
+                        <a href="{{ route('admin.photos-gallery.view-gallery', ['galleryId' => $gallery->id ]) }}"
+                            class="float-right px-6 shadow-md bg-apae-green dark:bg-apae-gray text-apae-white rounded-sm">
+                            Cancelar
+                        </a>
                     </div>
 
                 </form>
@@ -43,7 +52,8 @@
     @section('js-content')
         <script>
             // Carrega o valor no textarea da sessão se ocorrer erros na verificação dos campos.
-            document.querySelector('#gallery_description').value = `{{ old('gallery_description') ? old('gallery_description') : $gallery->gallery_description }}`;
+            document.querySelector('#gallery_description').value =
+                `{{ old('gallery_description') ? old('gallery_description') : $gallery->gallery_description }}`;
 
             // Seleciona o input da imagem de capa.
             document.getElementById('gallery_cover').addEventListener('change', function(event) {

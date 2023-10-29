@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PartnersController;
 use App\Http\Controllers\Admin\PhotoGalleryController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Web\HomeController;
@@ -83,6 +84,17 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
         // DELETE
         Route::delete('delete-file-image/{imageId}', [PhotoGalleryController::class, 'destroyImage'])->name('delete-file-image');
         Route::delete('delete-gallery-image/{galleryId}', [PhotoGalleryController::class, 'destroyGalleryAlbum'])->name('delete-gallery-image');
+    });
+
+    // Gerenciamento de parceiros.
+    Route::prefix('partners')->as('partners.')->group(function () {
+        // GET
+        Route::get('', [PartnersController::class, 'index'])->name('index');
+        Route::get('create', [PartnersController::class, 'create'])->name('create');
+        Route::get('show/{partnerID}', [PartnersController::class, 'show'])->name('show');
+
+        // POST
+        Route::post('', [PartnersController::class, 'store'])->name('store');
     });
 
     // Efetua a alteração do tema.

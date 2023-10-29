@@ -15,8 +15,8 @@
                 @foreach ($albuns as $alb)
                     <div class="col-span-12 md:col-span-3 p-6 ">
                         <a href="{{ route('admin.photos-gallery.view-gallery', ['galleryId' => $alb->id]) }}" class="w-full underline text-[.9rem]">
-                            <div class="border relative shadow-md shadow-apae-dark rounded">
-                                <img src="{{ Vite::galleryImages($alb->gallery_image) }}" alt="">
+                            <div class="border relative shadow-md shadow-apae-dark rounded h-80">
+                                <img src="{{ Vite::galleryImages($alb->gallery_image) }}" alt="" class="h-full w-full">
 
                                 <div
                                     class="absolute bottom-0 left-0 w-full bg-apae-gray-dark/50 py-2 px-2 flex flex-wrap items-center justify-end text-[.8rem] text-apae-white">

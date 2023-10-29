@@ -28,6 +28,13 @@
                     Transparência
                 </li>
             </a>  
+
+            <a href="{{ route('admin.partners.index') }}" class="">
+                <li class="hover:border-l-2 pl-4 py-2 text-[.8rem]">
+                    <i class="fa-regular fa-handshake mr-1"></i>
+                    Parceiros
+                </li>
+            </a>  
         </ul>
         <hr class="opacity-10 py-1"/>
         <ul>
