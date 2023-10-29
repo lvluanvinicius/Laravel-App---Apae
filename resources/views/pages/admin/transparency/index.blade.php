@@ -52,7 +52,7 @@
                                     </button>
 
                                 </li>
-                                <ul class="ml-6" id="{{ $transp['year_folder'] }}" style="display: block;">
+                                <ul class="ml-6" id="{{ $transp['year_folder'] }}" style="display: none;">
                                     @foreach ($transp['folders'] as $trp)
                                         <li class="flex items-center justify-between ">
                                             <div class="flex items-center justify-between w-full cursor-pointer">

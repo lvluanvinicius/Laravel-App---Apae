@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PhotoGalleryController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Web\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -60,6 +61,22 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
         Route::delete('/destroy-folder-year/{folderYearId}', [TransparencyController::class, 'destroyFolderYear'])->name('destroy-folder-year');
         Route::delete('/destroy-folder-session/{folderSession}', [TransparencyController::class, 'destroySessionFolder'])->name('destroy-folder-session');
         Route::delete('/destroy-file-session/{fileId}', [TransparencyController::class, 'destroyFilesSession'])->name('destroy-file-session');
+    });
+
+    // Gerenciamento de Galeria de Fotos.
+    Route::prefix('photos-gallery')->as('photos-gallery.')->group(function () {
+        // GET
+        Route::get('', [PhotoGalleryController::class, 'index'])->name('index');
+        Route::get('create-album', [PhotoGalleryController::class, 'createAlbum'])->name('create-album');
+        Route::get('view-gallery/{galleryId}', [PhotoGalleryController::class, 'viewGallery'])->name('view-gallery');
+        Route::get('add-image/{galleryId}', [PhotoGalleryController::class, 'addImage'])->name('add-image');
+
+        // POST
+        Route::post('create-album', [PhotoGalleryController::class, 'storeAlbum'])->name('store-album');
+        Route::post('create-new-file-image/{galleryId}', [PhotoGalleryController::class, 'createNewFileImage'])->name('create-new-file-image');
+
+        // DELETE
+        Route::delete('delete-file-image/{imageId}', [PhotoGalleryController::class, 'destroyImage'])->name('delete-file-image');
     });
 
     // Efetua a alteração do tema.

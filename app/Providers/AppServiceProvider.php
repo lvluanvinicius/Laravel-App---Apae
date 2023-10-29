@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Settings;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\Vite;
 
@@ -21,5 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Vite::macro('appImages', fn($asset) => $this->asset("resources/images/app/{$asset}"));
+        Vite::macro('galleryImages', fn($asset) => $this->asset("resources/images/photo-galery/{$asset}"));
+        Vite::macro('galleryAlbunsImages', fn($asset) => $this->asset("resources/images/photo-galery/albuns/{$asset}"));
     }
 }

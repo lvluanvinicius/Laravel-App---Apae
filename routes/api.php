@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PhotoGalleryController;
 use App\Http\Controllers\Admin\TransparencyController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,4 +19,4 @@ use Illuminate\Support\Facades\Route;
 /**
  * Rotas para recursos internos protegidos pelo Gaurdian Web.
  */
-Route::post('file/{folderSession}', [TransparencyController::class, 'createFileSessionStore'])->name('createFileSessionStore');
+// Route::post('file/{galleryId}', [PhotoGalleryController::class, 'createNewFileImage']);

@@ -319,7 +319,7 @@ class TransparencyController extends Controller
             $typeFile           = $file->getType();
 
             // Validando extensão. 
-            $setting = Settings::where('setting_name', 'application_file_extensions')->first('setting_value');
+            $setting = Settings::where('setting_name', 'application_transparency_extensions')->first('setting_value');
             // Recupera as extensões.
             $extensions = unserialize($setting->setting_value);
 

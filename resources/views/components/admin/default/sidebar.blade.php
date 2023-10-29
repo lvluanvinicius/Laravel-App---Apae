@@ -7,31 +7,37 @@
         <ul>
             <a href="{{ route('admin.index') }}" class="">
                 <li class="hover:border-l-2 pl-4 py-2 text-[.8rem]">
-                    <i class="fa-solid fa-house"></i>
+                    <i class="fa-solid fa-house mr-1"></i>
                     Painel
                 </li>
             </a>
         </ul>
         <hr class="opacity-10 py-1"/>
         <ul>
-            <li class="text-[.9rem] pl-2 py-2">Administração</li>      
-            <a href="{{ route('admin.index') }}" class="">
+            <li class="text-[.9rem] pl-2 py-2">Website</li>
+            <a href="{{ route('admin.photos-gallery.index') }}" class="">
                 <li class="hover:border-l-2 pl-4 py-2 text-[.8rem]">
-                    <i class="fa-solid fa-house"></i>
-                    Painel
+                    <i class="fa-solid fa-images mr-1"></i>
+                    Galeria de Fotos
                 </li>
-            </a>
+            </a> 
 
             <a href="{{ route('admin.transparency.index') }}" class="">
                 <li class="hover:border-l-2 pl-4 py-2 text-[.8rem]">
-                    <i class="fa-solid fa-eye"></i>
+                    <i class="fa-solid fa-eye mr-1"></i>
                     Transparência
                 </li>
             </a>  
         </ul>
         <hr class="opacity-10 py-1"/>
         <ul>
-            <li class="text-[.9rem] pl-2 py-2">Administração</li>     
+            <li class="text-[.9rem] pl-2 py-2">Administração</li> 
+            <a href="{{ "#" }}" class="">
+                <li class="hover:border-l-2 pl-4 py-2 text-[.8rem]">
+                    <i class="fa-solid fa-users mr-1"></i>
+                    Usuários
+                </li>
+            </a>    
         </ul>
     </div>
 </aside>
