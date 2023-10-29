@@ -147,7 +147,7 @@
             }
 
             // Função efetua a exclusão do album.
-            async function deleteAlbum() {
+            function deleteAlbum() {
                 if (confirm('Deseja realmente excluír esse album?')) {
                     // Recuperando rota de exclusão.
                     const deleteRoute =

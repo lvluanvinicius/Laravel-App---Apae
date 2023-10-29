@@ -95,6 +95,12 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
 
         // POST
         Route::post('', [PartnersController::class, 'store'])->name('store');
+
+        // PUT
+        Route::put('{partnerID}', [PartnersController::class, 'update'])->name('update');
+
+        // DELETE
+        Route::delete('{partnerID}', [PartnersController::class, 'destroy'])->name('destroy');
     });
 
     // Efetua a alteração do tema.
