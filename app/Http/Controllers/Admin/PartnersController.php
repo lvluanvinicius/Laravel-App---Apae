@@ -24,7 +24,7 @@ class PartnersController extends Controller
     public function index(): View
     {
         // Recuperando parceiros.
-        $partners = Partners::get();
+        $partners = Partners::paginate(8);
 
         return view('pages.admin.partners.index')->with([
             'title'             => 'Parceiros',

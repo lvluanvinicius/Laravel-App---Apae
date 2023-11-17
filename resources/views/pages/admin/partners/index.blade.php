@@ -27,6 +27,8 @@
                 @endforeach
 
             </div>
+
+            {{ $partners->links('pagination::tailwind') }}
         </div>
     @endsection
 </x-admin.app-default>

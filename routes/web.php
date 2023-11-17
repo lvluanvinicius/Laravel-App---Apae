@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PartnersController;
 use App\Http\Controllers\Admin\PhotoGalleryController;
 use App\Http\Controllers\Admin\SettingsController;
@@ -101,6 +102,10 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
 
         // DELETE
         Route::delete('{partnerID}', [PartnersController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('news')->as('news.')->group(function () {
+        Route::get('', [NewsController::class, 'index'])->name('index');
     });
 
     // Efetua a alteração do tema.
