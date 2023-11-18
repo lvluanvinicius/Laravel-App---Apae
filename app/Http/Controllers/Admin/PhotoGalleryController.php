@@ -76,7 +76,7 @@ class PhotoGalleryController extends Controller
             }
 
             $ext                    = $image->getClientOriginalExtension(); # Recupera a extensão do arquivo.
-            $imageName              = $image->getClientOriginalName();  # Recupera o nome do arquivo enviado.
+            $imageName              = explode('.', $image->getClientOriginalName())[0];  # Recupera o nome do arquivo enviado.
             $imageSize              = $image->getSize(); # Recupera o tamanho do arquivo.
             $imageType              = $image->getType(); # Recupera o tipo do arquivo.
 
@@ -97,7 +97,7 @@ class PhotoGalleryController extends Controller
             $hashString             = "";
             $f                      = true;
             while ($f) {
-                $s                  = md5($imageName . rand(100, 1000000)); # Gerando a hash.
+                $s                  = $imageName . '-' .md5($imageName . rand(100, 1000000)); # Gerando a hash.
                 $hashExits          = PhotoGalleryAlbum::where('gallery_hash', $s)->first(); # Recupera se já existir para recriar.
 
                 if (!$hashExits) {
@@ -251,7 +251,7 @@ class PhotoGalleryController extends Controller
             // Recuperando arquivo.
             $file               = $request->file('file');
             $ext                = $file->getClientOriginalExtension();
-            $fileName           = $file->getClientOriginalName();
+            $fileName           = explode('.', $file->getClientOriginalName())[0];
             $fileSize           = $file->getSize();
             $typeFile           = $file->getType();
 
@@ -282,7 +282,7 @@ class PhotoGalleryController extends Controller
             $validate = true;
             while ($validate) {
                 // Gerando Hash.
-                $s = md5($fileName . rand(100, 100000000));
+                $s = $fileName . '-' . md5($fileName . rand(100, 100000000));
 
                 // Checa se existe a hash gerada, se não existir irá parar o loop e salvar em banco.
                 if (!PhotoGalleryFiles::where('hash', $s)->first()) {
@@ -396,7 +396,7 @@ class PhotoGalleryController extends Controller
                 }
 
                 $ext                    = $image->getClientOriginalExtension(); # Recupera a extensão do arquivo.
-                $imageName              = $image->getClientOriginalName();  # Recupera o nome do arquivo enviado.
+                $imageName              = explode('.', $image->getClientOriginalName())[0];  # Recupera o nome do arquivo enviado.
                 $imageSize              = $image->getSize(); # Recupera o tamanho do arquivo.
                 $imageType              = $image->getType(); # Recupera o tipo do arquivo.
 
@@ -417,7 +417,7 @@ class PhotoGalleryController extends Controller
                 $hashString             = "";
                 $f                      = true;
                 while ($f) {
-                    $s                  = md5($imageName . rand(100, 1000000)); # Gerando a hash.
+                    $s                  = $imageName . '-' . md5($imageName . rand(100, 1000000)); # Gerando a hash.
                     $hashExits          = PhotoGalleryAlbum::where('gallery_hash', $s)->first(); # Recupera se já existir para recriar.
 
                     if (!$hashExits) {

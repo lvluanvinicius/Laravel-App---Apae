@@ -87,7 +87,7 @@ class PartnersController extends Controller
 
             $file                   = $request->file('partner_image'); # Recupera o arquivo.
             $ext                    = $file->getClientOriginalExtension(); # Recupera a extensão da imagem.
-            $fileName               = $file->getClientOriginalName(); # Recupera a extensão da imagem.
+            $fileName               = explode('.', $file->getClientOriginalName())[0]; # Recupera a extensão da imagem.
             $fileSize               = $file->getSize(); # Recupera o tamanho do arquivo.
             $fileType               = $file->getType(); # Recupera o tipo do arquivo.
 
@@ -112,7 +112,7 @@ class PartnersController extends Controller
             $fileHashString         = "";
             $f                      = true;
             while ($f) {
-                $s                  = md5($fileName . rand(100, 100000));
+                $s                  = $fileName . '-' . md5($fileName . rand(100, 100000));
                 $partFile           = Partners::where('partner_hash', $s)->first();
                 if (!$partFile) {
                     $f              = false;
@@ -200,7 +200,7 @@ class PartnersController extends Controller
 
                 $file                   = $request->file('partner_image'); # Recupera o arquivo.
                 $ext                    = $file->getClientOriginalExtension(); # Recupera a extensão da imagem.
-                $fileName               = $file->getClientOriginalName(); # Recupera a extensão da imagem.
+                $fileName               = explode('.', $file->getClientOriginalName())[0]; # Recupera a extensão da imagem.
                 $fileSize               = $file->getSize(); # Recupera o tamanho do arquivo.
                 $fileType               = $file->getType(); # Recupera o tipo do arquivo.
 
@@ -225,7 +225,7 @@ class PartnersController extends Controller
                 $fileHashString         = "";
                 $f                      = true;
                 while ($f) {
-                    $s                  = md5($fileName . rand(100, 100000));
+                    $s                  = $fileName . '-' . md5($fileName . rand(100, 100000));
                     $partFile           = Partners::where('partner_hash', $s)->first();
                     if (!$partFile) {
                         $f              = false;

@@ -40,6 +40,13 @@
                     <i class="fa-solid fa-newspaper mr-1"></i>
                     Notícias
                 </li>
+            </a>
+
+            <a href="{{ route('admin.sliders.index') }}" class="">
+                <li class="hover:border-l-2 pl-4 py-2 text-[.8rem]">
+                    <i class="fa-regular fa-images mr-1"></i>
+                    Sliders
+                </li>
             </a>  
         </ul>
         <hr class="opacity-10 py-1"/>

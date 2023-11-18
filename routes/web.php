@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PartnersController;
 use App\Http\Controllers\Admin\PhotoGalleryController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\SlidersController;
 use App\Http\Controllers\Web\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -106,6 +107,12 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
 
     Route::prefix('news')->as('news.')->group(function () {
         Route::get('', [NewsController::class, 'index'])->name('index');
+    });
+
+    Route::prefix('sliders')->as('sliders.')->group(function () {
+        Route::get('', [SlidersController::class, 'index'])->name('index');
+        Route::get('create', [SlidersController::class, 'create'])->name('create');
+        Route::get('store', [SlidersController::class, 'store'])->name('store');
     });
 
     // Efetua a alteração do tema.
