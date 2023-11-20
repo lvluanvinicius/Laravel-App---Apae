@@ -112,7 +112,9 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
     Route::prefix('sliders')->as('sliders.')->group(function () {
         Route::get('', [SlidersController::class, 'index'])->name('index');
         Route::get('create', [SlidersController::class, 'create'])->name('create');
-        Route::get('store', [SlidersController::class, 'store'])->name('store');
+        Route::post('store', [SlidersController::class, 'store'])->name('store');
+        Route::put('active-and-deactive/{sliderId}', [SlidersController::class, 'activeAndSlider'])->name('active-and-deactive');
+        Route::delete('destroy/{sliderId}', [SlidersController::class, 'destroy'])->name('destroy');
     });
 
     // Efetua a alteração do tema.

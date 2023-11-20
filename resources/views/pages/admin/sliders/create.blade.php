@@ -24,7 +24,7 @@
     @section('js-content')
         <script>
             // Recuperando rota para salvar o arquivo.
-            const fileRouteSave = "{{ route('admin.sliders.index') }}";
+            const fileRouteSave = "{{ route('admin.sliders.store') }}";
 
             const sliders = new Dropzone('#dropzone-sliders', {
                 url: fileRouteSave,

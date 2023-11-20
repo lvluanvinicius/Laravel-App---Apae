@@ -17,15 +17,25 @@
     {{-- // Vite config // --}}
     @vite(['resources/css/app.css'])
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+
+    @yield('head')
     <title>{{ $pageTitle }}</title>
 </head>
 <body class="">
     <div>
+        <x-website.header-top/>
         <x-website.header/>
         
         <main>
             @yield('content')
         </main>
     </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    @yield('js-content')
 </body>
 </html>

@@ -28,7 +28,8 @@ module.exports = {
       "apae-danger": "#dc3545",
       "apae-light": "#f8f9fa",
       "apae-dark": "#343a40",
-      "apae-back-light": "#e8eff9"
+      "apae-back-light": "#e8eff9",
+      "apae-orange": "#FF7A30",
     } 
   },
   plugins: [

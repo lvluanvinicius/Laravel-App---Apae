@@ -16,10 +16,3 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-/**
- * Rotas para recursos internos protegidos pelo Gaurdian Web.
- */
-// Route::post('file/{galleryId}', [PhotoGalleryController::class, 'createNewFileImage']);
-
-Route::post('slider', [SlidersController::class, 'store']);
