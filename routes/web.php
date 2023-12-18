@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\Admin\TransparencyController;
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GeneralSettingsController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PartnersController;
 use App\Http\Controllers\Admin\PhotoGalleryController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SlidersController;
+use App\Http\Controllers\Admin\TransparencyController;
+use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Web\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,17 +23,15 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
+ */
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'loginDo'])->name('login-do');
-
 
 // Website
 Route::group([], function () {
     Route::get('', [HomeController::class, 'index'])->name('home');
 });
-
 
 // Web Cliente.
 Route::prefix('meu-espaco')->as('client.')->middleware('auth:client')->group(function () {
@@ -40,7 +39,6 @@ Route::prefix('meu-espaco')->as('client.')->middleware('auth:client')->group(fun
         return 'bem vindo cliente';
     })->name('index');
 });
-
 
 // Web Admin.
 Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () {
@@ -55,7 +53,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
         Route::get('/create-file-session/{folderSession}', [TransparencyController::class, 'createFileSession'])->name('create-file-session');
         Route::get('/create-file-session/file/{folderSession}', [TransparencyController::class, 'getFilesSession'])->name('get-file-session');
 
-        // POST 
+        // POST
         Route::post('/create-folder-year', [TransparencyController::class, 'createFolderYear'])->name('create-folder-year');
         Route::post('/create-folder-session/{folderYearId}', [TransparencyController::class, 'createFolderSessionStore'])->name('create-folder-session-store');
         Route::post('/create-file-session/file/{folderSession}', [TransparencyController::class, 'createFileSessionStore'])->name('create-file-session-store');
@@ -82,7 +80,6 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
         // PUT
         Route::put('update-album/{galleryId}', [PhotoGalleryController::class, 'updateAlbum'])->name('update-album');
 
-
         // DELETE
         Route::delete('delete-file-image/{imageId}', [PhotoGalleryController::class, 'destroyImage'])->name('delete-file-image');
         Route::delete('delete-gallery-image/{galleryId}', [PhotoGalleryController::class, 'destroyGalleryAlbum'])->name('delete-gallery-image');
@@ -107,6 +104,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
 
     Route::prefix('news')->as('news.')->group(function () {
         Route::get('', [NewsController::class, 'index'])->name('index');
+        Route::get('create', [NewsController::class, 'create'])->name('create');
     });
 
     Route::prefix('sliders')->as('sliders.')->group(function () {
@@ -115,6 +113,14 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
         Route::post('store', [SlidersController::class, 'store'])->name('store');
         Route::put('active-and-deactive/{sliderId}', [SlidersController::class, 'activeAndSlider'])->name('active-and-deactive');
         Route::delete('destroy/{sliderId}', [SlidersController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('settings')->as('settings.')->group(function () {
+        Route::prefix('general')->as('general.')->group(function () {
+            Route::get('', [GeneralSettingsController::class, 'index'])->name('index');
+            Route::put('extensions', [GeneralSettingsController::class, 'updateExtensions'])->name('update-extensions');
+            Route::put('paths', [GeneralSettingsController::class, 'updatePaths'])->name('update-paths');
+        });
     });
 
     // Efetua a alteração do tema.

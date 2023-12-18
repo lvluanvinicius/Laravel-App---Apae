@@ -7,6 +7,9 @@
             <button onclick="changeTheme()" class="px-2" >
                 <i class="fa-solid fa-circle-half-stroke"></i>
             </button>
+            <a href="{{ env('APP_URL') }}" target="_blank" title="Ver Wersite">
+                <i class="fa-solid fa-eye"></i>
+            </a>
         </div>
     </div>
 </header>

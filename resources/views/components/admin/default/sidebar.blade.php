@@ -51,13 +51,19 @@
         </ul>
         <hr class="opacity-10 py-1"/>
         <ul>
-            <li class="text-[.9rem] pl-2 py-2">Administração</li> 
+            <li class="text-[.9rem] pl-2 py-2">Administração</li>
+            <a href="{{ route('admin.settings.general.index') }}" class="">
+                <li class="hover:border-l-2 pl-4 py-2 text-[.8rem]">
+                    <i class="fa-solid fa-gear"></i>
+                    Configurações
+                </li>
+            </a>  
             <a href="{{ route('admin.users.index') }}" class="">
                 <li class="hover:border-l-2 pl-4 py-2 text-[.8rem]">
                     <i class="fa-solid fa-users mr-1"></i>
                     Usuários
                 </li>
-            </a>    
+            </a> 
         </ul>
     </div>
 </aside>

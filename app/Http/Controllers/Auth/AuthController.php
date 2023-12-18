@@ -23,7 +23,7 @@ class AuthController extends Controller
             }
 
             // Autentica o usuário no gaurdian de clientes se o mesmo for um cliente(contribuidor).
-            if ($user->is_client) {   
+            if ($user->is_client) {
                 // Efetuando login do usuário no guardian de clientes(contribuidor)
                 if (!Auth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password])) {
                     throw new AuthException('Usuário ou senha estão incorretos.');
@@ -37,13 +37,10 @@ class AuthController extends Controller
                 }
 
                 return redirect()->route('admin.index');
-
             }
 
             throw new AuthException('Usuário ou senha estão incorretos.');
-
         } catch (AuthException $error) {
-            dd($error);
             return response()->json([$error->getMessage()]);
         }
     }

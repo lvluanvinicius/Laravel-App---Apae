@@ -11,12 +11,19 @@ class NewsController extends Controller
     /**
      * Retorna o display de listagens de notícias.
      *
+     * @author Luan Santos <lvluansantos@gmail.com>
      * @return View
      */
     public function index(): View
     {
         return view("pages.admin.news.index")->with([
             'title'             => 'Notícias',
+        ]);
+    }
+
+    public function create() {
+        return view("pages.admin.news.create")->with([
+            'title'             => 'Nova Publicação',
         ]);
     }
 }
