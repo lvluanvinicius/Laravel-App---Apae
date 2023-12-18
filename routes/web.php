@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GeneralSettingsController;
 use App\Http\Controllers\Admin\NewsController;
@@ -105,6 +106,17 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
     Route::prefix('news')->as('news.')->group(function () {
         Route::get('', [NewsController::class, 'index'])->name('index');
         Route::get('create', [NewsController::class, 'create'])->name('create');
+        Route::get('{newsId}/edit', [NewsController::class, 'edit'])->name('edit');
+        Route::post('', [NewsController::class, 'store'])->name('store');
+        Route::put('{newsId}', [NewsController::class, 'update'])->name('update');
+
+        Route::prefix('categories')->as('categories.')->group(function () {
+            Route::get('', [CategoryController::class, 'index'])->name('index');
+            Route::get('create', [CategoryController::class, 'create'])->name('create');
+            Route::get('{categoryId}/edit', [CategoryController::class, 'edit'])->name('edit');
+            Route::post('', [CategoryController::class, 'store'])->name('store');
+            Route::put('{categoryId}', [CategoryController::class, 'update'])->name('update');
+        });
     });
 
     Route::prefix('sliders')->as('sliders.')->group(function () {

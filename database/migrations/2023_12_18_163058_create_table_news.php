@@ -13,16 +13,21 @@ return new class extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->id();
-
             $table->unsignedBigInteger('cod_user_fk');
+            $table->unsignedBigInteger('cod_category_fk');
 
-            $table->string('news_post_name');
+            $table->string('news_post_title');
             $table->longText('news_post_content');
-            $table->text('news_post_description');
-            $table->boolean('news_post_description');
+            $table->string('news_post_slug');
+            $table->string('news_post_summary')->nullable(true);
+            $table->string('news_post_tags')->nullable(true);
+            $table->integer('news_post_views')->default(0);
+            $table->boolean('news_post_status')->default(true);
+            $table->boolean('news_post_active_comments')->default(true);
             $table->timestamps();
 
             $table->foreign('cod_user_fk')->references('id')->on('users');
+            $table->foreign('cod_category_fk')->references('id')->on('category');
         });
     }
 
