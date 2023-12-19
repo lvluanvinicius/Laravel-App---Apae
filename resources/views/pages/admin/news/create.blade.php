@@ -34,17 +34,21 @@
 
                     <div class="col-span-2 flex w-full flex-wrap p-1">
                         <label for="news_post_content" class="w-full text-[1rem]">Conteúdo</label>
-                        <textarea required type="text" id="news_post_content" name="news_post_content"
+                        {{-- <textarea required type="text" id="news_post_content" name="news_post_content"
                             class="w-full rounded-[4px] !border-none bg-apae-gray/10 px-2 py-1 !outline-none">
-                        </textarea>
+                        </textarea> --}}
+
+                        <div id="news_post_content"
+                            class="h-[100vh] w-full rounded-[4px] !border-none bg-apae-gray/10 px-2 py-1 !outline-none dark:!text-apae-white">
+                        </div>
                     </div>
 
-                    <div class="col-span-2 flex w-full flex-wrap p-1 py-4">
+                    <div class="col-span-2 mt-10 flex w-full flex-wrap p-1 py-4">
                         <h3 class="text-[1.1rem] font-bold">Outras informações</h3>
                     </div>
 
                     <div class="col-span-2 flex w-full flex-wrap p-1">
-                        <label for="news_post_summary" class="w-full text-[1rem]">Sumário</label>
+                        <label for="news_post_summary" class="w-full text-[1rem]">Resumo</label>
                         <input required type="text" id="news_post_summary" name="news_post_summary"
                             value="{{ old('news_post_summary') }}"
                             class="w-full rounded-[4px] !border-none bg-apae-gray/10 px-2 py-1 !outline-none">
@@ -80,15 +84,72 @@
     @endsection
 
     @section('head')
-        <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+        <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+        <style>
+            #news_post_content {}
+        </style>
     @endsection
 
     @section('js-content')
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script>
-            CKEDITOR.replace('news_post_content', {
-                width: '100%',
+            var toolbarOptions = [
+                ['bold', 'italic', 'underline', 'strike', 'image'],
+                ['blockquote', 'code-block'],
+
+                [{
+                    'header': 1
+                }, {
+                    'header': 2
+                }],
+                [{
+                    'list': 'ordered'
+                }, {
+                    'list': 'bullet'
+                }],
+                [{
+                    'script': 'sub'
+                }, {
+                    'script': 'super'
+                }],
+                [{
+                    'indent': '-1'
+                }, {
+                    'indent': '+1'
+                }],
+                [{
+                    'direction': 'rtl'
+                }],
+
+                [{
+                    'size': ['small', false, 'large', 'huge']
+                }],
+                [{
+                    'header': [1, 2, 3, 4, 5, 6, false]
+                }],
+
+                [{
+                    'color': []
+                }, {
+                    'background': []
+                }],
+                [{
+                    'font': []
+                }],
+                [{
+                    'align': []
+                }],
+
+                ['clean']
+            ];
+            var quill = new Quill('#news_post_content', {
+                modules: {
+                    toolbar: toolbarOptions
+                },
+                theme: 'snow'
             });
 
             $('#news_post_content').val(`{{ old('news_post_content') }}`);
@@ -107,9 +168,6 @@
             $(document).ready(function() {
                 $('#cod_category_fk').select2();
             });
-
-            
-            //
         </script>
     @endsection
 </x-admin.app-default>

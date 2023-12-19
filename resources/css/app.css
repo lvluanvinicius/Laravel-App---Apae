@@ -18,6 +18,10 @@ input,textarea,select {
     outline: 0;
 }
 
+.apae-container {
+    width: 80%;
+}
+
 .table-apae-content {
     width: 100%;
     height: 100%;

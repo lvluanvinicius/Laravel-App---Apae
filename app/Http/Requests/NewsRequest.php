@@ -25,10 +25,8 @@ class NewsRequest extends FormRequest
             "news_post_title"                               => "required",
             "cod_category_fk"                               => "required",
             "news_post_content"                             => "required",
-            "news_post_description"                         => "required",
-            "news_post_slug"                                => "required",
             "news_post_summary"                             => "required",
-            "news_post_tags"                                => "required|unique:news,news_post_slug,except,id",
+            "news_post_slug"                                => "required|unique:news,news_post_slug,except,id",
         ];
     }
 
@@ -43,7 +41,6 @@ class NewsRequest extends FormRequest
             "news_post_title.required"                       => "O título do post é obrigatório.",
             "cod_category_fk.required"                       => "A categoria do post é obrigatória.",
             "news_post_content.required"                     => "O conteúdo do post é obrigatório.",
-            "news_post_description.required"                 => "A descrição do post é obrigatório.",
             "news_post_slug.required"                        => "O slug do post é obrigatório.",
             "news_post_slug.unique"                          => "O slug informado já existe.",
         ];

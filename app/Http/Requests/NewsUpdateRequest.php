@@ -25,7 +25,6 @@ class NewsUpdateRequest extends FormRequest
             "news_post_title"                               => "required",
             "cod_category_fk"                               => "required",
             "news_post_content"                             => "required",
-            "news_post_description"                         => "required",
             "news_post_slug"                                => "required",
             "news_post_summary"                             => "required",
         ];
@@ -42,7 +41,6 @@ class NewsUpdateRequest extends FormRequest
             "news_post_title.required"                       => "O título do post é obrigatório.",
             "cod_category_fk.required"                       => "A categoria do post é obrigatória.",
             "news_post_content.required"                     => "O conteúdo do post é obrigatório.",
-            "news_post_description.required"                 => "A descrição do post é obrigatório.",
             "news_post_slug.required"                        => "O slug do post é obrigatório.",
         ];
     }

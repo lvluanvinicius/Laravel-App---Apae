@@ -1,63 +1,72 @@
 <x-website.web-layout appTitle="" pageTitle="{{ $title }}">
     @section('head')
-        <link rel="stylesheet" href="{{Vite::libs('OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css')}}">
-        <link rel="stylesheet" href="{{Vite::libs('OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css')}}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     @endsection
-    
-    @section('content')
 
-        <section class="owl-carousel owl-theme owl-loaded h-[40.43rem]">
-            <div class="owl-stage-outer h-full">
-                <div class="owl-stage h-full">
+    @section('content')
+        @if (count($sliders) !== 0)
+            <section class="swiper mySwiper h-[calc(100vh-4vh-7rem)]">
+                <div class="swiper-wrapper">
                     @foreach ($sliders as $slider)
-                    <img src="{{ Vite::slidersImages($slider->sliders_image) }}" alt="{{ explode('-', $slider->sliders_hash)[0] }}" class="owl-item h-full">
-                    @endforeach 
+                        <div class="swiper-slide">
+                            <img src="{{ Vite::slidersImages($slider->sliders_image) }}"
+                                alt="{{ explode('-', $slider->sliders_hash)[0] }}" class="h-full w-full">
+                        </div>
+                    @endforeach
                 </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+            </section>
+        @endif
+
+        <section class="bg-apae-green shadow-md w-full flex justify-center items-center z-10">
+            <div class="apae-container h-full flex justify-start">
+                
+                <div>teste</div>
+                <div>teste</div>
+                <div>teste</div>
+
             </div>
         </section>
-
-
     @endsection
 
     @section('js-content')
-        <script src="{{Vite::libs('OwlCarousel2-2.3.4/dist/owl.carousel.min.js')}}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script>
-            const sliderView = $('.owl-carousel');
-
-            sliderView.owlCarousel({
-                loop: true,
-                nav: false,
-                responsive:{
-                    0:{
-                        items:1
+            var swiper = new Swiper(".mySwiper", {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                grabCursor: true,
+                effect: "creative",
+                creativeEffect: {
+                    prev: {
+                        shadow: true,
+                        origin: "left center",
+                        translate: ["-5%", 0, -200],
+                        rotate: [0, 100, 0],
                     },
-                    600:{
-                        items:1
-                    },            
-                    960:{
-                        items:1
+                    next: {
+                        origin: "right center",
+                        translate: ["5%", 0, -200],
+                        rotate: [0, -100, 0],
                     },
-                    1200:{
-                        items:1
-                    }
                 },
-                autoplay: true,
-                autoplayTimeout: 3000,
-                autoplayHoverPause: true,
-                autoplaySpeed: 500,
-                
-            });
-
-            sliderView.on('mousewheel', '.owl-stage', function (e) {
-                if (e.deltaY>0) {
-                    owl.trigger('next.owl');
-                } else {
-                    owl.trigger('prev.owl');
+                loop: true,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false
                 }
-                e.preventDefault();
             });
-
         </script>
     @endsection
-    
+
 </x-website.web-layout>
