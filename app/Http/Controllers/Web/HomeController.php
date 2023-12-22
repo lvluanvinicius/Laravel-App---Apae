@@ -10,11 +10,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $sliders = Sliders::where('sliders_active', true)->get();
-
         return view('pages.website.home.index')->with([
             'title'             => env('APP_NAME'),
-            'sliders'           => $sliders,
         ]);
     }
 }

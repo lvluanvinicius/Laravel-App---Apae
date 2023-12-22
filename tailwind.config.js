@@ -11,7 +11,8 @@ module.exports = {
   ],
   darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+    },
     colors: {
       "apae-yellow": "#ffc107",
       "apae-green": "#28a745",
@@ -30,7 +31,7 @@ module.exports = {
       "apae-dark": "#343a40",
       "apae-back-light": "#e8eff9",
       "apae-orange": "#FF7A30",
-    } 
+    } ,
   },
   plugins: [
     laravel([
