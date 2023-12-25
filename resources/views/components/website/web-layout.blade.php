@@ -40,8 +40,9 @@
     <title>{{ $pageTitle }}</title>
 </head>
 
-<body class="">
+<body class="relative">
     <div>
+        <x-website.card-donate-now />
         <x-website.sidebar />
         <x-website.header-top />
         <x-website.header />

@@ -17,3 +17,11 @@ for (let toggleSidebar of document.querySelectorAll(".toggle-sidebar")) {
             .classList.toggle("hidden-sidebar");
     });
 }
+
+for (let toggleSidebar of document.querySelectorAll(".toggle-donatenow")) {
+    toggleSidebar.addEventListener("click", function () {
+        document
+            .querySelector('div[data-card-donate="donatenow"')
+            .classList.toggle("hidden");
+    });
+}
