@@ -1,6 +1,6 @@
 <x-login.login-layout app_title="" page_title="{{ $title }}">
     @section('content')
-        <div class="border w-[100vw] h-[100vh] flex flex-wrap justify-center  dark:bg-black dark:text-white"
+        <div class="w-[100vw] h-[100vh] flex flex-wrap justify-center  dark:bg-black dark:text-white"
             id="box-form-login">
 
             <x-login.header />

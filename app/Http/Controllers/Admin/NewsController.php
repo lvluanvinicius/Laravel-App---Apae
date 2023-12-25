@@ -103,8 +103,8 @@ class NewsController extends Controller
      */
     public function store(NewsRequest $request): RedirectResponse
     {
-
         try {
+            dd($request->all());
             // Recuperando categoria.
             $category = Category::where('id', $request->cod_category_fk)->first();
             // Valida se a categoria existe.

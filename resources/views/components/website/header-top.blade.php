@@ -1,4 +1,4 @@
-<div class="bg-apae-green w-full h-[4vh] text-apae-white flex justify-center items-center p-1">
+<div class="bg-apae-green w-full h-[4vh] text-apae-white lg:flex justify-center items-center p-1 hidden">
     <div class="apae-container h-full flex justify-between">
         <div class="flex justify-start items-center gap-2">
             <i class="ph-fill ph-envelope-simple"></i>

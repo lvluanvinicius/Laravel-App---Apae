@@ -4,7 +4,7 @@
 
             <div class="mb-4 bg-apae-white p-6 text-apae-gray-dark shadow-md dark:bg-apae-gray-dark dark:text-apae-white">
                 <form action="{{ route('admin.news.store') }}" method="POST" enctype="multipart/form-data"
-                    class="grid grid-cols-2 gap-4">
+                    class="grid grid-cols-2 gap-4" name="create_post_news">
                     @csrf
 
                     <div class="col-span-2 flex w-full flex-wrap">
@@ -152,8 +152,6 @@
                 theme: 'snow'
             });
 
-            $('#news_post_content').val(`{{ old('news_post_content') }}`);
-
             document.getElementById('news_post_title').addEventListener('input', (event) => {
                 const {
                     value
@@ -168,6 +166,20 @@
             $(document).ready(function() {
                 $('#cod_category_fk').select2();
             });
+
+            document.querySelector('form[name="create_post_news"]').addEventListener('submit', function (form) {
+                form.preventDefault();
+
+                // Criando inpur content.
+                const news_post_content = document.createElement('input');
+                news_post_content.value = quill.root.innerHTML;
+                news_post_content.name = "news_post_content";
+
+                form.target.appendChild(news_post_content);
+                form.target.submit();
+            });
+
+            quill.root.innerHTML = `{{ old('news_post_content') }}`
         </script>
     @endsection
 </x-admin.app-default>
