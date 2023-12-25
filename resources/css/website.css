@@ -19,3 +19,7 @@ textarea,input,button,select {
     -webkit-box-orient: vertical;  
     overflow: hidden;
 }
+
+.hidden-sidebar {
+    margin-left: -100%;
+}

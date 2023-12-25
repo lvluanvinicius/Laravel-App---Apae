@@ -28,7 +28,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     {{-- // Vite config // --}}
-    @vite(['resources/css/app.css', 'resources/css/website.css'])
+    @vite(['resources/css/app.css', 'resources/css/website.css', 'resources/js/website.js'])
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -59,6 +59,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"
         integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
     @yield('js-content')
 
     {{-- Recuperando valor de error vindo do request. --}}

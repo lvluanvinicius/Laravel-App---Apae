@@ -1,5 +1,5 @@
 @if (count($sliders) !== 0)
-    <section class="swiper mySwiper h-[calc(100vh-4vh-7rem)]">
+    <section class="swiper mySwiper h-[calc(100vh-4vh-7rem)] bg-apae-teal">
         <div class="swiper-wrapper">
             @foreach ($sliders as $slider)
                 <div class="swiper-slide">
