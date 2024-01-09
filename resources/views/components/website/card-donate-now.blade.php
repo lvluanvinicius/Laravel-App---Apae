@@ -1,10 +1,11 @@
-<div class="absolute w-[100vw] h-[100vh] flex justify-center items-center z-[9999] hidden" data-card-donate="donatenow">
-    <div class="bg-apae-cyan shadow-lg shadow-apae-dark w-[60%] md:w-[40%] lg:w-[28%] h-[30rem] relative">
-        
-        <img src="{{Vite::qrcodeImages('cover/sendThumb.jpeg') }}" alt="" class="w-full h-full object-cover opacity-90">
-        
-        <div class="absolute top-0 left-0 h-full w-full z-10">
-            <div class="bg-apae-green text-apae-white py-1 flex justify-between items-center px-4">
+<div class="fixed z-[99999] flex hidden h-[100%] w-[100%] items-center justify-center bg-apae-gray-dark/30" data-card-donate="donatenow">
+    <div class="relative h-[30rem] w-[60%] bg-apae-cyan shadow-lg shadow-apae-dark md:w-[40%] lg:w-[28%]">
+
+        <img src="{{ Vite::qrcodeImages('cover/sendThumb.jpeg') }}" alt=""
+            class="h-full w-full object-cover opacity-90">
+
+        <div class="absolute left-0 top-0 z-10 h-full w-full">
+            <div class="flex items-center justify-between bg-apae-green px-4 py-1 text-apae-white">
                 <div>
                     <h1 class="text-[1.2rem] font-bold"></h1>
                 </div>
@@ -13,9 +14,8 @@
                 </button>
             </div>
 
-            <div class="h-full w-full flex justify-center items-center z-10">
-                <img src="{{ Vite::qrcodeImages('exemplo.png') }}" alt=""
-                    class="w-[50%]"/>
+            <div class="z-10 flex h-full w-full items-center justify-center">
+                <img src="{{ Vite::qrcodeImages('exemplo.png') }}" alt="" class="w-[50%]" />
             </div>
         </div>
 

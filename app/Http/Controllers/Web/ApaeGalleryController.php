@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 class ApaeGalleryController extends Controller
 {
     public function index() {
-        $gallery = PhotoGalleryAlbum::paginate(8);
-        
+        $gallery = PhotoGalleryAlbum::paginate(2);
+
         return view('pages.website.photo-gallery.index')->with([
             'title'         => 'Galeria de Fotos',
             'galleries'     => $gallery

@@ -1,5 +1,5 @@
 @if (count($sliders) !== 0)
-    <section class="swiper mySwiper h-[calc(100vh-4vh-7rem)] bg-apae-teal">
+    <section class="swiper mySwiper md:h-[calc(100vh-4vh-7rem)] bg-apae-teal h-[25vh]">
         <div class="swiper-wrapper">
             @foreach ($sliders as $slider)
                 <div class="swiper-slide">
@@ -8,8 +8,8 @@
                 </div>
             @endforeach
         </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
+        {{-- <div class="swiper-button-next"></div> --}}
+        {{-- <div class="swiper-button-prev"></div> --}}
         <div class="swiper-pagination"></div>
     </section>
 
@@ -52,6 +52,7 @@
                     delay: 5000,
                     disableOnInteraction: false
                 }
+
             });
         </script>
     @endsection

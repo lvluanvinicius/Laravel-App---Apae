@@ -31,6 +31,7 @@ module.exports = {
       "apae-dark": "#343a40",
       "apae-back-light": "#e8eff9",
       "apae-orange": "#FF7A30",
+      "apae-input-contacts": "#F3F3F3",
     } ,
   },
   plugins: [

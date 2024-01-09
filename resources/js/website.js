@@ -25,3 +25,24 @@ for (let toggleSidebar of document.querySelectorAll(".toggle-donatenow")) {
             .classList.toggle("hidden");
     });
 }
+
+for (let item of document.querySelectorAll('.input-search-website')) {
+    item.addEventListener('focus', function (event) {
+        document.querySelector('.search-website-container').classList.toggle('search-website-hidden')
+    });
+}
+
+document.querySelector('.search-website').addEventListener('blur', function (event) {
+    document.querySelector('.search-website-container').classList.toggle('search-website-hidden')
+});
+
+document.querySelector('.search-website-close').addEventListener('click', function (event) {
+    document.querySelector('.search-website-container').classList.toggle('search-website-hidden');
+});
+
+document.addEventListener('keydown', function (event) {
+    if (event.ctrlKey && event.key == 'k') {
+        event.preventDefault()
+        document.querySelector('.search-website-container').classList.toggle('search-website-hidden');
+    }
+})

@@ -97,7 +97,7 @@
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <script>
             var toolbarOptions = [
-                ['bold', 'italic', 'underline', 'strike', 'image'],
+                ['bold', 'italic', 'underline', 'strike'],
                 ['blockquote', 'code-block'],
 
                 [{
@@ -167,7 +167,7 @@
                 $('#cod_category_fk').select2();
             });
 
-            document.querySelector('form[name="create_post_news"]').addEventListener('submit', function (form) {
+            document.querySelector('form[name="create_post_news"]').addEventListener('submit', function(form) {
                 form.preventDefault();
 
                 // Criando inpur content.

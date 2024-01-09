@@ -1,6 +1,8 @@
 <x-website.web-layout appTitle="" pageTitle="{{ $title }}">
     @section('content')
-        <x-website.sliders/>
+
+    <x-website.sliders/>
+    <x-website.partners/>
 
     @endsection
 

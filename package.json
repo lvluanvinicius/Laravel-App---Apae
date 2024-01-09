@@ -14,6 +14,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@docsearch/js": "^3.5.2",
         "flowbite": "^1.8.1"
     }
 }

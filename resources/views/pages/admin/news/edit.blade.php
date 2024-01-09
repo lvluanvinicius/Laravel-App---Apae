@@ -3,8 +3,9 @@
         <div class="mx-8 mt-4">
 
             <div class="mb-4 bg-apae-white p-6 text-apae-gray-dark shadow-md dark:bg-apae-gray-dark dark:text-apae-white">
-                <form action="{{ route('admin.news.store') }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-2 gap-4">
+                <form action="{{ route('admin.news.update', ['newsId' => $news->id]) }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-2 gap-4" name="create_post_news">
                     @csrf
+                    @method('PUT')
 
                     <div class="flex w-full flex-wrap col-span-2">
                         <h1 class="text-[1.5rem] font-bold">Nova Notícia</h1>
@@ -32,9 +33,13 @@
 
                     <div class="flex w-full flex-wrap p-1  col-span-2">
                         <label for="news_post_content" class="w-full text-[1rem]">Conteúdo</label>
-                        <textarea required type="text" id="news_post_content" name="news_post_content"
+                        {{-- <textarea required type="text" id="news_post_content" name="news_post_content"
                             class="w-full rounded-[4px] !border-none bg-apae-gray/10 px-2 py-1 !outline-none">
-                        </textarea>
+                        </textarea> --}}
+
+                        <div id="news_post_content"
+                            class="h-[100vh] w-full rounded-[4px] !border-none bg-apae-gray/10 px-2 py-1 !outline-none dark:!text-apae-white">
+                        </div>
                     </div>
 
                     <div class="flex w-full flex-wrap p-1 py-4 col-span-2">
@@ -69,7 +74,7 @@
                         </a>
                         <button type="submit"
                             class="rounded-sm bg-apae-green px-6 py-1 text-apae-white shadow-md dark:bg-apae-gray">
-                            Criar
+                            Atualizar
                         </button>
                     </div>
 
@@ -80,16 +85,72 @@
     @endsection
 
     @section('head')
-        <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-    @endsection
+        <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        
+        
+        @endsection
+        
+        @section('js-content')
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    @section('js-content')
         <script>
-            CKEDITOR.replace('news_post_content', {
-                width: '100%',
-            });
+            var toolbarOptions = [
+                ['bold', 'italic', 'underline', 'strike'],
+                ['blockquote', 'code-block'],
 
-            $('#news_post_content').val(`{{ old('news_post_content') }}`);
+                [{
+                    'header': 1
+                }, {
+                    'header': 2
+                }],
+                [{
+                    'list': 'ordered'
+                }, {
+                    'list': 'bullet'
+                }],
+                [{
+                    'script': 'sub'
+                }, {
+                    'script': 'super'
+                }],
+                [{
+                    'indent': '-1'
+                }, {
+                    'indent': '+1'
+                }],
+                [{
+                    'direction': 'rtl'
+                }],
+
+                [{
+                    'size': ['small', false, 'large', 'huge']
+                }],
+                [{
+                    'header': [1, 2, 3, 4, 5, 6, false]
+                }],
+
+                [{
+                    'color': []
+                }, {
+                    'background': []
+                }],
+                [{
+                    'font': []
+                }],
+                [{
+                    'align': []
+                }],
+
+                ['clean']
+            ];
+            var quill = new Quill('#news_post_content', {
+                modules: {
+                    toolbar: toolbarOptions
+                },
+                theme: 'snow'
+            });
 
             document.getElementById('news_post_title').addEventListener('input', (event) => {
                 const {
@@ -98,9 +159,27 @@
 
                 document.getElementById('news_post_slug').value = value.toString().toLowerCase().replace(/\s+/g, '-')
                     .replace(/[^a-z-0-9]/g, '');
-            });
+            })
 
             $('#cod_category_fk').val("{{ old('cod_category_fk') ? old('cod_category_fk') : $news->cod_category_fk }}");
+
+            $(document).ready(function() {
+                $('#cod_category_fk').select2();
+            });
+
+            document.querySelector('form[name="create_post_news"]').addEventListener('submit', function(form) {
+                form.preventDefault();
+
+                // Criando inpur content.
+                const news_post_content = document.createElement('input');
+                news_post_content.value = quill.root.innerHTML;
+                news_post_content.name = "news_post_content";
+
+                form.target.appendChild(news_post_content);
+                form.target.submit();
+            });
+
+            quill.root.innerHTML = `{{ old('news_post_content') ? old('news_post_content') : $news->news_post_content }}`
         </script>
     @endsection
 </x-admin.app-default>

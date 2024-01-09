@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,4 +34,9 @@ class News extends Model
         "cod_user_fk",
         "cod_category_fk",
     ];
+
+    public function getRecentNews(): Collection 
+    {
+        return $this->limit(3)->orderBy('created_at', 'desc')->get();
+    }
 }

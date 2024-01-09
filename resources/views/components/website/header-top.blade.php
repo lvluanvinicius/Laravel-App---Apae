@@ -1,16 +1,19 @@
-<div class="bg-apae-green w-full h-[4vh] text-apae-white lg:flex justify-center items-center p-1 hidden">
-    <div class="apae-container h-full flex justify-between">
-        <div class="flex justify-start items-center gap-2">
+<div class="hidden h-[4vh] w-full items-center justify-center bg-apae-teal p-1 text-apae-white lg:flex">
+    <div class="apae-container flex h-full justify-between">
+        <div class="flex items-center justify-start gap-2">
             <i class="ph-fill ph-envelope-simple"></i>
             contato@apaechavantes.com.br
         </div>
-        
-        <div>
-            <i class="fa-solid fa-magnifying-glass"></i>
- 
-            <button class="ml-4">
+
+        <div class="mx-10 h-full flex-1 items-center justify-center rounded-md">
+            <input type="text" placeholder="Pesquisar"
+                class="input-search-website h-full w-full rounded-md text-apae-dark">
+        </div>
+
+        {{-- <div class="flex items-center justify-center">
+            <button class="ml-4 mt-1">
                 <i class="ph-fill ph-moon-stars"></i>
             </button>
-        </div>
+        </div> --}}
     </div>
 </div>

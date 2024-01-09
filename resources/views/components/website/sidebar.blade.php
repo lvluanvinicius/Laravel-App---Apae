@@ -28,16 +28,16 @@
                 <i class="fa-solid fa-chevron-down ml-4 text-[.7rem]"></i>
             </li>
             <li class="hidden bg-apae-gray-dark/10 shadow-inner transition-all duration-700" data-dropdown="apae-link">
-                <a href="#">
+                <a href="{{route('apae.institutional')}}">
                     <div class="py-2 pl-2">Institucional</div>
                 </a>
-                <a href="#">
+                <a href="{{route('apae.direction')}}">
                     <div class="py-2 pl-2">Diretoria</div>
                 </a>
-                <a href="#">
+                <a href="{{route('apae.advice')}}">
                     <div class="py-2 pl-2">Conselho</div>
                 </a>
-                <a href="#">
+                <a href="{{route('apae.statute')}}">
                     <div class="py-2 pl-2">Estatuto</div>
                 </a>
             </li>
