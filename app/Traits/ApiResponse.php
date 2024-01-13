@@ -13,7 +13,7 @@ trait ApiResponse
      * @param int $statusCode
      * @return JsonResponse
      */
-    public function success(string $message, array $data = [], int $statusCode = 200): JsonResponse
+    public function success(string $message, $data = [], int $statusCode = 200): JsonResponse
     {
         return response()->json([
             'status'            => true,

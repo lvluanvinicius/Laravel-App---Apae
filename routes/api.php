@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\PhotoGalleryController;
-use App\Http\Controllers\Admin\SlidersController;
-use App\Http\Controllers\Admin\TransparencyController;
+use App\Http\Controllers\Api\Website\ContactController;
+use App\Http\Controllers\Api\Website\PhotoGalleryController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::prefix('website')->as('website.')->group(function () {
+    Route::prefix('photo-gallery')->as('photo-gallery.')->group(function () {
+        Route::get('{galleryId}', [PhotoGalleryController::class, 'view'])->name('view');
+    });
+
+    Route::prefix('contact')->as('contact.')->group(function () {
+        Route::post('', [ContactController::class, 'store'])->name('store');
+    });
+});

@@ -46,7 +46,7 @@
                 <li class="py-2 pl-2">Transparência</li>
             </a>
 
-            <a href="{{ route('photo-gallery') }}">
+            <a href="{{ route('photo-gallery.index') }}">
                 <li class="py-2 pl-2">Galeria de Fotos</li>
             </a>
 

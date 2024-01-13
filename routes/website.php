@@ -11,7 +11,11 @@ use Illuminate\Support\Facades\Route;
 // Website Home Page
 Route::get('', [HomeController::class, 'index'])->name('home');
 
-Route::get('galeria', [ApaeGalleryController::class, 'index'])->name('photo-gallery');
+Route::prefix("galeria")->as("photo-gallery.")->group(function () {
+    Route::get('', [ApaeGalleryController::class, 'index'])->name('index');
+    Route::get('{galleryId}', [ApaeGalleryController::class, 'view'])->name('view');
+});
+
 Route::get('contato', [ContactController::class, 'index'])->name('contact.index');
 
 Route::prefix("apae")->as("apae.")->group(function () {

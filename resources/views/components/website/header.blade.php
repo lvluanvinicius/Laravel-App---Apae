@@ -13,7 +13,7 @@
                 <a href="#" class="h-full">
                     <li class="flex items-center cursor-pointer justify-center h-full px-4 border-b-[4px] border-transparent transition-all duration-700 hover:border-apae-orange">Transparência</li>
                 </a>
-                <a href="{{ route('photo-gallery') }}" class="h-full">
+                <a href="{{ route('photo-gallery.index') }}" class="h-full">
                     <li class="flex items-center cursor-pointer justify-center h-full px-4 border-b-[4px] border-transparent transition-all duration-700 hover:border-apae-orange">Galeria de Fotos</li>
                 </a>
                 <a href="#" class="h-full">
