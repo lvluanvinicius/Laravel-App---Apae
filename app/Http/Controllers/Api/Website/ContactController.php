@@ -43,4 +43,5 @@ class ContactController extends Controller
             return $this->error($error->getMessage(), Response::HTTP_BAD_REQUEST);
         }
     }
+
 }

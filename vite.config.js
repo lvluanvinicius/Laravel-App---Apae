@@ -1,15 +1,16 @@
-import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
-import react from '@vitejs/plugin-react-refresh';
+import { defineConfig } from "vite";
+import laravel from "laravel-vite-plugin";
+import react from "@vitejs/plugin-react-refresh";
 
 export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/js/photo-gallery/photo-gallery.js',
-                'resources/js/contact/contact.js',
-                'resources/sass/app.scss',
-                'resources/js/app.js',
+                "resources/js/photo-gallery/photo-gallery.js",
+                "resources/js/contact/contact.js",
+                "resources/css/mails/complaints.css",
+                "resources/sass/app.scss",
+                "resources/js/app.js",
             ],
             refresh: true,
         }),

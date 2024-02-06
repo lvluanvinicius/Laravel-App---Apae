@@ -1,12 +1,16 @@
-
 /* // Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
     .apae-text-formatter {
-        font-size: .8rem!important;
+        font-size: .8rem !important;
     }
+
     .apae-direction-list {
-        display: flex!important;
-        flex-direction: column!important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .apae-container {
+        width: 90% !important;
     }
 
 }
@@ -14,16 +18,24 @@
 /* // Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
     .apae-direction-list {
-        display: flex!important;
-        flex-direction: column!important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .apae-container {
+        width: 90% !important;
     }
 }
 
 /* // Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
     .apae-direction-list {
-        display: flex!important;
-        flex-direction: column!important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .apae-container {
+        width: 90% !important;
     }
 
 }
@@ -31,14 +43,15 @@
 /* // Large devices (desktops, 992px and up) */
 @media (min-width: 992px) and (max-width: 1199.98px) {
     .apae-direction-list {
-        display: flex!important;
-        flex-direction: column!important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .apae-container {
+        width: 90% !important;
     }
 
 }
 
 /* // Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-
-}
-
+@media (min-width: 1200px) {}

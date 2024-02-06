@@ -9,8 +9,9 @@
                         <img class="w-full" src="https://avatars.githubusercontent.com/u/44438249?v=4" alt="">
                     </div>
                     <div class="w-full flex-1 px-1">
-                        <h3 class="text-bold mt-2 text-[.9rem]">{{$ns->news_post_title}}</h3>
-                        <p class="truncate-2-lines w-[100%] text-[.8rem] text-apae-white/70">{{$ns->news_post_summary}}</p>
+                        <h3 class="text-bold mt-2 text-[.9rem]">{{ $ns->news_post_title }}</h3>
+                        <p class="truncate-2-lines w-[100%] text-[.8rem] text-apae-white/70">
+                            {{ $ns->news_post_summary }}</p>
                     </div>
                 </a>
             @endforeach
@@ -18,6 +19,6 @@
 
     </div>
 
-    <a href="" class="rounded-[4px] bg-apae-orange px-4 py-2 text-apae-white shadow-md">Ver Todas</a>
+    <a href="#" class="rounded-[4px] bg-apae-orange px-4 py-2 text-apae-white shadow-md">Ver Todas</a>
 
 </div>

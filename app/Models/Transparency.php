@@ -22,6 +22,6 @@ class Transparency extends Model
      * @var array
      */
     protected $fillable = [
-        "cod_transparency_folders_fk", "filename", "hash", "type_file", "size_file"
+        "cod_transparency_folders_fk", "filename", "hash", "type_file", "size_file", "ext",
     ];
 }

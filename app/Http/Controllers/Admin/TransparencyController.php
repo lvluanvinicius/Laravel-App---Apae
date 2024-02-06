@@ -23,7 +23,7 @@ class TransparencyController extends Controller
 
     /**
      * Display a listing of the resource.
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return View
      */
@@ -39,6 +39,7 @@ class TransparencyController extends Controller
             $folders = TransparencyFolders::where('cod_transparency_year_fk', $y->id)->get(['id', 'cod_transparency_year_fk', 'folders', 'hash']);
 
             $newFolders = [];
+
             foreach ($folders as $fd) {
                 $files = Transparency::where('cod_transparency_folders_fk', $fd->id)->get(['id', 'filename', 'hash', 'cod_transparency_folders_fk']);
                 array_push($newFolders, [
@@ -70,7 +71,7 @@ class TransparencyController extends Controller
      * Efetua a inserção de um novo ano dentro da transparência.
      *
      * @param TransparencyRequest $request
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return RedirectResponse
      */
@@ -84,7 +85,7 @@ class TransparencyController extends Controller
             if (preg_match('/^\d{4}$/', $foldName)) {
                 // Verifica se o ano é um ano válido de acordo com a função checkdate()
                 if (checkdate(1, 1, (int)$foldName)) {
-                    // Instanciando modelo. 
+                    // Instanciando modelo.
                     $yearTransparency = TransparencyYear::create([
                         "year_folder"   => $foldName,
                     ]);
@@ -122,7 +123,7 @@ class TransparencyController extends Controller
      * Retorna o display de criação de pasta de sessão.
      *
      * @param string $folderYearId
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return View
      */
@@ -141,7 +142,7 @@ class TransparencyController extends Controller
      *
      * @param Request $request
      * @param string $folderYearId
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return RedirectResponse
      */
@@ -154,7 +155,7 @@ class TransparencyController extends Controller
             // Recuperando pasta ano (pasta pai).
             $foldYear       = TransparencyYear::where('id', $folderYearId)->first();
 
-            // Verificando se a pasta ano existe. 
+            // Verificando se a pasta ano existe.
             if (!$foldYear) {
                 throw new TransparencyException('Não encontrada o ano correspondente.');
             }
@@ -211,7 +212,7 @@ class TransparencyController extends Controller
      * Exibe o display de upload de arquivos.
      *
      * @param string $folderSession
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return View|RedirectResponse
      */
@@ -250,14 +251,14 @@ class TransparencyController extends Controller
      * Recupera todos os arquivos de uma pasta.
      *
      * @param string $folderSession
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return JsonResponse
      */
     public function getFilesSession(string $folderSession): JsonResponse
     {
         try {
-            // Recuperando pasta. 
+            // Recuperando pasta.
             $folder             = TransparencyFolders::where('id', $folderSession)->first();
 
             // Verifica se a pasta existe.
@@ -286,7 +287,7 @@ class TransparencyController extends Controller
      *
      * @param Request $request
      * @param string $folderSession
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return JsonResponse
      */
@@ -318,7 +319,7 @@ class TransparencyController extends Controller
             $fileSize           = $file->getSize();
             $typeFile           = $file->getType();
 
-            // Validando extensão. 
+            // Validando extensão.
             $setting = Settings::where('setting_name', 'application_transparency_extensions')->first('setting_value');
             // Recupera as extensões.
             $extensions = unserialize($setting->setting_value);
@@ -358,7 +359,7 @@ class TransparencyController extends Controller
             }
 
             /**
-             * Salvando dados do arquivo em base. 
+             * Salvando dados do arquivo em base.
              */
             $hashString     = "";               # Gaurda a hash que ira usar na pasta.
 
@@ -382,6 +383,7 @@ class TransparencyController extends Controller
                 'hash'                                  => $hashString,
                 'type_file'                             => $typeFile,
                 'size_file'                             => $fileSize,
+                'ext'                                   => $ext
             ]);
 
             // Verifica se o arquivo foi salvo corretamente.
@@ -404,14 +406,14 @@ class TransparencyController extends Controller
      * Apaga o ano se não tiver nenhuma sessão relacionada.
      *
      * @param string $folderYearId
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return RedirectResponse
      */
-    public function destroyFolderYear(string $folderYearId): RedirectResponse 
+    public function destroyFolderYear(string $folderYearId): RedirectResponse
     {
         try {
-            // Recuperando pasta se ela existir. 
+            // Recuperando pasta se ela existir.
             $folder                 = TransparencyYear::where('id', $folderYearId)->first();
 
             // Verifica se a pasta ano foi encontrada.
@@ -437,7 +439,6 @@ class TransparencyController extends Controller
             }
 
             throw new TransparencyException('Erro na exclusão do ano ou ele não existe.', 1300);
-
         } catch (TransparencyException $error) {
             return redirect()->back()->with([
                 'status'        => false,
@@ -457,11 +458,11 @@ class TransparencyController extends Controller
      * Exclui uma sesão pasta.
      *
      * @param string $folderSession
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return RedirectResponse
      */
-    public function destroySessionFolder(string $folderSession): RedirectResponse 
+    public function destroySessionFolder(string $folderSession): RedirectResponse
     {
         try {
             // Recuperando pasta sessão para exclusão.
@@ -509,11 +510,11 @@ class TransparencyController extends Controller
      * Apaga um arquivo dentro de uma pasta.
      *
      * @param string $fileId
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
-     * @return RedirectResponse 
+     * @return RedirectResponse
      */
-    public function destroyFilesSession(string $fileId): RedirectResponse 
+    public function destroyFilesSession(string $fileId): RedirectResponse
     {
         try {
             // Recuperando pasta para receber o arquivo.

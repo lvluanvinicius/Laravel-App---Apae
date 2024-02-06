@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { ErrorInputs, SuccessMessage } from "./styled";
+import { ErrorInputs, FormGroup, SuccessMessage } from "./styled";
 import { registerContact } from "../../services";
 
 export function FormContent() {
@@ -35,12 +35,10 @@ export function FormContent() {
             onSubmit={handleSubmit(createContact)}
             className="flex flex-col col-span-2 md:col-span-1"
         >
-            <div className="form-group relative flex items-center flex-wrap ">
-                <div className="flex items-center gap-1 absolute pl-3 z-10">
-                    <i className="ph-bold text-[1.1rem] opacity-70 ph-identification-badge"></i>
-                    <label className="opacity-70" htmlFor="name">
-                        Nome
-                    </label>
+            <FormGroup>
+                <div className="label">
+                    <i className="ph-bold ph-identification-badge"></i>
+                    <label htmlFor="name">Nome</label>
                 </div>
                 <input
                     type="text"
@@ -48,9 +46,9 @@ export function FormContent() {
                     {...register("name", {
                         required: errorMessage,
                     })}
-                    className="bg-apae-dark/10 rounded-md pl-24 w-full py-3 text-[1rem] z-0 "
+                    className="bg-apae-dark/10"
                 />
-            </div>
+            </FormGroup>
 
             {errors.name && (
                 <ErrorInputs className="text-apae-danger">
@@ -58,8 +56,8 @@ export function FormContent() {
                 </ErrorInputs>
             )}
 
-            <div className="form-group relative flex items-center mt-4">
-                <div className="flex items-center gap-1 absolute pl-3 z-10">
+            <FormGroup>
+                <div className="label">
                     <i className="ph-bold text-[1.1rem] opacity-70 ph-at"></i>
                     <label className="opacity-70" htmlFor="email">
                         E-mail
@@ -70,18 +68,18 @@ export function FormContent() {
                     name="email"
                     onChange={(e) => e.target.error}
                     {...register("email", { required: errorMessage })}
-                    className="bg-apae-dark/10 rounded-md pl-24 w-full py-3 text-[1rem] z-0"
+                    className="bg-apae-dark/10"
                 />
-            </div>
+            </FormGroup>
             {errors.email && (
                 <ErrorInputs className="text-apae-danger">
                     {errors.email.message}
                 </ErrorInputs>
             )}
 
-            <div className="form-group relative flex items-center mt-4">
-                <div className="flex items-center gap-1 absolute pl-3 z-10">
-                    <i className="ph-bold text-[1.1rem] opacity-70 ph-phone"></i>
+            <FormGroup>
+                <div className="label">
+                    <i className="ph-bold ph-phone"></i>
                     <label className="opacity-70" htmlFor="tel">
                         Telefone
                     </label>
@@ -90,18 +88,18 @@ export function FormContent() {
                     type="tel"
                     name="tel"
                     {...register("tel", { required: errorMessage })}
-                    className="bg-apae-dark/10 rounded-md pl-28 w-full py-3 text-[1rem] z-0"
+                    className="bg-apae-dark/10"
                 />
-            </div>
+            </FormGroup>
             {errors.tel && (
                 <ErrorInputs className="text-apae-danger">
                     {errors.tel.message}
                 </ErrorInputs>
             )}
 
-            <div className="form-group relative flex items-center mt-4">
-                <div className="flex items-center gap-1 absolute pl-3 z-10">
-                    <i className="ph-bold text-[1.1rem] opacity-70 ph-map-pin"></i>
+            <FormGroup>
+                <div className="label">
+                    <i className="ph-bold ph-map-pin"></i>
                     <label className="opacity-70" htmlFor="city_uf">
                         Cidade/UF
                     </label>
@@ -110,18 +108,18 @@ export function FormContent() {
                     type="text"
                     name="city_uf"
                     {...register("city_uf", { required: errorMessage })}
-                    className="bg-apae-dark/10 rounded-md pl-32 w-full py-3 text-[1rem] z-0"
+                    className="bg-apae-dark/10"
                 />
-            </div>
+            </FormGroup>
             {errors.city_uf && (
                 <ErrorInputs className="text-apae-danger">
                     {errors.city_uf.message}
                 </ErrorInputs>
             )}
 
-            <div className="form-group relative flex items-center mt-4">
-                <div className="flex items-center gap-1 absolute pl-3 z-10">
-                    <i className="ph-bold text-[1.1rem] opacity-70 ph-pencil-simple-line"></i>
+            <FormGroup>
+                <div className="label">
+                    <i className="ph-bold ph-pencil-simple-line"></i>
                     <label className="opacity-70" htmlFor="subject">
                         Assunto
                     </label>
@@ -132,16 +130,16 @@ export function FormContent() {
                     {...register("subject", { required: errorMessage })}
                     className="bg-apae-dark/10 rounded-md pl-[6.8rem] w-full py-3 text-[1rem] z-0"
                 />
-            </div>
+            </FormGroup>
             {errors.subject && (
                 <ErrorInputs className="text-apae-danger">
                     {errors.subject.message}
                 </ErrorInputs>
             )}
 
-            <div className="form-group relative flex items-start mt-4">
-                <div className="flex items-center gap-1 absolute pl-3 pt-2 z-10">
-                    <i className="ph-bold text-[1.1rem] opacity-70 ph-chat-text"></i>
+            <FormGroup>
+                <div className="label description">
+                    <i className="ph-bold ph-chat-text"></i>
                     <label className="opacity-70" htmlFor="message">
                         Mensagem
                     </label>
@@ -149,26 +147,26 @@ export function FormContent() {
                 <textarea
                     type="text"
                     name="message"
-                    className="bg-apae-dark/10 rounded-md pl-32 w-full py-3 text-[1rem] z-0"
+                    className="bg-apae-dark/10"
                     cols="30"
                     rows="5"
                     {...register("message", { required: errorMessage })}
                 ></textarea>
-            </div>
+            </FormGroup>
             {errors.message && (
                 <ErrorInputs className="text-apae-danger">
                     {errors.message.message}
                 </ErrorInputs>
             )}
 
-            <div className="form-group relative flex items-start mt-4">
+            <FormGroup>
                 <button
                     type="submit"
-                    className="bg-apae-green text-apae-white w-full rounded-md py-2"
+                    className="bg-apae-green text-apae-white "
                 >
                     Enviar
                 </button>
-            </div>
+            </FormGroup>
         </form>
     );
 }

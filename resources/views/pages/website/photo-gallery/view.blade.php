@@ -73,7 +73,7 @@
 
 
         <section class="flex w-full justify-center gap-4 py-4 text-[.9rem]">
-            <div class="w-[95%] rounded-md bg-apae-white p-4 shadow-md shadow-apae-gray/10 md:w-[80%]">
+            <div class="apae-container rounded-md bg-apae-white p-4 shadow-md shadow-apae-gray/10">
                 <div class="w-full">
                     <h3 class="font-bold">Data de Postagem: </h3>
                     <time class="">{{ date('d/m/Y \à\s H\hm\m', strtotime($gallery->created_at)) }}</time>
@@ -87,12 +87,19 @@
             </div>
         </section>
 
-        <section class="flex h-[100vh] w-full justify-center gap-4 py-4">
 
-            @if (count($photos) <= 0)
-                <div class="w-[95%] text-center md:w-[80%]">Ainda não foi carregada nenhuma foto para esse album.</div>
-            @else
-                <div class="w-[95%] md:w-[80%]">
+
+        @if (count($photos) <= 0)
+            {{-- fa-brands fa-envira --}}
+            <section class="flex w-full items-center justify-center pb-8 pt-4">
+                <div class="apae-container">
+                    <x-website.empty-container description="Ainda não foi carregada nenhuma foto para esse album."
+                        icon="fas fa-file" />
+                </div>
+            </section>
+        @else
+            <section class="flex h-[100vh] w-full justify-center gap-4 py-4">
+                <div class="apae-container">
                     <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
                         class="swiper mySwiper2 w-full">
                         <div class="swiper-wrapper w-full">
@@ -122,10 +129,10 @@
                         </div>
                     </div>
                 </div>
-            @endif
+            </section>
+        @endif
 
 
-        </section>
     @endsection
 
     @section('js-content')
