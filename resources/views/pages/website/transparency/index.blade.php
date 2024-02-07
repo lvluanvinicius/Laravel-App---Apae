@@ -9,7 +9,7 @@
                 @else
                     @foreach ($years as $year)
                         <a href="{{ route('transparency.show', ['transparencyId' => $year->id]) }}"
-                            class="col-span-4 flex h-40 items-center justify-center bg-apae-white shadow-md shadow-apae-gray-dark/20 md:col-span-1">
+                            class="col-span-4 flex h-40 items-center justify-center rounded-bl-[2rem] rounded-tr-[2rem] border-b-[2px] border-apae-orange bg-apae-white shadow-md shadow-apae-gray-dark/20 md:col-span-1">
                             <h1>{{ $year->year_folder }}</h1>
                         </a>
                     @endforeach

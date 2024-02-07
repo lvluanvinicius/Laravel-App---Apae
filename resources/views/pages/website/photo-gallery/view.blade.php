@@ -104,8 +104,6 @@
                         class="swiper mySwiper2 w-full">
                         <div class="swiper-wrapper w-full">
 
-                            {{-- @dd($photos) --}}
-
                             @foreach ($photos as $photo)
                                 <div class="swiper-slide w-full">
                                     <img src="{{ Vite::galleryImages('albuns/' . $photo->filename) }}" />

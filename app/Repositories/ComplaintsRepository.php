@@ -24,6 +24,15 @@ class ComplaintsRepository
         return $complaints;
     }
 
+    /**
+     * Efetua o lenvio do email de denúncia.
+     *
+     *
+     * @author Luan Santos <lvluansantos@gmail.com>
+     *
+     * @param array $data
+     * @return boolean
+     */
     public static function sendMail(array $data): bool
     {
         // Recupetando configurações de e-mail.
@@ -51,5 +60,6 @@ class ComplaintsRepository
 
 
         return true;
+
     }
 }

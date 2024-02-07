@@ -131,9 +131,19 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
             Route::get('', [GeneralSettingsController::class, 'index'])->name('index');
             Route::put('extensions', [GeneralSettingsController::class, 'updateExtensions'])->name('update-extensions');
             Route::put('paths', [GeneralSettingsController::class, 'updatePaths'])->name('update-paths');
+            Route::put('mail-server', [GeneralSettingsController::class, 'updateMailServer'])->name('update-mail-server');
         });
     });
 
     // Efetua a alteração do tema.
     Route::put('ui-theme', [SettingsController::class, 'iThemes'])->name('iThemes');
 });
+
+Route::get('email', function () {
+    return view('components.mails.complaints', [
+        'data' => [
+            'subject' => 'Assunto da denúncia',
+            'message' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laborum corrupti alias quam itaque quidem, cupiditate natus exercitationem dolores labore inventore, ullam voluptatem odio quaerat minus! Quae voluptatibus sit ab ut!',
+        ]
+    ]);
+})->name('email');

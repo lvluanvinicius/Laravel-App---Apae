@@ -23,11 +23,11 @@
                         class="flex h-full cursor-pointer items-center justify-center border-b-[4px] border-transparent px-4 transition-all duration-700 hover:border-apae-orange">
                         Galeria de Fotos</li>
                 </a>
-                <a href="#" class="h-full">
+                {{-- <a href="#" class="h-full">
                     <li
                         class="flex h-full cursor-pointer items-center justify-center border-b-[4px] border-transparent px-4 transition-all duration-700 hover:border-apae-orange">
                         Notícias</li>
-                </a>
+                </a> --}}
                 <a href="{{ route('contact.index') }}" class="h-full">
                     <li
                         class="flex h-full cursor-pointer items-center justify-center border-b-[4px] border-transparent px-4 transition-all duration-700 hover:border-apae-orange">

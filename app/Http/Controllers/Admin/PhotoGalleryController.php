@@ -32,8 +32,8 @@ class PhotoGalleryController extends Controller
         $albuns = PhotoGalleryAlbum::paginate(8);
 
         return view('pages.admin.photo-gallery.index')->with([
-            'title'             => 'Galeria de Fotos',
-            'albuns'            => $albuns,
+            'title' => 'Galeria de Fotos',
+            'albuns' => $albuns,
         ]);
     }
 
@@ -46,7 +46,7 @@ class PhotoGalleryController extends Controller
     public function createAlbum()
     {
         return view('pages.admin.photo-gallery.create-album')->with([
-            'title'             => 'Galeria de Fotos',
+            'title' => 'Galeria de Fotos',
         ]);
     }
 
@@ -54,7 +54,7 @@ class PhotoGalleryController extends Controller
      * Salva um novo album de fotos.
      *
      * @param PhotoGalleryAlbumRequest $request
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return RedirectResponse
      */
@@ -75,16 +75,17 @@ class PhotoGalleryController extends Controller
                 throw new PhotoGalleryException('Informe uma imagem válida.', 1101);
             }
 
-            $ext                    = $image->getClientOriginalExtension(); # Recupera a extensão do arquivo.
-            $imageName              = explode('.', $image->getClientOriginalName())[0];  # Recupera o nome do arquivo enviado.
-            $imageSize              = $image->getSize(); # Recupera o tamanho do arquivo.
-            $imageType              = $image->getType(); # Recupera o tipo do arquivo.
+            $ext = $image->getClientOriginalExtension(); # Recupera a extensão do arquivo.
+            $imageName = explode('.', $image->getClientOriginalName())[0];  # Recupera o nome do arquivo enviado.
+            $imageSize = $image->getSize(); # Recupera o tamanho do arquivo.
+            $imageType = $image->getType(); # Recupera o tipo do arquivo.
 
             // Recuperando extensões aceitas.
             $imageExtensions = Settings::where('setting_name', 'application_gallery_extensions')->first('setting_value');
 
             $validadeExt = array_filter(unserialize($imageExtensions->setting_value), function ($acceptExt) use ($ext) {
-                if ($acceptExt == $ext) return true;
+                if ($acceptExt == $ext)
+                    return true;
                 return false;
             });
 
@@ -94,26 +95,26 @@ class PhotoGalleryController extends Controller
             }
 
             // Gerando Hash para a imagem do album.
-            $hashString             = "";
-            $f                      = true;
+            $hashString = "";
+            $f = true;
             while ($f) {
-                $s                  = $imageName . '-' .md5($imageName . rand(100, 1000000)); # Gerando a hash.
-                $hashExits          = PhotoGalleryAlbum::where('gallery_hash', $s)->first(); # Recupera se já existir para recriar.
+                $s = $imageName . '-' . md5($imageName . rand(100, 1000000)); # Gerando a hash.
+                $hashExits = PhotoGalleryAlbum::where('gallery_hash', $s)->first(); # Recupera se já existir para recriar.
 
                 if (!$hashExits) {
-                    $f              = false; # Altera a flag se a hash não existir.
-                    $hashString     = $s;    # Salvando a hash.
+                    $f = false; # Altera a flag se a hash não existir.
+                    $hashString = $s;    # Salvando a hash.
                 }
             }
 
             // Criando novo album.
             $gallery = PhotoGalleryAlbum::create([
-                "gallery_name"                      => $album["gallery_name"],
-                "gallery_description"               => $album["gallery_description"],
-                "gallery_hash"                      => $hashString,
-                "gallery_image"                     => $hashString . "." . $ext,
-                "gallery_size"                      => $imageSize,
-                "gallery_format"                    => $imageType,
+                "gallery_name" => $album["gallery_name"],
+                "gallery_description" => $album["gallery_description"],
+                "gallery_hash" => $hashString,
+                "gallery_image" => $hashString . "." . $ext,
+                "gallery_size" => $imageSize,
+                "gallery_format" => $imageType,
             ]);
 
             // Verifica se o album foi criado corretamente.
@@ -123,27 +124,27 @@ class PhotoGalleryController extends Controller
                 $locationPath = Settings::where('setting_name', 'application_gallery_path')->first('setting_value');
 
                 // Salvando arquivo no diretório.
-                $image->move($locationPath->setting_value,  $hashString . "." . $ext);
+                $image->move($locationPath->setting_value, $hashString . "." . $ext);
 
                 return redirect()->route('admin.photos-gallery.index')->with([
-                    'status'        => true,
-                    'message'       => "Album criado com sucesso.",
-                    'type'          => 'Success',
+                    'status' => true,
+                    'message' => "Album criado com sucesso.",
+                    'type' => 'Success',
                 ]);
             }
 
             throw new PhotoGalleryException('Não foi possível criar o algum.');
         } catch (PhotoGalleryException $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ])->withInput();
         } catch (Exception $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ])->withInput();
         }
     }
@@ -152,7 +153,7 @@ class PhotoGalleryController extends Controller
      * Exibe display com as imagens do album.
      *
      * @param string $galleryId
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      *  @return RedirectResponse|View
      */
@@ -161,26 +162,25 @@ class PhotoGalleryController extends Controller
         try {
             // Recuperando Album.
             $gallery = PhotoGalleryAlbum::where('id', $galleryId)->first();
-
             // Recuperando imagens.
             $images = PhotoGalleryFiles::where('cod_photo_gallery_fk', $gallery->id)->get();
 
             return view('pages.admin.photo-gallery.view-gallery')->with([
-                'title'         => $gallery->gallery_name,
-                'images'        => $images,
-                'gallery'       => $gallery,
+                'title' => $gallery->gallery_name,
+                'gallery' => $gallery,
+                'images' => $images,
             ]);
         } catch (PhotoGalleryException $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         } catch (Exception $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         }
     }
@@ -190,7 +190,7 @@ class PhotoGalleryController extends Controller
      *
      * @param Request $request
      * @param string $galleryId
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return RedirectResponse|View
      */
@@ -201,29 +201,29 @@ class PhotoGalleryController extends Controller
             $gallery = PhotoGalleryAlbum::where('id', $galleryId)->first();
 
             return view('pages.admin.photo-gallery.addimages')->with([
-                'title'         => $gallery->gallery_name,
+                'title' => $gallery->gallery_name,
             ]);
         } catch (PhotoGalleryException $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         } catch (Exception $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         }
     }
 
     /**
-     * Insere uma nova imagem dentro de um album. 
+     * Insere uma nova imagem dentro de um album.
      *
      * @param Request $request
      * @param string $galleryId
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return JsonResponse
      */
@@ -249,13 +249,13 @@ class PhotoGalleryController extends Controller
             }
 
             // Recuperando arquivo.
-            $file               = $request->file('file');
-            $ext                = $file->getClientOriginalExtension();
-            $fileName           = explode('.', $file->getClientOriginalName())[0];
-            $fileSize           = $file->getSize();
-            $typeFile           = $file->getType();
+            $file = $request->file('file');
+            $ext = $file->getClientOriginalExtension();
+            $fileName = explode('.', $file->getClientOriginalName())[0];
+            $fileSize = $file->getSize();
+            $typeFile = $file->getType();
 
-            // Validando extensão. 
+            // Validando extensão.
             $setting = Settings::where('setting_name', 'application_gallery_extensions')->first('setting_value');
             // Recupera as extensões.
             $extensions = unserialize($setting->setting_value);
@@ -274,9 +274,9 @@ class PhotoGalleryController extends Controller
             }
 
             /**
-             * Salvando dados do arquivo em base. 
+             * Salvando dados do arquivo em base.
              */
-            $hashString     = "";               # Gaurda a hash que ira usar na pasta.
+            $hashString = "";               # Gaurda a hash que ira usar na pasta.
 
             // Gerando uma has para o arquivo.
             $validate = true;
@@ -303,11 +303,11 @@ class PhotoGalleryController extends Controller
 
             // Inserindo na base.
             $fileSave = PhotoGalleryFiles::create([
-                'cod_photo_gallery_fk'                  => $gallery->id,
-                'filename'                              => $hashString . "." . $ext,
-                'hash'                                  => $hashString,
-                'type_file'                             => $typeFile,
-                'size_file'                             => $fileSize,
+                'cod_photo_gallery_fk' => $gallery->id,
+                'filename' => $hashString . "." . $ext,
+                'hash' => $hashString,
+                'type_file' => $typeFile,
+                'size_file' => $fileSize,
             ]);
 
             // Verifica se o arquivo foi salvo corretamente.
@@ -330,7 +330,7 @@ class PhotoGalleryController extends Controller
      * Abre o display de edição do album.
      *
      * @param string $galleryId
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return view|RedirectResponse
      */
@@ -340,36 +340,36 @@ class PhotoGalleryController extends Controller
             // Recuperando album para exclusão.
             $gallery = PhotoGalleryAlbum::where('id', $galleryId)->first();
 
-            // Validando se existe o album. 
+            // Validando se existe o album.
             if (!$gallery) {
                 throw new PhotoGalleryException('A Galeria não existe.');
             }
 
             return view('pages.admin.photo-gallery.edit-album')->with([
-                'title'             => 'Editar album',
-                'gallery'           => $gallery,
+                'title' => 'Editar album',
+                'gallery' => $gallery,
             ]);
         } catch (PhotoGalleryException $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         } catch (Exception $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         }
     }
 
     /**
-     * Efetua update do album. 
+     * Efetua update do album.
      *
      * @param PhotoGalleryAlbumUpdateRequest $request
      * @param string $galleryId
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return RedirectResponse
      */
@@ -395,16 +395,17 @@ class PhotoGalleryController extends Controller
                     throw new PhotoGalleryException('Informe uma imagem válida.', 1101);
                 }
 
-                $ext                    = $image->getClientOriginalExtension(); # Recupera a extensão do arquivo.
-                $imageName              = explode('.', $image->getClientOriginalName())[0];  # Recupera o nome do arquivo enviado.
-                $imageSize              = $image->getSize(); # Recupera o tamanho do arquivo.
-                $imageType              = $image->getType(); # Recupera o tipo do arquivo.
+                $ext = $image->getClientOriginalExtension(); # Recupera a extensão do arquivo.
+                $imageName = explode('.', $image->getClientOriginalName())[0];  # Recupera o nome do arquivo enviado.
+                $imageSize = $image->getSize(); # Recupera o tamanho do arquivo.
+                $imageType = $image->getType(); # Recupera o tipo do arquivo.
 
                 // Recuperando extensões aceitas.
                 $imageExtensions = Settings::where('setting_name', 'application_gallery_extensions')->first('setting_value');
 
                 $validadeExt = array_filter(unserialize($imageExtensions->setting_value), function ($acceptExt) use ($ext) {
-                    if ($acceptExt == $ext) return true;
+                    if ($acceptExt == $ext)
+                        return true;
                     return false;
                 });
 
@@ -414,28 +415,28 @@ class PhotoGalleryController extends Controller
                 }
 
                 // Gerando Hash para a imagem do album.
-                $hashString             = "";
-                $f                      = true;
+                $hashString = "";
+                $f = true;
                 while ($f) {
-                    $s                  = $imageName . '-' . md5($imageName . rand(100, 1000000)); # Gerando a hash.
-                    $hashExits          = PhotoGalleryAlbum::where('gallery_hash', $s)->first(); # Recupera se já existir para recriar.
+                    $s = $imageName . '-' . md5($imageName . rand(100, 1000000)); # Gerando a hash.
+                    $hashExits = PhotoGalleryAlbum::where('gallery_hash', $s)->first(); # Recupera se já existir para recriar.
 
                     if (!$hashExits) {
-                        $f              = false; # Altera a flag se a hash não existir.
-                        $hashString     = $s;    # Salvando a hash.
+                        $f = false; # Altera a flag se a hash não existir.
+                        $hashString = $s;    # Salvando a hash.
                     }
                 }
 
                 // Salva o nome anttigo da imagem para assim excluir.
-                $beforeNameFile                             = $gallery->gallery_image;
+                $beforeNameFile = $gallery->gallery_image;
 
                 // Atualizado lalbum.
-                $gallery->gallery_name                      = $album["gallery_name"];
-                $gallery->gallery_description               = $album["gallery_description"];
-                $gallery->gallery_hash                      = $hashString;
-                $gallery->gallery_image                     = $hashString . "." . $ext;
-                $gallery->gallery_size                      = $imageSize;
-                $gallery->gallery_format                    = $imageType;
+                $gallery->gallery_name = $album["gallery_name"];
+                $gallery->gallery_description = $album["gallery_description"];
+                $gallery->gallery_hash = $hashString;
+                $gallery->gallery_image = $hashString . "." . $ext;
+                $gallery->gallery_size = $imageSize;
+                $gallery->gallery_format = $imageType;
 
 
                 // Verifica se o album foi criado corretamente.
@@ -450,27 +451,27 @@ class PhotoGalleryController extends Controller
                     }
 
                     // Salvando nova imagem.
-                    $image->move($locationPath->setting_value,  $hashString . "." . $ext);
+                    $image->move($locationPath->setting_value, $hashString . "." . $ext);
 
                     return redirect()->route('admin.photos-gallery.view-gallery', ['galleryId' => $galleryId])->with([
-                        'status'        => true,
-                        'message'       => "Album atualizado com sucesso.",
-                        'type'          => 'Success',
+                        'status' => true,
+                        'message' => "Album atualizado com sucesso.",
+                        'type' => 'Success',
                     ]);
                 }
 
                 throw new PhotoGalleryException('Não foi possível atualzar o algum.');
             } else {
-                // Atualizando album.                
-                $gallery->gallery_name                      = $album["gallery_name"];
-                $gallery->gallery_description               = $album["gallery_description"];
+                // Atualizando album.
+                $gallery->gallery_name = $album["gallery_name"];
+                $gallery->gallery_description = $album["gallery_description"];
 
                 // Verifica se o album foi criado corretamente.
                 if ($gallery->save()) {
                     return redirect()->route('admin.photos-gallery.view-gallery', ['galleryId' => $galleryId])->with([
-                        'status'        => true,
-                        'message'       => "Album atualizado com sucesso.",
-                        'type'          => 'Success',
+                        'status' => true,
+                        'message' => "Album atualizado com sucesso.",
+                        'type' => 'Success',
                     ]);
                 }
             }
@@ -478,24 +479,24 @@ class PhotoGalleryController extends Controller
             throw new PhotoGalleryException('Não foi possível criar o algum.');
         } catch (PhotoGalleryException $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ])->withInput();
         } catch (Exception $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ])->withInput();
         }
     }
 
     /**
-     * Exclui o album. 
+     * Exclui o album.
      *
      * @param string $galleryId
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return RedirectResponse
      */
@@ -505,7 +506,7 @@ class PhotoGalleryController extends Controller
             // Recuperando album para exclusão.
             $gallery = PhotoGalleryAlbum::where('id', $galleryId)->first();
 
-            // Validando se existe o album. 
+            // Validando se existe o album.
             if (!$gallery) {
                 throw new PhotoGalleryException('A Galeria não existe.');
             }
@@ -519,32 +520,32 @@ class PhotoGalleryController extends Controller
             }
 
             // Recuperando path da imagem.
-            $imagePath =  Settings::where('setting_name', 'application_gallery_path')->first('setting_value');
+            $imagePath = Settings::where('setting_name', 'application_gallery_path')->first('setting_value');
 
-            // Apagando album e validando exclusão. 
+            // Apagando album e validando exclusão.
             if ($gallery->delete()) {
-                // Excluindo capa do album. 
+                // Excluindo capa do album.
                 if (file_exists("{$imagePath->setting_value}/{$gallery->gallery_image}")) {
                     unlink("{$imagePath->setting_value}/{$gallery->gallery_image}");
                 }
 
                 return redirect()->route('admin.photos-gallery.index')->with([
-                    'status'        => true,
-                    'message'       => "Album excluído com sucesso.",
-                    'type'          => 'Success',
+                    'status' => true,
+                    'message' => "Album excluído com sucesso.",
+                    'type' => 'Success',
                 ]);
             }
         } catch (PhotoGalleryException $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         } catch (Exception $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         }
     }
@@ -553,7 +554,7 @@ class PhotoGalleryController extends Controller
      * Efetua a exclusão de uma imagem no album.
      *
      * @param string $imageId
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return RedirectResponse
      */
@@ -563,7 +564,7 @@ class PhotoGalleryController extends Controller
             // Recuperando imagem
             $image = PhotoGalleryFiles::where('id', $imageId)->first();
 
-            // Verificando se a imagem existe. 
+            // Verificando se a imagem existe.
             if (!$image) {
                 throw new PhotoGalleryException('Imagem não encontrada para exclusão.');
             }
@@ -578,24 +579,24 @@ class PhotoGalleryController extends Controller
                 }
 
                 return redirect()->back()->with([
-                    'status'        => true,
-                    'message'       => "Imagem excluída com sucesso.",
-                    'type'          => 'Success',
+                    'status' => true,
+                    'message' => "Imagem excluída com sucesso.",
+                    'type' => 'Success',
                 ]);
             }
 
             throw new PhotoGalleryException('Não foi possível excluír a imagem ou não foi encontrada.');
         } catch (PhotoGalleryException $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         } catch (Exception $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         }
     }

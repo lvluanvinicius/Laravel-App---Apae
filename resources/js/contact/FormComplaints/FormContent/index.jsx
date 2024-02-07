@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ErrorInputs, FormGroup, SuccessMessage } from "./styled";
-import { registerContact } from "../../services";
+import { registerComplaints } from "../../../services";
 
 export function FormContent() {
     const errorMessage = "Este campo é obrigatório.";
@@ -16,7 +16,7 @@ export function FormContent() {
     } = useForm();
 
     async function createContact(data) {
-        const register = await registerContact(data);
+        const register = await registerComplaints(data);
         setResponse(register);
         reset();
     }
@@ -48,18 +48,10 @@ export function FormContent() {
                 <input
                     type="text"
                     name="name"
-                    {...register("name", {
-                        required: errorMessage,
-                    })}
+                    {...register("name")}
                     className="bg-apae-dark/10"
                 />
             </FormGroup>
-
-            {errors.name && (
-                <ErrorInputs className="text-apae-danger">
-                    {errors.name.message}
-                </ErrorInputs>
-            )}
 
             <FormGroup>
                 <div className="label">
@@ -72,15 +64,10 @@ export function FormContent() {
                     type="email"
                     name="email"
                     onChange={(e) => e.target.error}
-                    {...register("email", { required: errorMessage })}
+                    {...register("email")}
                     className="bg-apae-dark/10"
                 />
             </FormGroup>
-            {errors.email && (
-                <ErrorInputs className="text-apae-danger">
-                    {errors.email.message}
-                </ErrorInputs>
-            )}
 
             <FormGroup>
                 <div className="label">
@@ -92,35 +79,10 @@ export function FormContent() {
                 <input
                     type="tel"
                     name="tel"
-                    {...register("tel", { required: errorMessage })}
+                    {...register("tel")}
                     className="bg-apae-dark/10"
                 />
             </FormGroup>
-            {errors.tel && (
-                <ErrorInputs className="text-apae-danger">
-                    {errors.tel.message}
-                </ErrorInputs>
-            )}
-
-            <FormGroup>
-                <div className="label">
-                    <i className="ph-bold ph-map-pin"></i>
-                    <label className="opacity-70" htmlFor="city_uf">
-                        Cidade/UF
-                    </label>
-                </div>
-                <input
-                    type="text"
-                    name="city_uf"
-                    {...register("city_uf", { required: errorMessage })}
-                    className="bg-apae-dark/10"
-                />
-            </FormGroup>
-            {errors.city_uf && (
-                <ErrorInputs className="text-apae-danger">
-                    {errors.city_uf.message}
-                </ErrorInputs>
-            )}
 
             <FormGroup>
                 <div className="label">
@@ -158,7 +120,6 @@ export function FormContent() {
                     {...register("message", { required: errorMessage })}
                 ></textarea>
             </FormGroup>
-
             {errors.message && (
                 <ErrorInputs className="text-apae-danger">
                     {errors.message.message}
@@ -174,12 +135,6 @@ export function FormContent() {
                     {isSubmitting ? "Aguarde..." : "Enviar"}
                 </button>
             </FormGroup>
-
-            {!response.status && response.message && (
-                <ErrorInputs className="text-apae-danger text-center mt-4 font-bold">
-                    {response.message}
-                </ErrorInputs>
-            )}
         </form>
     );
 }

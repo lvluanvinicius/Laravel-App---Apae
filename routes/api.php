@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('website')->as('website.')->group(function () {
     Route::get('test', function () {
         return serialize([
-            "email" => "noreply@grupocednet.com.br",
+            "email" => "lvluansantos@gmail.com",
             "subject" => "Nova denúncia de " . env('APP_NAME'),
             "mail_settings" => [
                 "MAIL_HOST" => "mail.grupocednet.com.br",

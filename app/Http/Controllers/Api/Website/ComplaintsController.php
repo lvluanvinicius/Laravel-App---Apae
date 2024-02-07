@@ -26,7 +26,9 @@ class ComplaintsController extends Controller
             // Recuperando dados da requisição.
             $requestData = $request->only(["name", "email", "tel", "subject", "message"]);
 
+            // Envia o email para local de armazenamento e avaliação.
             \App\Repositories\ComplaintsRepository::sendMail($requestData);
+
             // Criando registro.
             // $register = \App\Repositories\ComplaintsRepository::register($requestData);
 
@@ -34,7 +36,7 @@ class ComplaintsController extends Controller
             // if (!$register)
             //     throw new ComplaintsException('Houve um erro ao tentar registrar sua denúncia. Por favor, tente novamente.');
 
-            return $this->success("Seu contato foi registrado com sucesso.");
+            return $this->success("Sua denúncia foi registrada com sucesso.");
         } catch (ComplaintsException $error) {
             return $this->error($error->getMessage(), Response::HTTP_OK);
         } catch (\Exception $error) {

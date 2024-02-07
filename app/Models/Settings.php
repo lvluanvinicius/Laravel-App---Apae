@@ -22,7 +22,9 @@ class Settings extends Model
      * @var array
      */
     protected $fillable = [
-        "setting_name", "setting_value", "setting_type"
+        "setting_name",
+        "setting_value",
+        "setting_type"
     ];
 
     /**
@@ -30,7 +32,7 @@ class Settings extends Model
      *
      * @param string $name
      * @param array $values
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return boolean
      */
@@ -38,8 +40,10 @@ class Settings extends Model
     {
         $setting = $this->where('setting_name', $name)->update($values);
 
-        if ($setting) return true;
+        if ($setting)
+            return true;
 
         return false;
     }
+
 }

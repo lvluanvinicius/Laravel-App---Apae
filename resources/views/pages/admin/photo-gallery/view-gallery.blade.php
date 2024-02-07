@@ -1,184 +1,240 @@
 <x-admin.app-default app_title="" page_title="{{ $title }}">
+    @section('head')
+        @vite('resources/js/photo-gallery/photo-gallery.js')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+        <style>
+            .swiper {
+                width: 100%;
+                height: 100%;
+            }
+
+            .swiper-slide {
+                text-align: center;
+                font-size: 18px;
+                background: #fff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .swiper-slide img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .swiper {
+                width: 100%;
+                height: 300px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .swiper-slide {
+                background-size: cover;
+                background-position: center;
+            }
+
+            .mySwiper2 {
+                height: 80%;
+                width: 100%;
+            }
+
+            .mySwiper {
+                height: 20%;
+                box-sizing: border-box;
+                padding: 10px 0;
+            }
+
+            .mySwiper .swiper-slide {
+                width: 25%;
+                height: 100%;
+                opacity: 0.4;
+            }
+
+            .mySwiper .swiper-slide-thumb-active {
+                opacity: 1;
+            }
+
+            .swiper-slide img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        </style>
+    @endsection
+
     @section('content')
-        <div class="mx-8 mt-4 mb-10">
-            <div class="w-full mb-5 flex gap-6 flex-wrap justify-between items-center">
+        <div class="mx-8 mb-10 mt-4">
+            <div class="mb-5 flex w-full flex-wrap items-center justify-between gap-6">
                 <a href="{{ route('admin.photos-gallery.add-image', ['galleryId' => request('galleryId')]) }}"
-                    class="text-apae-white bg-apae-green dark:bg-apae-gray-dark px-2 py-1 shadow-md">Adicionar Imagens</a>
+                    class="bg-apae-green px-2 py-1 text-apae-white shadow-md dark:bg-apae-gray-dark">Adicionar Imagens</a>
 
                 <div class="flex gap-4">
                     <a href="{{ route('admin.photos-gallery.edit-gallery', ['galleryId' => request('galleryId')]) }}"
-                        class="text-apae-white bg-apae-green dark:bg-apae-gray-dark px-2 py-1 shadow-md">
-                        <i class="fa-solid fa-edit text-apae-info mr-2"></i>
+                        class="bg-apae-green px-2 py-1 text-apae-white shadow-md dark:bg-apae-gray-dark">
+                        <i class="fa-solid fa-edit mr-2 text-apae-info"></i>
                         Editar Album
                     </a>
                     <button onclick="deleteAlbum()"
-                        class="text-apae-white bg-apae-green dark:bg-apae-gray-dark px-2 py-0.5 shadow-md">
-                        <i class="fa-solid fa-trash text-apae-danger mr-2"></i>
+                        class="bg-apae-green px-2 py-0.5 text-apae-white shadow-md dark:bg-apae-gray-dark">
+                        <i class="fa-solid fa-trash mr-2 text-apae-danger"></i>
                         Apagar Album
                     </button>
                 </div>
             </div>
 
-            <div class="bg-apae-white dark:bg-apae-gray-dark shadow-lg p-4">
-                <div class="w-full">
-                    <div class="">
-                        <h1 class="font-bold text-[1.1rem]">{{ $gallery->gallery_name }}</h1>
-                        <span class="font-bold text-[.8rem]">Atualizado em:</span>
-                        <span class="text-[.7rem]">{{ date('d/m/Y \a\s H:i:s', strtotime($gallery->updated_at)) }}</span>
-                    </div>
-                    <div class="w-full mt-1">
-                        <h3 class="font-bold text-[.9rem]">Descrição:</h3>
-                        <p class="text-[.8rem]" style="margin: 0;text-indent: 3ch;">
-                            {{ $gallery->gallery_description }}
-                        </p>
-                    </div>
-                </div>
-                <div id="custom-controls-gallery" class="relative w-full" data-carousel="slide">
-                    <!-- Carousel wrapper -->
-                    <div class="relative h-56 overflow-hidden rounded-lg md:h-96 w-full">
+            <div class="bg-apae-white py-4 shadow-lg dark:bg-apae-gray-dark">
 
-                        @foreach ($images as $img)
-                            @if (count($images) == 1)
-                                <div class="">
-                                    <img src="{{ Vite::galleryAlbunsImages($img->filename) }}"
-                                        class="absolute block max-w-full h-[100%] -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                        alt="">
-                                    <div class="absolute right-0 bottom-0">
-                                        <button imageId="{{ $img->id }}" class="deleteImage">
-                                            <i class="fa-solid fa-trash text-apae-danger"></i>
-                                            Apagar Imagem
-                                        </button>
-                                    </div>
+                @if (count($images) <= 0)
+                    {{-- fa-brands fa-envira --}}
+                    <section class="flex w-full items-center justify-center pb-8 pt-4">
+                        <div class="apae-container">
+                            <x-website.empty-container description="Ainda não foi carregada nenhuma foto para esse album."
+                                icon="fas fa-file" />
+                        </div>
+                    </section>
+                @else
+                    <section class="flex h-[100vh] w-full justify-center gap-4 p-8">
+                        <div class="w-full">
+                            <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
+                                class="swiper mySwiper2 w-full">
+                                <div class="swiper-wrapper w-full">
+
+                                    @foreach ($images as $photo)
+                                        <div class="swiper-slide w-full">
+                                            <img src="{{ Vite::galleryImages('albuns/' . $photo->filename) }}" />
+                                        </div>
+                                    @endforeach
+
                                 </div>
-                            @else
-                                <div class="hidden duration-1000 ease-in-out" data-carousel-item>
-                                    <img src="{{ Vite::galleryAlbunsImages($img->filename) }}"
-                                        class="absolute block max-w-full h-[100%] -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                        alt="">
-                                    <div class="absolute right-0 bottom-0">
-                                        <button imageId="{{ $img->id }}" class="deleteImage">
-                                            <i class="fa-solid fa-trash text-apae-danger"></i>
-                                            Apagar Imagem
-                                        </button>
-                                    </div>
+
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+
+                            </div>
+
+                            <div thumbsSlider="" class="swiper mySwiper">
+                                <div class="swiper-wrapper">
+                                    @foreach ($images as $photo)
+                                        <div class="swiper-slide relative w-full">
+                                            <img src="{{ Vite::galleryImages('albuns/' . $photo->filename) }}" />
+                                            <div class="absolute bottom-0 right-0 z-10 w-full">
+                                                <button imageId="{{ $photo->id }}"
+                                                    class="deleteImage w-full bg-apae-green py-1 text-apae-white">
+                                                    <i class="fa-solid fa-trash text-apae-danger"></i>
+                                                    Apagar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
-                            @endif
-                        @endforeach
-
-                    </div>
-                    <div class="flex justify-center items-center pt-4">
-                        <button type="button"
-                            class="flex justify-center items-center mr-4 h-full cursor-pointer group focus:outline-none"
-                            data-carousel-prev>
-                            <span
-                                class="text-gray-400 hover:text-gray-900 dark:hover:text-white group-focus:text-gray-900 dark:group-focus:text-white">
-                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 14 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4" />
-                                </svg>
-                                <span class="sr-only">Previous</span>
-                            </span>
-                        </button>
-                        <button type="button"
-                            class="flex justify-center items-center h-full cursor-pointer group focus:outline-none"
-                            data-carousel-next>
-                            <span
-                                class="text-gray-400 hover:text-gray-900 dark:hover:text-white group-focus:text-gray-900 dark:group-focus:text-white">
-                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 14 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                </svg>
-                                <span class="sr-only">Next</span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="flex flex-wrap mt-4 gap-4">
-                    <a href="{{ route('admin.photos-gallery.index') }}"
-                        class="float-right px-6 shadow-md bg-apae-green dark:bg-apae-gray text-apae-white rounded-sm">Voltar</a>
-                </div>
+                            </div>
+                        </div>
+                    </section>
+                @endif
             </div>
 
-        </div>
-    @endsection
+        @endsection
 
-    @section('js-content')
-        <script>
-            const deleteImageButtons = document.querySelectorAll('.deleteImage');
-            for (let btn of deleteImageButtons) {
-                btn.addEventListener('click', function() {
-                    if (confirm('Deseja realmente excluír essa imagem?')) {
-                        deleteImage(btn.attributes.imageid.value);
-                    }
+        @section('js-content')
+            <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+            <script>
+                var swiper = new Swiper(".mySwiper", {
+                    loop: true,
+                    spaceBetween: 10,
+                    slidesPerView: 4,
+                    freeMode: true,
+                    watchSlidesProgress: true,
                 });
-            }
+                var swiper2 = new Swiper(".mySwiper2", {
+                    loop: true,
+                    spaceBetween: 10,
+                    navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev",
+                    },
+                    thumbs: {
+                        swiper: swiper,
+                    },
+                });
 
-            // Função efetua a exclusão da imagem.
-            function deleteImage(imageId) {
-                // Recuperando rota de exclusão.
-                const deleteRoute = `{{ route('admin.photos-gallery.delete-file-image', ['imageId' => '__IMAGEID__']) }}`
-                    .replace('__IMAGEID__', imageId);
 
-                // Criando formulário de exclusão.
-                const FormDeleteImage = document.createElement('form');
-                FormDeleteImage.action = deleteRoute;
-                FormDeleteImage.method = 'POST';
+                const deleteImageButtons = document.querySelectorAll('.deleteImage');
+                for (let btn of deleteImageButtons) {
+                    btn.addEventListener('click', function() {
+                        if (confirm('Deseja realmente excluír essa imagem?')) {
+                            deleteImage(btn.attributes.imageid.value);
+                        }
+                    });
+                }
 
-                // Criando input de metodo. 
-                const InputMethod = document.createElement('input');
-                InputMethod.value = 'DELETE';
-                InputMethod.name = '_method';
-
-                // Criando input para csrf-token.
-                const InputCSRFToken = document.createElement('input');
-                InputCSRFToken.value = `{{ csrf_token() }}`;
-                InputCSRFToken.name = '_token';
-
-                FormDeleteImage.appendChild(InputMethod);
-                FormDeleteImage.appendChild(InputCSRFToken);
-
-                // Adicionando formulario no documento da pagina.
-                document.body.appendChild(FormDeleteImage);
-                FormDeleteImage.submit();
-
-            }
-
-            // Função efetua a exclusão do album.
-            function deleteAlbum() {
-                if (confirm('Deseja realmente excluír esse album?')) {
+                // Função efetua a exclusão da imagem.
+                function deleteImage(imageId) {
                     // Recuperando rota de exclusão.
-                    const deleteRoute =
-                        `{{ route('admin.photos-gallery.delete-gallery-image', ['galleryId' => request('galleryId')]) }}`;
+                    const deleteRoute = `{{ route('admin.photos-gallery.delete-file-image', ['imageId' => '__IMAGEID__']) }}`
+                        .replace('__IMAGEID__', imageId);
 
                     // Criando formulário de exclusão.
-                    const FormDeleteAlbum = document.createElement('form');
-                    FormDeleteAlbum.action = deleteRoute;
-                    FormDeleteAlbum.method = 'POST';
+                    const FormDeleteImage = document.createElement('form');
+                    FormDeleteImage.action = deleteRoute;
+                    FormDeleteImage.method = 'POST';
 
-                    // Criando input de metodo. 
+                    // Criando input de metodo.
                     const InputMethod = document.createElement('input');
                     InputMethod.value = 'DELETE';
                     InputMethod.name = '_method';
-                    InputMethod.type = 'hidden';
 
                     // Criando input para csrf-token.
                     const InputCSRFToken = document.createElement('input');
                     InputCSRFToken.value = `{{ csrf_token() }}`;
                     InputCSRFToken.name = '_token';
-                    InputCSRFToken.type = 'hidden';
 
-                    FormDeleteAlbum.appendChild(InputMethod);
-                    FormDeleteAlbum.appendChild(InputCSRFToken);
+                    FormDeleteImage.appendChild(InputMethod);
+                    FormDeleteImage.appendChild(InputCSRFToken);
 
                     // Adicionando formulario no documento da pagina.
-                    document.body.appendChild(FormDeleteAlbum);
-                    FormDeleteAlbum.submit();
+                    document.body.appendChild(FormDeleteImage);
+                    FormDeleteImage.submit();
 
                 }
-            }
-        </script>
-    @endsection
+
+                // Função efetua a exclusão do album.
+                function deleteAlbum() {
+                    if (confirm('Deseja realmente excluír esse album?')) {
+                        // Recuperando rota de exclusão.
+                        const deleteRoute =
+                            `{{ route('admin.photos-gallery.delete-gallery-image', ['galleryId' => request('galleryId')]) }}`;
+
+                        // Criando formulário de exclusão.
+                        const FormDeleteAlbum = document.createElement('form');
+                        FormDeleteAlbum.action = deleteRoute;
+                        FormDeleteAlbum.method = 'POST';
+
+                        // Criando input de metodo.
+                        const InputMethod = document.createElement('input');
+                        InputMethod.value = 'DELETE';
+                        InputMethod.name = '_method';
+                        InputMethod.type = 'hidden';
+
+                        // Criando input para csrf-token.
+                        const InputCSRFToken = document.createElement('input');
+                        InputCSRFToken.value = `{{ csrf_token() }}`;
+                        InputCSRFToken.name = '_token';
+                        InputCSRFToken.type = 'hidden';
+
+                        FormDeleteAlbum.appendChild(InputMethod);
+                        FormDeleteAlbum.appendChild(InputCSRFToken);
+
+                        // Adicionando formulario no documento da pagina.
+                        document.body.appendChild(FormDeleteAlbum);
+                        FormDeleteAlbum.submit();
+
+                    }
+                }
+            </script>
+        @endsection
 </x-admin.app-default>
