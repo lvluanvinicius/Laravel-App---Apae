@@ -106,7 +106,7 @@
 
                                     @foreach ($images as $photo)
                                         <div class="swiper-slide w-full">
-                                            <img src="{{ Vite::galleryImages('albuns/' . $photo->filename) }}" />
+                                            <img src="{{ asset('images/photo-galery/albuns/' . $photo->filename) }}" />
                                         </div>
                                     @endforeach
 
@@ -121,7 +121,7 @@
                                 <div class="swiper-wrapper">
                                     @foreach ($images as $photo)
                                         <div class="swiper-slide relative w-full">
-                                            <img src="{{ Vite::galleryImages('albuns/' . $photo->filename) }}" />
+                                            <img src="{{ asset('images/photo-galery/albuns/' . $photo->filename) }}" />
                                             <div class="absolute bottom-0 right-0 z-10 w-full">
                                                 <button imageId="{{ $photo->id }}"
                                                     class="deleteImage w-full bg-apae-green py-1 text-apae-white">

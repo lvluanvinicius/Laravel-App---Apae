@@ -6,15 +6,15 @@
     @endsection
 
     @section('content')
-        <div class="px-8 mt-10">
-            <div class="bg-apae-white dark:bg-apae-gray-dark shadow-md p-8">
+        <div class="mx-2 mt-4 md:mx-8">
+            <div class="bg-apae-white p-8 shadow-md dark:bg-apae-gray-dark">
 
                 <form action="/file-upload" class="dropzone" id="dropzone-sliders">
                 </form>
 
-                <div class="flex flex-wrap mt-4 gap-4">
+                <div class="mt-4 flex flex-wrap gap-4">
                     <a href="{{ route('admin.sliders.index') }}"
-                        class="float-right px-6 shadow-md bg-apae-green dark:bg-apae-gray text-apae-white rounded-sm">Voltar</a>
+                        class="float-right rounded-sm bg-apae-green px-6 text-apae-white shadow-md dark:bg-apae-gray">Voltar</a>
                 </div>
 
             </div>

@@ -1,7 +1,8 @@
-<div class="fixed z-[99999] flex hidden h-[100%] w-[100%] items-center justify-center bg-apae-gray-dark/30" data-card-donate="donatenow">
+<div class="fixed z-[99999] flex hidden h-[100%] w-[100%] items-center justify-center bg-apae-gray-dark/30"
+    data-card-donate="donatenow">
     <div class="relative h-[30rem] w-[60%] bg-apae-cyan shadow-lg shadow-apae-dark md:w-[40%] lg:w-[28%]">
 
-        <img src="{{ Vite::qrcodeImages('cover/sendThumb.jpeg') }}" alt=""
+        <img src="{{ asset('images/qrcode/cover/sendThumb.jpeg') }}" alt=""
             class="h-full w-full object-cover opacity-90">
 
         <div class="absolute left-0 top-0 z-10 h-full w-full">
@@ -15,7 +16,7 @@
             </div>
 
             <div class="z-10 flex h-full w-full items-center justify-center">
-                <img src="{{ Vite::qrcodeImages('exemplo.png') }}" alt="" class="w-[50%]" />
+                <img src="{{ asset('images/qrcode/exemplo.png') }}" alt="" class="w-[50%]" />
             </div>
         </div>
 

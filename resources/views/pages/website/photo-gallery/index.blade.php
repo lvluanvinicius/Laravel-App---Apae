@@ -14,8 +14,8 @@
                         <a href="{{ route('photo-gallery.view', ['galleryId' => $gallery->id]) }}"
                             class="relative col-span-4 max-h-[18.75rem] rounded-md border border-apae-dark/30 shadow-lg shadow-apae-dark/20 md:col-span-2 lg:col-span-1">
                             <div class="h-full border">
-                                <img src="{{ Vite::galleryImages($gallery->gallery_image) }}" alt=""
-                                    class="h-full w-full">
+                                <img src="{{ asset('images/photo-galery/' . $gallery->gallery_image) }}"
+                                    alt="{{ $gallery->gallery_name }}" class="h-full w-full">
                             </div>
 
                             <div class="absolute left-0 top-0 flex h-full w-full flex-col justify-end rounded-md">

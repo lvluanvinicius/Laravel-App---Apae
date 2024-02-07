@@ -1,6 +1,6 @@
 <x-admin.app-default app_title="" page_title="{{ $title }}">
     @section('content')
-        <div class="mx-8 mt-4">
+        <div class="mx-2 mt-4 md:mx-8">
             <div class="grid w-full grid-cols-12">
 
                 <div class="col-span-12">
@@ -16,7 +16,8 @@
                     </div>
                 </div>
 
-                <div class="table-apae-content col-span-12 rounded bg-apae-white px-8 pb-8 pt-4 shadow-md dark:bg-apae-gray-dark">
+                <div
+                    class="table-apae-content col-span-12 rounded bg-apae-white px-8 pb-8 pt-4 shadow-md dark:bg-apae-gray-dark">
                     <table class="table-apae" id="table-users">
                         <thead>
                             <tr class="text-left">
@@ -37,14 +38,14 @@
                                         @if ($nw->news_post_status)
                                             <div class="text-apae-teal">Ativo</div>
                                         @else
-                                            <div class="text-apae-danger">Inativo</div>                                            
+                                            <div class="text-apae-danger">Inativo</div>
                                         @endif
                                     </td>
                                     <td>
 
                                         <div class="flex items-center justify-end gap-4">
-                                            <a href="{{ route('admin.news.edit', ['newsId' => $nw->id]) }}" class="text-apae-cyan"
-                                                title="Editar Notícia: {{ $nw->news_post_title }}">
+                                            <a href="{{ route('admin.news.edit', ['newsId' => $nw->id]) }}"
+                                                class="text-apae-cyan" title="Editar Notícia: {{ $nw->news_post_title }}">
                                                 <i class="fa-solid fa-user-pen"></i>
                                             </a>
                                             <button class="text-apae-danger"

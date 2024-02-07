@@ -1,6 +1,6 @@
 <x-admin.app-default app_title="" page_title="{{ $title }}">
     @section('content')
-        <div class="mx-8 mt-4">
+        <div class="mx-2 mt-4 md:mx-8">
             <div class="mb-4 grid w-full grid-cols-2 gap-4">
 
                 <div class="col-span-2 md:col-span-1">

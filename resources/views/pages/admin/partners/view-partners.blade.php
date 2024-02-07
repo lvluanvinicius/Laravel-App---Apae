@@ -1,51 +1,52 @@
 <x-admin.app-default app_title="" page_title="{{ $title }}">
     @section('content')
-        <div class="mx-8 mt-4">
+        <div class="mx-2 mt-4 md:mx-8">
             <div class="w-full">
 
                 <div class="mb-2 flex justify-between">
                     <div></div>
                     <div class="">
                         <button onclick="deletePartner()"
-                            class="px-4 py-1 shadow-md bg-apae-green dark:bg-apae-gray-dark text-apae-white rounded-sm">
-                            <i class="fa-solid fa-trash text-apae-danger mr-2"></i>
+                            class="rounded-sm bg-apae-green px-4 py-1 text-apae-white shadow-md dark:bg-apae-gray-dark">
+                            <i class="fa-solid fa-trash mr-2 text-apae-danger"></i>
                             Excluir Parceiro
                         </button>
                     </div>
                 </div>
 
-                <div class="dark:bg-apae-gray-dark dark:text-apae-white text-apae-gray-dark bg-apae-white shadow-md p-6">
-                    <form action="{{ route('admin.partners.update', ['partnerID' => $partner->id]) }}" method="POST" enctype="multipart/form-data">
+                <div class="bg-apae-white p-6 text-apae-gray-dark shadow-md dark:bg-apae-gray-dark dark:text-apae-white">
+                    <form action="{{ route('admin.partners.update', ['partnerID' => $partner->id]) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="flex flex-wrap">
                             <label for="partner_name" class="">Nome do Parceiro: </label>
                             <input type="text" name="partner_name" id="partner_name"
-                                class="bg-apae-gray/10 px-2 py-1 w-full !border-none !outline-none"
+                                class="w-full !border-none bg-apae-gray/10 px-2 py-1 !outline-none"
                                 value="{{ old('partner_name') ? old('partner_name') : $partner->partner_name }}">
                         </div>
 
                         <div class="flex flex-wrap py-6">
                             <label for="partner_image"
-                                class="border p-4 w-full border-dashed text-center text-apae-gray/80 cursor-pointer">
+                                class="w-full cursor-pointer border border-dashed p-4 text-center text-apae-gray/80">
                                 Selecione a Capa
                             </label>
                             <input type="file" id="partner_image" name="partner_image" class="hidden"
-                                value="{{ old('partner_image')  }}">
+                                value="{{ old('partner_image') }}">
                         </div>
 
-                        <div class="flex flex-wrap ">
-                            <img src="{{ Vite::partnersImages($partner->partner_image) }}" alt="" id="preview-image"
-                                class="h-52">
+                        <div class="flex flex-wrap">
+                            <img src="{{ asset('images/partners/' . $partner->partner_image) }}" alt=""
+                                id="preview-image" class="h-52">
                         </div>
 
-                        <div class="flex flex-wrap py-3 gap-4">
+                        <div class="flex flex-wrap gap-4 py-3">
                             <button
-                                class="float-right px-6 shadow-md bg-apae-green dark:bg-apae-gray text-apae-white rounded-sm">
+                                class="float-right rounded-sm bg-apae-green px-6 text-apae-white shadow-md dark:bg-apae-gray">
                                 Atualizar
                             </button>
                             <a href="{{ route('admin.partners.index') }}"
-                                class="float-right px-6 shadow-md bg-apae-green dark:bg-apae-gray text-apae-white rounded-sm">
+                                class="float-right rounded-sm bg-apae-green px-6 text-apae-white shadow-md dark:bg-apae-gray">
                                 Cancelar
                             </a>
                         </div>
@@ -87,7 +88,7 @@
                     FormDeletePartner.action = deleteRoute;
                     FormDeletePartner.method = 'POST';
 
-                    // Criando input de metodo. 
+                    // Criando input de metodo.
                     const InputMethod = document.createElement('input');
                     InputMethod.value = 'DELETE';
                     InputMethod.name = '_method';

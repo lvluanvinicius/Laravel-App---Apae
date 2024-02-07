@@ -29,9 +29,9 @@ class TransparencyController extends Controller
      */
     public function index(): View
     {
-        $years              = TransparencyYear::orderBy('year_folder', 'desc')->get();
+        $years = TransparencyYear::orderBy('year_folder', 'desc')->get();
 
-        $dataTransparency   = [];
+        $dataTransparency = [];
 
         // Recuperando valores das pastas pais de anos.
         foreach ($years as $y) {
@@ -43,17 +43,17 @@ class TransparencyController extends Controller
             foreach ($folders as $fd) {
                 $files = Transparency::where('cod_transparency_folders_fk', $fd->id)->get(['id', 'filename', 'hash', 'cod_transparency_folders_fk']);
                 array_push($newFolders, [
-                    'id'                => $fd->id,
-                    'folders'           => $fd->folders,
-                    'hash'              => $fd->hash,
-                    'files'             => $files,
+                    'id' => $fd->id,
+                    'folders' => $fd->folders,
+                    'hash' => $fd->hash,
+                    'files' => $files,
                 ]);
             }
 
             $nData = [
-                'id'                => $y->id,
-                'year_folder'       => $y->year_folder,
-                'folders'           => $newFolders,
+                'id' => $y->id,
+                'year_folder' => $y->year_folder,
+                'folders' => $newFolders,
             ];
 
             array_push($dataTransparency, $nData);
@@ -62,8 +62,8 @@ class TransparencyController extends Controller
         // return $dataTransparency;
 
         return view('pages.admin.transparency.index')->with([
-            'title'             => "Portal da Transparência",
-            'transparency'      => $dataTransparency,
+            'title' => "Portal da Transparência",
+            'transparency' => $dataTransparency,
         ]);
     }
 
@@ -84,18 +84,18 @@ class TransparencyController extends Controller
             // Verifica se o ano possui 4 dígitos numéricos
             if (preg_match('/^\d{4}$/', $foldName)) {
                 // Verifica se o ano é um ano válido de acordo com a função checkdate()
-                if (checkdate(1, 1, (int)$foldName)) {
+                if (checkdate(1, 1, (int) $foldName)) {
                     // Instanciando modelo.
                     $yearTransparency = TransparencyYear::create([
-                        "year_folder"   => $foldName,
+                        "year_folder" => $foldName,
                     ]);
 
                     // Validando a criação da pasta.
                     if ($yearTransparency) {
                         return redirect()->back()->with([
-                            'status'        => true,
-                            'message'       => "Ano inserido com sucesso na transparência.",
-                            'type'          => 'Success',
+                            'status' => true,
+                            'message' => "Ano inserido com sucesso na transparência.",
+                            'type' => 'Success',
                         ]);
                     }
                 }
@@ -106,15 +106,15 @@ class TransparencyController extends Controller
             throw new TransparencyException('Houve um erro ao tentar inserir um novo ano dentro da transparência.');
         } catch (TransparencyException $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         } catch (Exception $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         }
     }
@@ -129,10 +129,10 @@ class TransparencyController extends Controller
      */
     public function createFolderSession(string $folderYearId): View
     {
-        $year                   = TransparencyYear::where('id', $folderYearId)->first();
+        $year = TransparencyYear::where('id', $folderYearId)->first();
         return view('pages.admin.transparency.addsession')->with([
-            'title'             => "Nova Sessão",
-            'year'              => $year,
+            'title' => "Nova Sessão",
+            'year' => $year,
         ]);
     }
 
@@ -150,10 +150,10 @@ class TransparencyController extends Controller
     {
         try {
             // Recuperando nome da sessão que será criada.
-            $foldName       = $request->folder_session;
+            $foldName = $request->folder_session;
 
             // Recuperando pasta ano (pasta pai).
-            $foldYear       = TransparencyYear::where('id', $folderYearId)->first();
+            $foldYear = TransparencyYear::where('id', $folderYearId)->first();
 
             // Verificando se a pasta ano existe.
             if (!$foldYear) {
@@ -161,7 +161,7 @@ class TransparencyController extends Controller
             }
 
             // Gaurda a hash que ira usar na pasta.
-            $hashString     = "";
+            $hashString = "";
 
             // Gerando uma has para o arquivo.
             $validate = true;
@@ -178,32 +178,32 @@ class TransparencyController extends Controller
 
             // Salvando nova sessão no banco.
             $newSessFolder = TransparencyFolders::create([
-                'folders'                       => $foldName,
-                'hash'                          => $hashString,
-                'cod_transparency_year_fk'      => $foldYear->id,
+                'folders' => $foldName,
+                'hash' => $hashString,
+                'cod_transparency_year_fk' => $foldYear->id,
             ]);
 
             // Verifica se foi criado corretanente a sessão.
             if ($newSessFolder) {
                 return redirect()->route('admin.transparency.index')->with([
-                    'status'        => true,
-                    'message'       => "Sessão criada com sucesso.",
-                    'type'          => 'Success',
+                    'status' => true,
+                    'message' => "Sessão criada com sucesso.",
+                    'type' => 'Success',
                 ]);
             }
 
             throw new TransparencyException('Houve um erro ao tentar criar a nova sessão.');
         } catch (TransparencyException $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         } catch (Exception $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         }
     }
@@ -220,7 +220,9 @@ class TransparencyController extends Controller
     {
         try {
             // Recuperando pasta para receber o arquivo.
-            $folder                 = TransparencyFolders::where('id', $folderSession)->first();
+            $folder = TransparencyFolders::where('transparency_folders.id', $folderSession)
+                ->join('transparency_year', 'transparency_year.id', '=', 'transparency_folders.cod_transparency_year_fk')
+                ->first(['transparency_year.year_folder', 'transparency_folders.id', 'transparency_folders.folders']);
 
             // Verifica se a pasta existe.
             if (!$folder) {
@@ -229,20 +231,20 @@ class TransparencyController extends Controller
 
 
             return view('pages.admin.transparency.addfile')->with([
-                'title'             => "Novo arquivo",
-                'folder'            => $folder,
+                'title' => "Novo arquivo",
+                'folder' => $folder,
             ]);
         } catch (TransparencyException $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         } catch (Exception $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         }
     }
@@ -259,7 +261,7 @@ class TransparencyController extends Controller
     {
         try {
             // Recuperando pasta.
-            $folder             = TransparencyFolders::where('id', $folderSession)->first();
+            $folder = TransparencyFolders::where('id', $folderSession)->first();
 
             // Verifica se a pasta existe.
             if (!$folder) {
@@ -267,7 +269,7 @@ class TransparencyController extends Controller
             }
 
             // Recuperando arquivos.
-            $files              = Transparency::where('cod_transparency_folders_fk', $folderSession)->get();
+            $files = Transparency::where('cod_transparency_folders_fk', $folderSession)->get();
 
             // Verifica se os arquivos foram encontrados.
             if (!$files) {
@@ -295,7 +297,7 @@ class TransparencyController extends Controller
     {
         try {
             // Recuperando pasta para receber o arquivo.
-            $folder                 = TransparencyFolders::where('id', $folderSession)->first();
+            $folder = TransparencyFolders::where('id', $folderSession)->first();
 
             // Verifica se a pasta existe.
             if (!$folder) {
@@ -313,11 +315,11 @@ class TransparencyController extends Controller
             }
 
             // Recuperando arquivo.
-            $file               = $request->file('file');
-            $ext                = $file->getClientOriginalExtension();
-            $fileName           = $file->getClientOriginalName();
-            $fileSize           = $file->getSize();
-            $typeFile           = $file->getType();
+            $file = $request->file('file');
+            $ext = $file->getClientOriginalExtension();
+            $fileName = $file->getClientOriginalName();
+            $fileSize = $file->getSize();
+            $typeFile = $file->getType();
 
             // Validando extensão.
             $setting = Settings::where('setting_name', 'application_transparency_extensions')->first('setting_value');
@@ -361,7 +363,7 @@ class TransparencyController extends Controller
             /**
              * Salvando dados do arquivo em base.
              */
-            $hashString     = "";               # Gaurda a hash que ira usar na pasta.
+            $hashString = "";               # Gaurda a hash que ira usar na pasta.
 
             // Gerando uma has para o arquivo.
             $validate = true;
@@ -378,12 +380,12 @@ class TransparencyController extends Controller
 
             // Inserindo na base.
             $fileSave = Transparency::create([
-                'cod_transparency_folders_fk'           => $folder->id,
-                'filename'                              => $fileName,
-                'hash'                                  => $hashString,
-                'type_file'                             => $typeFile,
-                'size_file'                             => $fileSize,
-                'ext'                                   => $ext
+                'cod_transparency_folders_fk' => $folder->id,
+                'filename' => $fileName,
+                'hash' => $hashString,
+                'type_file' => $typeFile,
+                'size_file' => $fileSize,
+                'ext' => $ext
             ]);
 
             // Verifica se o arquivo foi salvo corretamente.
@@ -414,7 +416,7 @@ class TransparencyController extends Controller
     {
         try {
             // Recuperando pasta se ela existir.
-            $folder                 = TransparencyYear::where('id', $folderYearId)->first();
+            $folder = TransparencyYear::where('id', $folderYearId)->first();
 
             // Verifica se a pasta ano foi encontrada.
             if (!$folder) {
@@ -432,24 +434,24 @@ class TransparencyController extends Controller
             // Verifica se a pasta foi excluída corretamente.
             if ($folder->delete()) {
                 return redirect()->back()->with([
-                    'status'        => true,
-                    'message'       => "Ano excluído com sucesso.",
-                    'type'          => 'Success',
+                    'status' => true,
+                    'message' => "Ano excluído com sucesso.",
+                    'type' => 'Success',
                 ]);
             }
 
             throw new TransparencyException('Erro na exclusão do ano ou ele não existe.', 1300);
         } catch (TransparencyException $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         } catch (Exception $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         }
     }
@@ -466,7 +468,7 @@ class TransparencyController extends Controller
     {
         try {
             // Recuperando pasta sessão para exclusão.
-            $folder                 = TransparencyFolders::where('id', $folderSession)->first();
+            $folder = TransparencyFolders::where('id', $folderSession)->first();
 
             // Verifica se a pasta existe.
             if (!$folder) {
@@ -474,7 +476,7 @@ class TransparencyController extends Controller
             }
 
             // Recuperando arquivos da sessão.
-            $files                  = Transparency::where('cod_transparency_folders_fk', $folderSession)->get();
+            $files = Transparency::where('cod_transparency_folders_fk', $folderSession)->get();
 
             // Validando se existe um ou mais arquivos dentro da sessão.
             if (count($files) >= 1) {
@@ -484,24 +486,24 @@ class TransparencyController extends Controller
             // Verifica se a pasta foi excluída corretamente.
             if ($folder->delete()) {
                 return redirect()->back()->with([
-                    'status'        => true,
-                    'message'       => "Sessão excluída com sucesso.",
-                    'type'          => 'Success',
+                    'status' => true,
+                    'message' => "Sessão excluída com sucesso.",
+                    'type' => 'Success',
                 ]);
             }
 
             throw new TransparencyException('Erro na exclusão da sessão ou ela não existe.', 1202);
         } catch (TransparencyException $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         } catch (Exception $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         }
     }
@@ -518,7 +520,7 @@ class TransparencyController extends Controller
     {
         try {
             // Recuperando pasta para receber o arquivo.
-            $file               = Transparency::where('id', $fileId)->first();
+            $file = Transparency::where('id', $fileId)->first();
 
             // Verifica se a pasta existe.
             if (!$file) {
@@ -535,24 +537,24 @@ class TransparencyController extends Controller
                 }
 
                 return redirect()->back()->with([
-                    'status'        => true,
-                    'message'       => "Documento excluído com sucesso.",
-                    'type'          => 'Success',
+                    'status' => true,
+                    'message' => "Documento excluído com sucesso.",
+                    'type' => 'Success',
                 ]);
             }
 
             throw new TransparencyException('Documento não pode ser excluído ou não existe.', 1108);
         } catch (TransparencyException $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         } catch (Exception $error) {
             return redirect()->back()->with([
-                'status'        => false,
-                'message'       => $error->getMessage(),
-                'type'          => 'Error',
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
             ]);
         }
     }

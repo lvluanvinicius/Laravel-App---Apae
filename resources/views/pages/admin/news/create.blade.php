@@ -1,6 +1,6 @@
 <x-admin.app-default app_title="" page_title="{{ $title }}">
     @section('content')
-        <div class="mx-8 mt-4">
+        <div class="mx-2 mt-4 md:mx-8">
 
             <div class="mb-4 bg-apae-white p-6 text-apae-gray-dark shadow-md dark:bg-apae-gray-dark dark:text-apae-white">
                 <form action="{{ route('admin.news.store') }}" method="POST" enctype="multipart/form-data"

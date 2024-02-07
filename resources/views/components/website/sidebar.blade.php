@@ -8,7 +8,7 @@
     </div>
     <div class="flex w-full justify-center py-2 text-center">
         <a href="{{ route('home') }}" class="flex w-[80%] items-center justify-center">
-            <img src="{{ Vite::appImages('logo-branca.webp') }}" alt="Logo Apae Chavantes" class="w-full" />
+            <img src="{{ asset('images/app/logo-branca.webp') }}" alt="Logo Apae Chavantes" class="w-full" />
         </a>
     </div>
     <div class="mb-2 flex flex-col items-center gap-2 border-b border-apae-white/30 pb-2">

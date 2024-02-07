@@ -10,7 +10,7 @@
             @foreach ($partners_data as $partner)
                 <div class="flex h-[200] w-[140px] flex-col justify-start">
                     <div class="flex h-[100px] w-[100%] items-center justify-center p-4">
-                        <img class="w-[100%]" src="{{ Vite::partnersImages($partner->partner_image) }}"
+                        <img class="w-[100%]" src="{{ asset('images/partners/' . $partner->partner_image) }}"
                             alt="{{ $partner->partner_name }}">
                     </div>
                 </div>

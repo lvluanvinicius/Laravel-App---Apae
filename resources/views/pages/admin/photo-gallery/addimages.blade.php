@@ -5,23 +5,26 @@
     @endsection
 
     @section('content')
-    <div class="mx-8 mt-4 mb-10">
-        <div class="bg-apae-white dark:bg-apae-gray-dark dark:text-apae-white shadow-xl rounded px-6 py-4">
-            <form action="/file-upload" class="dropzone p-6 border border-dashed cursor-pointer text-center border-apae-white/30 bg-apae-gray/10" id="dropzone-gallery" >
-            </form>
-            <div class="flex flex-wrap mt-4 gap-4">
-                <a href="{{ route('admin.photos-gallery.view-gallery', ['galleryId' => request('galleryId')]) }}"
-                    class="float-right px-6 shadow-md bg-apae-green dark:bg-apae-gray text-apae-white rounded-sm">Voltar</a>
+        <div class="mx-8 mb-10 mt-4">
+            <div class="rounded bg-apae-white px-6 py-4 shadow-xl dark:bg-apae-gray-dark dark:text-apae-white">
+                <form action="/file-upload"
+                    class="dropzone cursor-pointer border border-dashed border-apae-white/30 bg-apae-gray/10 p-6 text-center"
+                    id="dropzone-gallery">
+                </form>
+                <div class="mt-4 flex flex-wrap gap-4">
+                    <a href="{{ route('admin.photos-gallery.view-gallery', ['galleryId' => request('galleryId')]) }}"
+                        class="float-right rounded-sm bg-apae-green px-6 text-apae-white shadow-md dark:bg-apae-gray">Voltar</a>
+                </div>
             </div>
+
         </div>
-        
-    </div>
     @endsection
 
     @section('js-content')
         <script>
             // Recuperando rota para salvar o arquivo.
-            const fileRouteSave = `{{ route('admin.photos-gallery.create-new-file-image', ['galleryId' => request('galleryId')]) }}`;
+            const fileRouteSave =
+                `{{ route('admin.photos-gallery.create-new-file-image', ['galleryId' => request('galleryId')]) }}`;
 
             const gallery = new Dropzone('#dropzone-gallery', {
                 url: fileRouteSave,

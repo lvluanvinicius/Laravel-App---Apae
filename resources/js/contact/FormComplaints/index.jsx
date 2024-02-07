@@ -7,7 +7,7 @@ export function FormComplaints() {
     );
 
     return (
-        <div className="apae-container h-[100vh] mb-10 bg-apae-white shadow-md shadow-apae-gray/40 rounded-md px-6 py-10 grid grid-cols-2 gap-4">
+        <div className="apae-container h-[100%] md:h-[100vh] mb-10 bg-apae-white shadow-md shadow-apae-gray/40 rounded-md px-6 py-10 grid grid-cols-2 gap-4">
             <FormContent />
             <aside className="col-span-2 md:col-span-1 flex flex-col gap-4">
                 <div className="w-full">

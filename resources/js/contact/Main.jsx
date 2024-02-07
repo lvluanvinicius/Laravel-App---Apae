@@ -6,6 +6,7 @@ import { FormComplaints } from "./FormComplaints";
 
 const ContactContainer = styled.div`
     width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,6 +15,7 @@ const ContactContainer = styled.div`
 
 const ContactSelector = styled.div`
     width: 80%;
+    height: 100%;
     display: flex;
     gap: 1rem;
     padding-left: 1rem;
@@ -24,6 +26,13 @@ const ContactSelector = styled.div`
         padding: 0.6rem 2rem;
         font-size: 1rem;
         font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+        button {
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+        }
     }
 `;
 

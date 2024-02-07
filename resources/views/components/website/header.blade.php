@@ -2,7 +2,7 @@
 
     <div class="apae-container flex h-full justify-between">
         <a href="{{ route('home') }}" class="flex w-32 items-center lg:w-[12rem]">
-            <img src="{{ Vite::appImages('logo-preta.webp') }}" alt="Logo Apae Chavantes" class="w-full" />
+            <img src="{{ asset('images/app/logo-preta.webp') }}" alt="Logo Apae Chavantes" class="w-full" />
         </a>
 
         <div class="hidden h-full w-full items-center justify-between font-[Roboto] lg:flex">

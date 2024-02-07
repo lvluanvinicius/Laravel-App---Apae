@@ -1,28 +1,29 @@
 <x-admin.app-default app_title="" page_title="{{ $title }}">
     @section('content')
-        <div class="mx-8 mt-4">
-            <div class="grid grid-cols-12 w-full">
+        <div class="mx-2 mt-4 md:mx-8">
+            <div class="grid w-full grid-cols-12">
 
                 <div class="col-span-12">
                     <div class="px-5">
                         <a href="{{ route('admin.partners.create') }}"
-                            class="px-6 py-1 shadow-md bg-apae-green dark:bg-apae-gray-dark text-apae-white rounded-sm">
+                            class="rounded-sm bg-apae-green px-6 py-1 text-apae-white shadow-md dark:bg-apae-gray-dark">
                             Novo Parceiro
                         </a>
                     </div>
                 </div>
 
-                @foreach($partners as $partner)
-                    
-                    <div class="col-span-12 md:col-span-3 p-6">                        
+                @foreach ($partners as $partner)
+                    <div class="col-span-12 p-6 md:col-span-3">
                         <a href="{{ route('admin.partners.show', ['partnerID' => $partner->id]) }}">
-                            <div class="bg-apae-gray-dark h-56 relative">
-                                <img src="{{ Vite::partnersImages($partner->partner_image) }}" alt="" class="w-full h-full opacity-90">
-                                <div class="absolute text-apae-white bg-apae-gray-dark/50 w-full bottom-0 left-0 text-center py-4">
+                            <div class="relative h-56 bg-apae-gray-dark">
+                                <img src="{{ asset('images/partners/' . $partner->partner_image) }}" alt=""
+                                    class="h-full w-full opacity-90">
+                                <div
+                                    class="absolute bottom-0 left-0 w-full bg-apae-gray-dark/50 py-4 text-center text-apae-white">
                                     {{ $partner->partner_name }}
                                 </div>
-                            </div> 
-                        </a>                       
+                            </div>
+                        </a>
                     </div>
                 @endforeach
 

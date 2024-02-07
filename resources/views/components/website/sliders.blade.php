@@ -1,9 +1,9 @@
 @if (count($sliders) !== 0)
-    <section class="swiper mySwiper md:h-[calc(100vh-4vh-7rem)] bg-apae-teal h-[25vh]">
+    <section class="swiper mySwiper h-[25vh] bg-apae-teal md:h-[calc(100vh-4vh-7rem)]">
         <div class="swiper-wrapper">
             @foreach ($sliders as $slider)
                 <div class="swiper-slide">
-                    <img src="{{ Vite::slidersImages($slider->sliders_image) }}"
+                    <img src="{{ asset('images/sliders/' . $slider->sliders_image) }}"
                         alt="Slide Imagem {{ explode('-', $slider->sliders_hash)[0] }}" class="h-full w-full">
                 </div>
             @endforeach

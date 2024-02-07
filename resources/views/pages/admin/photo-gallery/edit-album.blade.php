@@ -1,7 +1,7 @@
 <x-admin.app-default app_title="" page_title="{{ $title }}">
     @section('content')
-        <div class="mx-8 mt-4 mb-10">
-            <div class="dark:bg-apae-gray-dark dark:text-apae-white text-apae-gray-dark bg-apae-white shadow-md p-6">
+        <div class="mx-8 mb-10 mt-4">
+            <div class="bg-apae-white p-6 text-apae-gray-dark shadow-md dark:bg-apae-gray-dark dark:text-apae-white">
                 <form action="{{ route('admin.photos-gallery.update-album', ['galleryId' => $gallery->id]) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
@@ -9,37 +9,37 @@
                     <div class="flex flex-wrap">
                         <label for="gallery_name" class="">Nome do Album: </label>
                         <input type="text" name="gallery_name" id="gallery_name"
-                            class="bg-apae-gray/10 px-2 py-1 w-full !border-none !outline-none"
+                            class="w-full !border-none bg-apae-gray/10 px-2 py-1 !outline-none"
                             value="{{ old('gallery_name') ? old('gallery_name') : $gallery->gallery_name }}">
                     </div>
 
                     <div class="flex flex-wrap py-6">
                         <label for="gallery_cover"
-                            class="border p-4 w-full border-dashed text-center text-apae-gray/80 cursor-pointer">Selecione a
+                            class="w-full cursor-pointer border border-dashed p-4 text-center text-apae-gray/80">Selecione a
                             Capa</label>
                         <input type="file" id="gallery_cover" name="gallery_cover" class="hidden"
                             value="{{ old('gallery_cover') }}">
                     </div>
 
-                    <div class="flex flex-wrap ">
-                        <img src="{{ Vite::galleryImages($gallery->gallery_image) }}" alt="" id="preview-image"
-                            class="h-52">
+                    <div class="flex flex-wrap">
+                        <img src="{{ asset('images/photo-galery/' . $gallery->gallery_image) }}" alt=""
+                            id="preview-image" class="h-52">
                     </div>
 
                     <div class="flex flex-wrap pt-6">
                         <label for="gallery_description" class="">Descrição: </label>
                         <textarea name="gallery_description" id="gallery_description"
-                            class="bg-apae-gray/10 px-2 py-1 w-full !border-none !outline-none" rows="10" cols="10">
+                            class="w-full !border-none bg-apae-gray/10 px-2 py-1 !outline-none" rows="10" cols="10">
                         </textarea>
                     </div>
 
-                    <div class="flex flex-wrap py-3 gap-4">
+                    <div class="flex flex-wrap gap-4 py-3">
                         <button
-                            class="float-right px-6 shadow-md bg-apae-green dark:bg-apae-gray text-apae-white rounded-sm">
+                            class="float-right rounded-sm bg-apae-green px-6 text-apae-white shadow-md dark:bg-apae-gray">
                             Salvar
                         </button>
-                        <a href="{{ route('admin.photos-gallery.view-gallery', ['galleryId' => $gallery->id ]) }}"
-                            class="float-right px-6 shadow-md bg-apae-green dark:bg-apae-gray text-apae-white rounded-sm">
+                        <a href="{{ route('admin.photos-gallery.view-gallery', ['galleryId' => $gallery->id]) }}"
+                            class="float-right rounded-sm bg-apae-green px-6 text-apae-white shadow-md dark:bg-apae-gray">
                             Cancelar
                         </a>
                     </div>
