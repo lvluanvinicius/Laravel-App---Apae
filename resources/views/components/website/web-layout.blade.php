@@ -22,7 +22,9 @@
     <meta name="author" content="Luan Vinícius Paiva dos Santos">
     <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" />
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css"
         integrity="sha512-O03ntXoVqaGUTAeAmvQ2YSzkCvclZEcPQu1eqloPaHfJ5RuNGiS4l+3duaidD801P50J28EHyonCV06CUlTSag=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -40,7 +42,7 @@
 </head>
 
 <body class="relative">
-    <x-website.search-website/>
+    <x-website.search-website />
     <div>
         <x-website.card-donate-now />
         <x-website.sidebar />
@@ -53,6 +55,10 @@
 
         <x-website.footer />
         <x-website.copy-right />
+
+        <div class="fixed bottom-4 left-4 md:hidden">
+            <x-website.donate-now />
+        </div>
     </div>
 
 

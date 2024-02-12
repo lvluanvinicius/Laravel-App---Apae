@@ -81,3 +81,31 @@ export async function getPhotosFiles(galleryId) {
 
     return register;
 }
+
+export async function searchLinks(query = null) {
+    const register = await api
+        .get("website/search-links", {
+            params: query ? query : null,
+        })
+        .then(function (response) {
+            if (
+                response.status &&
+                response.status === 200 &&
+                response.statusText === "OK"
+            ) {
+                return response.data;
+            }
+
+            throw new Error(
+                "A comunicação com o servidor não foi bem sucedida. Por favor, tente novamente mais tarde."
+            );
+        })
+        .catch((error) => {
+            alert(
+                "Houve um erro interno ao tentar salvar seu contato. Tente novamente mais tarde."
+            );
+            console.error(error);
+        });
+
+    return register;
+}

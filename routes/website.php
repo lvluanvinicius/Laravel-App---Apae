@@ -17,6 +17,7 @@ Route::prefix("galeria")->as("photo-gallery.")->group(function () {
 });
 
 Route::get('contato', [ContactController::class, 'index'])->name('contact.index');
+Route::get('ouvidoria', [ContactController::class, 'ombudsman'])->name('ombudsman.index');
 
 Route::prefix("apae")->as("apae.")->group(function () {
     Route::get('institucional', [AApaeController::class, 'institutional'])->name('institutional');

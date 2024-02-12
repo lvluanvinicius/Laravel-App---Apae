@@ -34,11 +34,11 @@ Route::post('/login', [AuthController::class, 'loginDo'])->name('login-do');
 
 
 // Web Cliente.
-Route::prefix('meu-espaco')->as('client.')->middleware('auth:client')->group(function () {
-    Route::get('', function () {
-        return 'bem vindo cliente';
-    })->name('index');
-});
+// Route::prefix('meu-espaco')->as('client.')->middleware('auth:client')->group(function () {
+//     Route::get('', function () {
+//         return 'bem vindo cliente';
+//     })->name('index');
+// });
 
 // Web Admin.
 Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () {
@@ -139,11 +139,14 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
     Route::put('ui-theme', [SettingsController::class, 'iThemes'])->name('iThemes');
 });
 
-Route::get('email', function () {
-    return view('components.mails.complaints', [
-        'data' => [
-            'subject' => 'Assunto da denúncia',
-            'message' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laborum corrupti alias quam itaque quidem, cupiditate natus exercitationem dolores labore inventore, ullam voluptatem odio quaerat minus! Quae voluptatibus sit ab ut!',
-        ]
-    ]);
-})->name('email');
+// Route::get('email', function () {
+//     return view('components.mails.complaints', [
+//         'data' => [
+//             "name" => "",
+//             "email" => "meuemail@teste.com",
+//             "tel" => "",
+//             'subject' => 'Assunto da denúncia',
+//             'message' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laborum corrupti alias quam itaque quidem, cupiditate natus exercitationem dolores labore inventore, ullam voluptatem odio quaerat minus! Quae voluptatibus sit ab ut!',
+//         ]
+//     ]);
+// })->name('email');

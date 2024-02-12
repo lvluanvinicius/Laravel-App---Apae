@@ -1,5 +1,3 @@
-import "./components/Example";
-
 let menu = document.querySelectorAll(".class-toggle-sidebar");
 for (let m of menu) {
     if (m)

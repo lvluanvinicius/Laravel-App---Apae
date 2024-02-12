@@ -6,12 +6,22 @@ use App\Exceptions\AuthException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function loginDo(AuthRequest $request)
+    use \App\Traits\AppResponse;
+
+
+    /**
+     * Efetua a autenticação do usuário dentro do painel.
+     *
+     * @author Luan Santos <lvluansantos@gmail.com>
+     *
+     * @param AuthRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function loginDo(AuthRequest $request): \Illuminate\Http\RedirectResponse
     {
         try {
             // Recupernado usuário.
@@ -41,7 +51,7 @@ class AuthController extends Controller
 
             throw new AuthException('Usuário ou senha estão incorretos.');
         } catch (AuthException $error) {
-            return response()->json([$error->getMessage()]);
+            return $this->redirectError($error->getMessage(), 200, []);
         }
     }
 }

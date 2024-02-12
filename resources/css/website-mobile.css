@@ -1,7 +1,7 @@
 /* // Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
     .apae-text-formatter {
-        font-size: .8rem !important;
+        font-size: 0.8rem !important;
     }
 
     .apae-direction-list {
@@ -13,6 +13,9 @@
         width: 90% !important;
     }
 
+    .search-website-main .search-website-content {
+        height: 100% !important;
+    }
 }
 
 /* // Small devices (landscape phones, 576px and up) */
@@ -24,6 +27,10 @@
 
     .apae-container {
         width: 90% !important;
+    }
+
+    .search-website-main .search-website-content {
+        height: 100% !important;
     }
 }
 
@@ -37,7 +44,6 @@
     .apae-container {
         width: 90% !important;
     }
-
 }
 
 /* // Large devices (desktops, 992px and up) */
@@ -50,8 +56,8 @@
     .apae-container {
         width: 90% !important;
     }
-
 }
 
 /* // Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+}

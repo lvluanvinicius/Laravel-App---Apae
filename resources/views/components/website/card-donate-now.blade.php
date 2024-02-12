@@ -1,6 +1,7 @@
 <div class="fixed z-[99999] flex hidden h-[100%] w-[100%] items-center justify-center bg-apae-gray-dark/30"
     data-card-donate="donatenow">
-    <div class="relative h-[30rem] w-[60%] bg-apae-cyan shadow-lg shadow-apae-dark md:w-[40%] lg:w-[28%]">
+    <div
+        class="relative h-[400px] w-[350px] bg-apae-cyan shadow-lg shadow-apae-dark sm:h-[430px] sm:w-[400px] md:h-[480px] md:w-[500px] lg:h-[600px] lg:w-[600px]">
 
         <img src="{{ asset('images/qrcode/cover/sendThumb.jpeg') }}" alt=""
             class="h-full w-full object-cover opacity-90">

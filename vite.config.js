@@ -7,7 +7,6 @@ export default defineConfig({
         laravel({
             input: [
                 "resources/js/photo-gallery/photo-gallery.js",
-                "resources/js/contact/contact.js",
                 "resources/css/mails/complaints.css",
                 "resources/css/app.css",
                 "resources/css/website.css",

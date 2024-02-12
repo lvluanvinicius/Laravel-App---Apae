@@ -14,8 +14,10 @@
     <div class="mb-2 flex flex-col items-center gap-2 border-b border-apae-white/30 pb-2">
         <x-website.donate-now />
 
-        <a href="{{ route('login') }}"
-            class="flex h-[2rem] w-[10rem] items-center justify-center rounded-md bg-apae-teal text-apae-white">Entrar</a>
+        <div class="w-full px-4">
+            <input type="text" placeholder="Pesquisar"
+                class="input-search-website h-[30px] w-full rounded-md text-apae-dark">
+        </div>
     </div>
     <div class="h-full w-full">
         <ul class="content-sidebar h-[65%] w-full overflow-y-auto pb-6 text-apae-white">

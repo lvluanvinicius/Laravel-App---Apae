@@ -38,12 +38,12 @@ export function FormContent() {
     return (
         <form
             onSubmit={handleSubmit(createContact)}
-            className="flex flex-col col-span-2 md:col-span-1"
+            className="flex flex-col col-span-2 md:col-span-1 gap-4"
         >
             <FormGroup>
                 <div className="label">
                     <i className="ph-bold ph-identification-badge"></i>
-                    <label htmlFor="name">Nome</label>
+                    <label htmlFor="name">Nome (Opcional)</label>
                 </div>
                 <input
                     type="text"
@@ -57,7 +57,7 @@ export function FormContent() {
                 <div className="label">
                     <i className="ph-bold text-[1.1rem] opacity-70 ph-at"></i>
                     <label className="opacity-70" htmlFor="email">
-                        E-mail
+                        E-mail (Opcional)
                     </label>
                 </div>
                 <input
@@ -73,7 +73,7 @@ export function FormContent() {
                 <div className="label">
                     <i className="ph-bold ph-phone"></i>
                     <label className="opacity-70" htmlFor="tel">
-                        Telefone
+                        Telefone (Opcional)
                     </label>
                 </div>
                 <input
@@ -88,7 +88,7 @@ export function FormContent() {
                 <div className="label">
                     <i className="ph-bold ph-pencil-simple-line"></i>
                     <label className="opacity-70" htmlFor="subject">
-                        Assunto
+                        Assunto <strong>*</strong>
                     </label>
                 </div>
                 <input
@@ -108,7 +108,7 @@ export function FormContent() {
                 <div className="label description">
                     <i className="ph-bold ph-chat-text"></i>
                     <label className="opacity-70" htmlFor="message">
-                        Mensagem
+                        Mensagem <strong>*</strong>
                     </label>
                 </div>
                 <textarea

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Website\ComplaintsController;
 use App\Http\Controllers\Api\Website\ContactController;
+use App\Http\Controllers\Api\Website\LuxeSearchController;
 use App\Http\Controllers\Api\Website\PhotoGalleryController;
 
 use Illuminate\Support\Facades\Route;
@@ -46,4 +47,7 @@ Route::prefix('website')->as('website.')->group(function () {
         Route::post('', [ContactController::class, 'store'])->name('store');
         Route::post('complaints', [ComplaintsController::class, 'complaints'])->name('complaints');
     });
+
+    Route::get('search-links', [LuxeSearchController::class, 'index'])->name('index');
+
 });

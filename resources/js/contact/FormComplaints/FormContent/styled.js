@@ -21,7 +21,6 @@ export const FormGroup = styled.div`
     display: flex;
     flex-wrap: wrap;
     position: relative;
-    margin-top: 1rem;
 
     .label {
         display: flex;
@@ -32,6 +31,14 @@ export const FormGroup = styled.div`
         z-index: 0;
         opacity: 0.7;
         padding-left: 0.5rem;
+
+        label {
+            font-size: 0.9rem;
+
+            strong {
+                color: red;
+            }
+        }
     }
 
     input {

@@ -3,17 +3,20 @@
 @tailwind utilities;
 
 * {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0;
-    transition: all .4s;
+    transition: all 0.4s;
 }
 
 body {
     position: relative;
 }
 
-input,textarea,select,button {
+input,
+textarea,
+select,
+button {
     outline: 0;
     border: 0;
 }
@@ -35,7 +38,7 @@ input,textarea,select,button {
     overflow: auto;
     flex: 1;
 
-    font-size: .9rem!important;
+    font-size: 0.9rem !important;
     margin-top: 1rem;
 }
 
@@ -54,7 +57,6 @@ input,textarea,select,button {
     padding: 0.5rem;
 }
 
-
 .table-apae tbody tr {
     border-bottom: 1px solid;
 }
@@ -63,27 +65,29 @@ input,textarea,select,button {
     padding: 0.5rem;
 }
 
-
-
 .select2-container {
-	@apply relative box-border align-middle inline-block m-0 mb-2 ;
+    @apply relative box-border align-middle inline-block m-0 mb-2;
 }
 
 .select2-container .select2-selection--single {
     @apply box-border border-0 cursor-pointer !text-apae-dark dark:!text-apae-white !bg-apae-white dark:!bg-apae-dark;
 }
 .select2-container .select2-selection--single .select2-selection__rendered {
-    @apply w-full rounded-[4px] !border-none bg-apae-gray/10 px-2 py-1 !outline-none !text-apae-dark dark:!text-apae-white ;
+    @apply w-full rounded-[4px] !border-none bg-apae-gray/10 px-2 py-1 !outline-none !text-apae-dark dark:!text-apae-white;
 }
 .select2-container .select2-selection--single .select2-selection__clear {
-    @apply relative -m-1 ;
+    @apply relative -m-1;
 }
 .select2-container .select2-selection--single .select2-selection__rendered {
     @apply dark:bg-apae-dark !text-apae-dark dark:!text-apae-white;
 }
 .select2-dropdown {
- 	@apply dark:bg-apae-dark !text-apae-dark dark:!text-apae-white;
+    @apply dark:bg-apae-dark !text-apae-dark dark:!text-apae-white;
 }
 .select2-results {
-	@apply block text-black dark:text-gray-300;
+    @apply block text-black dark:text-gray-300;
+}
+
+.apae-table {
+    width: 100%;
 }
