@@ -13,11 +13,11 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
+    use \App\Traits\AppResponse;
+
     /**
      * Guarda o modelo de Noticias/Posts.
      *
@@ -39,28 +39,21 @@ class NewsController extends Controller
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return View
      */
-    public function index(): View
+    public function index(): View | \Illuminate\Http\RedirectResponse
     {
         try {
             // Recuperando notícias.
             $news = $this->news->get();
 
             return view("pages.admin.news.index")->with([
-                'title'             => 'Notícias',
-                'news'              => $news,
+                'title' => 'Notícias',
+                'news' => $news,
             ]);
         } catch (NewsException $error) {
-            return redirect()->back()->with([
-                'status' => false,
-                'message' => $error->getMessage(),
-                'type' => 'Error',
-            ])->withInput();
+            return $this->redirectError($error->getMessage(), \Illuminate\Http\Response::HTTP_OK);
         } catch (Exception $error) {
-            return redirect()->back()->with([
-                'status' => false,
-                'message' => $error->getMessage(),
-                'type' => 'Error',
-            ])->withInput();
+            return $this->redirectError($error->getMessage(), \Illuminate\Http\Response::HTTP_BAD_REQUEST);
+
         }
     }
 
@@ -70,27 +63,42 @@ class NewsController extends Controller
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return View|RedirectResponse
      */
-    public function create(): View|RedirectResponse
+    public function create(): View | RedirectResponse
     {
         try {
             $categories = Category::get();
 
             return view("pages.admin.news.create")->with([
-                'title'             => 'Nova Publicação',
-                'categories'        => $categories,
+                'title' => 'Nova Publicação',
+                'categories' => $categories,
             ]);
         } catch (NewsException $error) {
-            return redirect()->back()->with([
-                'status' => false,
-                'message' => $error->getMessage(),
-                'type' => 'Error',
-            ])->withInput();
+            return $this->redirectError($error->getMessage(), \Illuminate\Http\Response::HTTP_OK);
         } catch (Exception $error) {
-            return redirect()->back()->with([
-                'status' => false,
-                'message' => $error->getMessage(),
-                'type' => 'Error',
-            ])->withInput();
+            return $this->redirectError($error->getMessage(), \Illuminate\Http\Response::HTTP_BAD_REQUEST);
+
+        }
+    }
+
+    /**
+     * Retorna display de edição de post.
+     *
+     * @author Luan Santos <lvluansantos@gmail.com>
+     *
+     * @param string $newsId
+     * @return View | RedirectResponse
+     */
+    public function edit(string $newsId): View | RedirectResponse
+    {
+        try {
+            return view("pages.admin.news.edit")->with([
+                'title' => 'Editar Publicação',
+            ]);
+        } catch (NewsException $error) {
+            return $this->redirectError($error->getMessage(), \Illuminate\Http\Response::HTTP_OK);
+        } catch (Exception $error) {
+            return $this->redirectError($error->getMessage(), \Illuminate\Http\Response::HTTP_BAD_REQUEST);
+
         }
     }
 
@@ -98,7 +106,7 @@ class NewsController extends Controller
      * Cria um novo post.
      *
      * @param NewsRequest $request
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return RedirectResponse
      */
@@ -109,7 +117,9 @@ class NewsController extends Controller
             $category = Category::where('id', $request->cod_category_fk)->first();
 
             // Valida se a categoria existe.
-            if (!$category) throw new NewsException('Categoria informada não existe.');
+            if (!$category) {
+                throw new NewsException('Categoria informada não existe.');
+            }
 
             // Recuperando dados da requisição.
             $requestData = $request->only([
@@ -118,7 +128,7 @@ class NewsController extends Controller
                 "news_post_content",
                 "news_post_slug",
                 "news_post_summary",
-                "news_post_tags"
+                "news_post_tags",
             ]);
 
             dd('teste');
@@ -137,25 +147,18 @@ class NewsController extends Controller
             // Validando criação.
             if ($post) {
                 return redirect()->route('admin.news.index')->with([
-                    'status'        => true,
-                    'message'       => "Post criado com sucesso.",
-                    'type'          => 'Success',
+                    'status' => true,
+                    'message' => "Post criado com sucesso.",
+                    'type' => 'Success',
                 ]);
             }
 
             throw new NewsException('Post não pode ser criado. Por favor, tente novamente.');
         } catch (NewsException $error) {
-            return redirect()->back()->with([
-                'status' => false,
-                'message' => $error->getMessage(),
-                'type' => 'Error',
-            ])->withInput();
+            return $this->redirectError($error->getMessage(), \Illuminate\Http\Response::HTTP_OK);
         } catch (Exception $error) {
-            return redirect()->back()->with([
-                'status' => false,
-                'message' => $error->getMessage(),
-                'type' => 'Error',
-            ])->withInput();
+            return $this->redirectError($error->getMessage(), \Illuminate\Http\Response::HTTP_BAD_REQUEST);
+
         }
     }
 
@@ -163,42 +166,46 @@ class NewsController extends Controller
      * Exibe o display de edição.
      *
      * @param string $newsId
-     * 
+     *
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return View|RedirectResponse
      */
-    public function edit(string $newsId): View|RedirectResponse
-    {
-        try {
-            // Recuperando notícia. 
-            $news = $this->news->where('id', $newsId)->first();
+    // public function edit(string $newsId): View | RedirectResponse
+    // {
+    //     try {
+    //         // Recuperando notícia.
+    //         $news = $this->news->where('id', $newsId)->first();
 
-            // Valida se existe.
-            if (!$news) throw new NewsException('Notícia não encontrada para edição.');
+    //         // Valida se existe.
+    //         if (!$news) {
+    //             throw new NewsException('Notícia não encontrada para edição.');
+    //         }
 
-            // Recupera todas as categorias.
-            $categories = Category::get();
+    //         // Recupera todas as categorias.
+    //         $categories = Category::get();
 
-            return view("pages.admin.news.edit")->with([
-                'title'             => 'Nova Publicação',
-                'categories'        => $categories,
-                'news'              => $news,
-            ]);
-        } catch (NewsException $error) {
-            return redirect()->back()->with([
-                'status' => false,
-                'message' => $error->getMessage(),
-                'type' => 'Error',
-            ])->withInput();
-        } catch (Exception $error) {
-            return redirect()->back()->with([
-                'status' => false,
-                'message' => $error->getMessage(),
-                'type' => 'Error',
-            ])->withInput();
-        }
-    }
+    //         return view("pages.admin.news.edit")->with([
+    //             'title' => 'Nova Publicação',
+    //             'categories' => $categories,
+    //             'news' => $news,
+    //         ]);
+    //     } catch (NewsException $error) {
+    //         return $this->redirectError($error->getMessage(), \Illuminate\Http\Response::HTTP_OK);
+    //     } catch (Exception $error) {
+    //         return $this->redirectError($error->getMessage(), \Illuminate\Http\Response::HTTP_BAD_REQUEST);
 
+    //     }
+    // }
+
+    /**
+     * Atualiza uma notícia.
+     *
+     * @author Luan Santos <lvluansantos@gmail.com>
+     *
+     * @param NewsUpdateRequest $request
+     * @param string $newsId
+     * @return RedirectResponse
+     */
     public function update(NewsUpdateRequest $request, string $newsId): RedirectResponse
     {
 
@@ -206,12 +213,16 @@ class NewsController extends Controller
             // Recuperando categoria.
             $category = Category::where('id', $request->cod_category_fk)->first();
             // Valida se a categoria existe.
-            if (!$category) throw new NewsException('Categoria informada não existe.');
+            if (!$category) {
+                throw new NewsException('Categoria informada não existe.');
+            }
 
-            // Recuperando notícia. 
+            // Recuperando notícia.
             $news = $this->news->where('id', $newsId)->first();
             // Valida se existe.
-            if (!$news) throw new NewsException('Notícia não encontrada para edição.');
+            if (!$news) {
+                throw new NewsException('Notícia não encontrada para edição.');
+            }
 
             // Recuperando dados da requisição.
             $requestData = $request->only([
@@ -220,13 +231,15 @@ class NewsController extends Controller
                 "news_post_content",
                 "news_post_slug",
                 "news_post_summary",
-                "news_post_tags"
+                "news_post_tags",
             ]);
 
             // Validando slug
             $newsslug = $this->news->where('news_post_slug', $requestData['news_post_slug'])->where('id', '!=', $newsId)->first();
             // Valida se existe.
-            if (!$newsslug) throw new NewsException('Esse slug já está em uso em outra notícia.');
+            if (!$newsslug) {
+                throw new NewsException('Esse slug já está em uso em outra notícia.');
+            }
 
             // Inserindo ID de usuário.
             $requestData['cod_user_fk'] = auth()->user()->id;
@@ -242,25 +255,18 @@ class NewsController extends Controller
             // Validando criação.
             if ($post) {
                 return redirect()->route('admin.news.index')->with([
-                    'status'        => true,
-                    'message'       => "Post atualizado com sucesso.",
-                    'type'          => 'Success',
+                    'status' => true,
+                    'message' => "Post atualizado com sucesso.",
+                    'type' => 'Success',
                 ]);
             }
 
             throw new NewsException('Post não pode ser criado. Por favor, tente novamente.');
         } catch (NewsException $error) {
-            return redirect()->back()->with([
-                'status' => false,
-                'message' => $error->getMessage(),
-                'type' => 'Error',
-            ])->withInput();
+            return $this->redirectError($error->getMessage(), \Illuminate\Http\Response::HTTP_OK);
         } catch (Exception $error) {
-            return redirect()->back()->with([
-                'status' => false,
-                'message' => $error->getMessage(),
-                'type' => 'Error',
-            ])->withInput();
+            return $this->redirectError($error->getMessage(), \Illuminate\Http\Response::HTTP_BAD_REQUEST);
+
         }
     }
 }

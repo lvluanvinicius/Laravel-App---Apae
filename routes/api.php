@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\Blog\PostsController;
 use App\Http\Controllers\Api\Website\ComplaintsController;
 use App\Http\Controllers\Api\Website\ContactController;
 use App\Http\Controllers\Api\Website\LuxeSearchController;
 use App\Http\Controllers\Api\Website\PhotoGalleryController;
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,28 +16,27 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "api" middleware group. Make something great!
 |
-*/
+ */
 
 Route::prefix('website')->as('website.')->group(function () {
-    Route::get('test', function () {
-        return serialize([
-            "email" => "lvluansantos@gmail.com",
-            "subject" => "Nova denúncia de " . env('APP_NAME'),
-            "mail_settings" => [
-                "MAIL_HOST" => "mail.grupocednet.com.br",
-                "MAIL_PORT" => 587,
-                "MAIL_USERNAME" => "luan@grupocednet.com.br",
-                "MAIL_PASSWORD" => "luan@16645266",
-                "MAIL_ENCRYPTION" => "ssl",
-                "MAIL_EHLO_DOMAIN" => null,
-                "MAIL_TIMEOUT" => null,
-                "URL" => "",
-                "TRANSPORT" => "smtp",
-                "MAIL_MAILER" => "smtp"
-            ],
-        ]);
-    })->name('test');
-
+    // Route::get('test', function () {
+    //     return serialize([
+    //         "email" => "lvluansantos@gmail.com",
+    //         "subject" => "Nova denúncia de " . env('APP_NAME'),
+    //         "mail_settings" => [
+    //             "MAIL_HOST" => "mail.grupocednet.com.br",
+    //             "MAIL_PORT" => 587,
+    //             "MAIL_USERNAME" => "luan@grupocednet.com.br",
+    //             "MAIL_PASSWORD" => "luan@16645266",
+    //             "MAIL_ENCRYPTION" => "ssl",
+    //             "MAIL_EHLO_DOMAIN" => null,
+    //             "MAIL_TIMEOUT" => null,
+    //             "URL" => "",
+    //             "TRANSPORT" => "smtp",
+    //             "MAIL_MAILER" => "smtp"
+    //         ],
+    //     ]);
+    // })->name('test');
 
     Route::prefix('photo-gallery')->as('photo-gallery.')->group(function () {
         Route::get('{galleryId}', [PhotoGalleryController::class, 'view'])->name('view');
@@ -49,5 +48,9 @@ Route::prefix('website')->as('website.')->group(function () {
     });
 
     Route::get('search-links', [LuxeSearchController::class, 'index'])->name('index');
+});
 
+// middleware(['blog.protection'])->
+Route::prefix('blog')->as('blog.')->group(function () {
+    Route::get('', [PostsController::class, 'index'])->name('home');
 });

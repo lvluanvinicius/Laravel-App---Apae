@@ -6,13 +6,14 @@ use App\Http\Controllers\Admin\GeneralSettingsController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PartnersController;
 use App\Http\Controllers\Admin\PhotoGalleryController;
+use App\Http\Controllers\Admin\Services\NewsController as ApiServicesNewsController;
+use App\Http\Controllers\Admin\Services\PhotoGalleryController as ApiPhotoGalleryController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SlidersController;
 use App\Http\Controllers\Admin\TransparencyController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\LoginController;
-
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,10 +29,8 @@ use Illuminate\Support\Facades\Route;
 
 require_once 'website.php';
 
-
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'loginDo'])->name('login-do');
-
 
 // Web Cliente.
 // Route::prefix('meu-espaco')->as('client.')->middleware('auth:client')->group(function () {
@@ -108,6 +107,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
         Route::get('{newsId}/edit', [NewsController::class, 'edit'])->name('edit');
         Route::post('', [NewsController::class, 'store'])->name('store');
         Route::put('{newsId}', [NewsController::class, 'update'])->name('update');
+        Route::post('post-save', [ApiServicesNewsController::class, 'store'])->name('store');
 
         Route::prefix('categories')->as('categories.')->group(function () {
             Route::get('', [CategoryController::class, 'index'])->name('index');
@@ -115,6 +115,8 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
             Route::get('{categoryId}/edit', [CategoryController::class, 'edit'])->name('edit');
             Route::post('', [CategoryController::class, 'store'])->name('store');
             Route::put('{categoryId}', [CategoryController::class, 'update'])->name('update');
+
+            Route::get('data', [CategoryController::class, 'categories'])->name('categories');
         });
     });
 
@@ -135,6 +137,9 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
         });
     });
 
+    // Rotas para servir uma API interna.
+    ApiServicesRoutes();
+
     // Efetua a alteração do tema.
     Route::put('ui-theme', [SettingsController::class, 'iThemes'])->name('iThemes');
 });
@@ -150,3 +155,19 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
 //         ]
 //     ]);
 // })->name('email');
+
+function ApiServicesRoutes()
+{
+    Route::prefix('api-services')->as('api-services.')->group(function () {
+        Route::prefix('news')->as('news.')->group(function () {
+            Route::get('', [ApiServicesNewsController::class, 'index'])->name('index');
+            Route::get('{newsId}/edit', [ApiServicesNewsController::class, 'edit'])->name('index');
+            Route::put('{newsId}', [ApiServicesNewsController::class, 'update'])->name('update');
+        });
+
+        // Gerenciamento de Galeria de Fotos.
+        Route::prefix('photos-gallery')->as('photos-gallery.')->group(function () {
+            Route::get('', [ApiPhotoGalleryController::class, 'index'])->name('index');
+        });
+    });
+}

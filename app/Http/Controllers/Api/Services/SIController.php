@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Api\Services\SI;
 use App\Exceptions\SIServicesException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SIServicesCreateRequest;
-use App\Utils\ApiResponse;
-use Exception;
+use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
@@ -51,10 +50,10 @@ class SIController extends Controller
             $paginate = $request->has('paginate') ? $request->get('paginate') : 10;
 
             $services = $sIServicesRepository->getAll($search, $paginate);
-            return $this->success($services);
+            return $this->success('', $services);
         } catch (SIServicesException $error) {
             return $this->error($error->getMessage(), Response::HTTP_OK);
-        } catch (Exception $error) {
+        } catch (\Exception $error) {
             return $this->error($error->getMessage(), Response::HTTP_BAD_REQUEST);
         }
     }
@@ -75,7 +74,7 @@ class SIController extends Controller
             return $sIServicesRepository->getFile($pathFile);
         } catch (SIServicesException $error) {
             return $this->error($error->getMessage(), Response::HTTP_OK);
-        } catch (Exception $error) {
+        } catch (\Exception $error) {
             return $this->error($error->getMessage(), Response::HTTP_BAD_REQUEST);
         }
     }
@@ -167,14 +166,13 @@ class SIController extends Controller
                     \App\Repositories\SIServicesRepository::saveFile($fileData);
                 }
 
-                return $this->success([], 'Arquivos foram salvos com sucesso.');
+                return $this->success('Arquivos foram salvos com sucesso.');
             }
 
             throw new SIServicesException('Os arquivos enviados são inválidos ou vazio.');
-
         } catch (SIServicesException $error) {
             return $this->error($error->getMessage(), Response::HTTP_OK);
-        } catch (Exception $error) {
+        } catch (\Exception $error) {
             return $this->error($error->getMessage(), Response::HTTP_BAD_REQUEST);
         }
     }

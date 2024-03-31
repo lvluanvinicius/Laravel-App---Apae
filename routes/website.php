@@ -7,7 +7,6 @@ use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\TransparencyController;
 use Illuminate\Support\Facades\Route;
 
-
 // Website Home Page
 Route::get('', [HomeController::class, 'index'])->name('home');
 
@@ -31,9 +30,11 @@ Route::prefix("apae")->as("apae.")->group(function () {
     Route::get('termos-de-uso', [ApaeGalleryController::class, 'termsOfUse'])->name('terms-of-use');
 });
 
-
 Route::prefix("transparencia")->as("transparency.")->group(function () {
     Route::get('', [TransparencyController::class, 'index'])->name('index');
     Route::get('mostrar/{transparencyId}', [TransparencyController::class, 'show'])->name('show');
     Route::get('mostrar/{transparencyId}/documentos/{folderId}', [TransparencyController::class, 'showDocuments'])->name('show.documents');
 });
+
+Route::view('blog/{path?}', 'components.blog.app')->where('path', '.*')->name('app.blog');
+// Route::view('tests/{path?}', 'components.app.tests')->where('path', '.*')->name('app.blog');

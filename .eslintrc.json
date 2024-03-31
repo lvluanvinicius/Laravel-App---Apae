@@ -1,0 +1,31 @@
+{
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "prettier"
+    ],
+    "plugins": [
+        "react",
+        "prettier"
+    ],
+    "rules": {
+        "prettier/prettier": "error",
+        "react/prop-types": 0
+    },
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    }
+}

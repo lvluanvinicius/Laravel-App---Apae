@@ -4,9 +4,9 @@
             <i class="fa-solid fa-bars"></i>
         </button>
         <div class="">
-            <button onclick="changeTheme()" class="px-2">
+            {{-- <button onclick="changeTheme()" class="px-2">
                 <i class="fa-solid fa-circle-half-stroke"></i>
-            </button>
+            </button> --}}
             <a href="{{ env('APP_URL') }}" target="_blank" title="Ver Wersite">
                 <i class="fa-solid fa-eye"></i>
             </a>

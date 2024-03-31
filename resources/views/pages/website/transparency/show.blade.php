@@ -2,7 +2,7 @@
     @section('content')
         <x-website.page-title title="{{ $subtitle }}" />
 
-        <section class="mt-4 flex justify-center pb-8">
+        <section class="mt-4 flex min-h-[600px] justify-center pb-8">
             <div class="apae-container grid grid-cols-4 gap-4">
 
                 @if (count($folders) <= 0)

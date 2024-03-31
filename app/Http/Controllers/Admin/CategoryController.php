@@ -45,6 +45,20 @@ class CategoryController extends Controller
     }
 
     /**
+     * Recupera as categorias.
+     * 
+     * @author Luan Santos <lvluansantos@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function categories(): \Illuminate\Http\JsonResponse
+    {
+        $categories = $this->category->get();
+
+        return response()->json($categories);
+    }
+
+    /**
      * Exibe o display de criação de categoria.
      *
      * @author Luan Santos <lvluansantos@gmail.com>
@@ -195,6 +209,4 @@ class CategoryController extends Controller
             ])->withInput();
         }
     }
-
-    
 }

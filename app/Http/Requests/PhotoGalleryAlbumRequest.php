@@ -36,9 +36,9 @@ class PhotoGalleryAlbumRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'required.gallery_name'                 => 'O nome para a Galeria é obrigatório.',
-            'unique.gallery_name'                   => 'Já exisste uma Galeria com esse nome.',
-            'required.gallery_description'          => 'Informe uma descrição para o album.',
+            'gallery_name.required'                 => 'O nome para a Galeria é obrigatório.',
+            'gallery_name.unique'                   => 'Já exisste uma Galeria com esse nome.',
+            'gallery_description.required'          => 'Informe uma descrição para o album.',
         ];
     }
 }

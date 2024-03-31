@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*:focus {
+    outline: 0!important;
+    @apply !border-apae-cyan;
+}
+
+button,input,textarea,select {
+    border: 1px solid transparent!important;
+
+}

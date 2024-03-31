@@ -39,6 +39,6 @@ class Partners extends Model
      */
     public function getLatestPartners(): Collection
     {
-        return $this->orderBy('created_at', 'desc')->limit(3)->get();
+        return $this->orderBy('created_at', 'desc')->get();
     }
 }
