@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL = window.location.origin;
+const URL = import.meta.env.VITE_APP_URL;
 
 export const api = axios.create({ baseURL: `${URL}/api` });
 
