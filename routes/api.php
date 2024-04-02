@@ -19,24 +19,6 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::prefix('website')->as('website.')->group(function () {
-    // Route::get('test', function () {
-    //     return serialize([
-    //         "email" => "lvluansantos@gmail.com",
-    //         "subject" => "Nova denúncia de " . env('APP_NAME'),
-    //         "mail_settings" => [
-    //             "MAIL_HOST" => "mail.grupocednet.com.br",
-    //             "MAIL_PORT" => 587,
-    //             "MAIL_USERNAME" => "luan@grupocednet.com.br",
-    //             "MAIL_PASSWORD" => "luan@16645266",
-    //             "MAIL_ENCRYPTION" => "ssl",
-    //             "MAIL_EHLO_DOMAIN" => null,
-    //             "MAIL_TIMEOUT" => null,
-    //             "URL" => "",
-    //             "TRANSPORT" => "smtp",
-    //             "MAIL_MAILER" => "smtp"
-    //         ],
-    //     ]);
-    // })->name('test');
 
     Route::prefix('photo-gallery')->as('photo-gallery.')->group(function () {
         Route::get('{galleryId}', [PhotoGalleryController::class, 'view'])->name('view');
