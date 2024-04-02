@@ -1,7 +1,6 @@
 <x-website.web-layout appTitle="" pageTitle="{{ $title }}">
 
     @section('head')
-        @vite('resources/js/photo-gallery/photo-gallery.js')
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
         <style>
