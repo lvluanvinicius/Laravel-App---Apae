@@ -19,16 +19,13 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::prefix('website')->as('website.')->group(function () {
-
     Route::prefix('photo-gallery')->as('photo-gallery.')->group(function () {
         Route::get('{galleryId}', [PhotoGalleryController::class, 'view'])->name('view');
     });
-
     Route::prefix('contact')->as('contact.')->group(function () {
         Route::post('', [ContactController::class, 'store'])->name('store');
         Route::post('complaints', [ComplaintsController::class, 'complaints'])->name('complaints');
     });
-
     Route::get('search-links', [LuxeSearchController::class, 'index'])->name('index');
 });
 
