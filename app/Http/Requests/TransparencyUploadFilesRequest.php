@@ -22,7 +22,7 @@ class TransparencyUploadFilesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => 'required|file|max:20240',
+            'file' => 'required|max:20240',
         ];
     }
 
@@ -35,7 +35,7 @@ class TransparencyUploadFilesRequest extends FormRequest
     {
         return [
             "file.required" => "Informe um arquivo para upload.",
-            "file.uploaded" => "Tamanho para o arquivo não é aceito, sendo menor ou igual a 10Mb.",
+            "file.uploaded" => "Tamanho para o arquivo não é aceito, sendo menor ou igual a 20Mb.",
         ];
     }
 }
