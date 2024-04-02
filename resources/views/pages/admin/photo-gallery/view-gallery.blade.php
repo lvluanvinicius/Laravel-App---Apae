@@ -1,6 +1,5 @@
 <x-admin.app-default app_title="" page_title="{{ $title }}">
     @section('head')
-        @vite('resources/js/photo-gallery/photo-gallery.js')
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
         <style>
