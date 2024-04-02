@@ -8,20 +8,25 @@
                 height: 100%;
             }
 
-            .swiper-slide {
-                text-align: center;
-                font-size: 18px;
-                background: #fff;
+            .swiper-slide .img-container {
+                min-width: 300px;
+                position: relative;
                 display: flex;
-                justify-content: center;
                 align-items: center;
+                justify-content: center;
             }
 
-            .swiper-slide img {
-                display: block;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
+            .swiper-slide .img-container img {
+                border: none;
+                opacity: inherit;
+                filter: inherit;
+                padding: 0px;
+                margin: 0px;
+                top: 0;
+                left: 0;
+                max-height: none;
+                width: auto;
+                height: 765px;
             }
 
             .swiper {
@@ -105,7 +110,9 @@
 
                                     @foreach ($images as $photo)
                                         <div class="swiper-slide">
-                                            <img src="{{ asset('images/photo-galery/albuns/' . $photo->filename) }}" />
+                                            <div class="img-container">
+                                                <img src="{{ asset('images/photo-galery/albuns/' . $photo->filename) }}" />
+                                            </div>
                                         </div>
                                     @endforeach
 
