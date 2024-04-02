@@ -11,18 +11,20 @@
 
             .swiper-slide .img-container {
                 min-width: 300px;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             .swiper-slide .img-container img {
                 border: none;
-                position: absolute;
                 opacity: inherit;
                 filter: inherit;
                 padding: 0px;
                 margin: 0px;
-                left: 359px;
-                top: 0px;
-                max-width: none;
+                top: 0;
+                left: 0;
                 max-height: none;
                 width: auto;
                 height: 765px;
@@ -157,6 +159,7 @@
             var swiper2 = new Swiper(".mySwiper2", {
                 effect: "coverflow",
                 grabCursor: true,
+                loop: true,
                 centeredSlides: true,
                 slidesPerView: "auto",
                 coverflowEffect: {
