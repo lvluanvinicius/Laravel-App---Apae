@@ -104,8 +104,11 @@
                         <div class="swiper-wrapper w-full">
 
                             @foreach ($photos as $photo)
+                                @php
+                                @endphp
                                 <div class="swiper-slide w-full">
-                                    <img src="{{ Vite::galleryImages('albuns/' . $photo->filename) }}" />
+                                    <img src="{{ asset('images/photo-galery/albuns/' . $photo->filename) }}"
+                                        alt="{{ explode('-', $photo->filename)[0] }}" />
                                 </div>
                             @endforeach
 
@@ -120,7 +123,8 @@
                         <div class="swiper-wrapper">
                             @foreach ($photos as $photo)
                                 <div class="swiper-slide w-full">
-                                    <img src="{{ Vite::galleryImages('albuns/' . $photo->filename) }}" />
+                                    <img src="{{ asset('images/photo-galery/albuns/' . $photo->filename) }}"
+                                        alt="{{ explode('-', $photo->filename)[0] }}" />
                                 </div>
                             @endforeach
                         </div>
