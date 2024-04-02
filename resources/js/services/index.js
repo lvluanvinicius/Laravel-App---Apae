@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const URL = import.meta.env.VITE_APP_URL;
-
-export const api = axios.create({ baseURL: `${URL}/api` });
+export const api = axios.create({
+  baseURL: `${import.meta.env.VITE_APP_URL}/api`,
+});
 
 export async function registerContact(data) {
   const register = await api

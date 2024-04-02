@@ -33,11 +33,11 @@ Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'loginDo'])->name('login-do');
 
 // Web Cliente.
-// Route::prefix('meu-espaco')->as('client.')->middleware('auth:client')->group(function () {
-//     Route::get('', function () {
-//         return 'bem vindo cliente';
-//     })->name('index');
-// });
+Route::prefix('meu-espaco')->as('client.')->middleware('auth:client')->group(function () {
+    Route::get('', function () {
+        return 'Olá, ainda não temos um espaço definido, mas logo estaremos liberando acesso.';
+    })->name('index');
+});
 
 // Web Admin.
 Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () {
