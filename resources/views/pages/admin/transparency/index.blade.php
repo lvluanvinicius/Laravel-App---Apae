@@ -29,7 +29,7 @@
                 <div class="col-span-2 px-3">
                     <div class="bg-apae-white p-8 shadow-md dark:bg-apae-gray-dark">
 
-                        <ul class="h-[500px] overflow-auto p-4 shadow-inner dark:shadow-apae-white/10">
+                        <ul class="h-[70vh] overflow-auto p-4 shadow-inner dark:shadow-apae-white/10">
 
                             @foreach ($transparency as $transp)
                                 <li class="flex cursor-pointer items-center justify-between border-b-[1px] py-1">

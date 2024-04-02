@@ -62,6 +62,30 @@
                         transparency.removeFile(file); // Remove o arquivo da lista de upload
                     }
                 },
+                error: function(file, {
+                    xhr
+                }) {
+                    if (file.xhr.status === 422) {
+                        const errorResponse = JSON.parse(file.xhr.response);
+
+                        if (errorResponse.errors) {
+                            for (let err in errorResponse.errors) {
+                                iziToast.error({
+                                    title: "Ooops!",
+                                    message: errorResponse.errors[err][0],
+                                    position: 'topRight'
+                                });
+                            }
+                        }
+
+                        transparency.removeFile(file)
+
+                        return null;
+                    }
+
+                    console.error(xhr);
+                    transparency.removeFile(file)
+                }
             });
         </script>
     @endsection

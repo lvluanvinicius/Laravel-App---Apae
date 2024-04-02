@@ -12,10 +12,10 @@ use App\Models\TransparencyYear;
 use App\Traits\ApiResponse;
 use Exception;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\JsonResponse;
 
 class TransparencyController extends Controller
 {
@@ -136,7 +136,6 @@ class TransparencyController extends Controller
         ]);
     }
 
-
     /**
      * Cria uma nova sessão dentro de uma pasta do tipo ano.
      *
@@ -216,7 +215,7 @@ class TransparencyController extends Controller
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return View|RedirectResponse
      */
-    public function createFileSession(string $folderSession): View|RedirectResponse
+    public function createFileSession(string $folderSession): View | RedirectResponse
     {
         try {
             // Recuperando pasta para receber o arquivo.
@@ -228,7 +227,6 @@ class TransparencyController extends Controller
             if (!$folder) {
                 throw new TransparencyException('Não encontrada a pasta para inserir documento.', 1200);
             }
-
 
             return view('pages.admin.transparency.addfile')->with([
                 'title' => "Novo arquivo",
@@ -293,7 +291,7 @@ class TransparencyController extends Controller
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return JsonResponse
      */
-    public function createFileSessionStore(Request $request, string $folderSession): JsonResponse
+    public function createFileSessionStore(\App\Http\Requests\TransparencyUploadFilesRequest $request, string $folderSession): JsonResponse
     {
         try {
             // Recuperando pasta para receber o arquivo.
@@ -363,7 +361,7 @@ class TransparencyController extends Controller
             /**
              * Salvando dados do arquivo em base.
              */
-            $hashString = "";               # Gaurda a hash que ira usar na pasta.
+            $hashString = ""; # Gaurda a hash que ira usar na pasta.
 
             // Gerando uma has para o arquivo.
             $validate = true;
@@ -385,7 +383,7 @@ class TransparencyController extends Controller
                 'hash' => $hashString,
                 'type_file' => $typeFile,
                 'size_file' => $fileSize,
-                'ext' => $ext
+                'ext' => $ext,
             ]);
 
             // Verifica se o arquivo foi salvo corretamente.
