@@ -104,7 +104,7 @@
                                 <div class="swiper-wrapper w-full">
 
                                     @foreach ($images as $photo)
-                                        <div class="swiper-slide w-full">
+                                        <div class="swiper-slide">
                                             <img src="{{ asset('images/photo-galery/albuns/' . $photo->filename) }}" />
                                         </div>
                                     @endforeach

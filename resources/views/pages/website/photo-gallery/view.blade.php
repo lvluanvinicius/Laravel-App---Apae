@@ -9,20 +9,23 @@
                 height: 100%;
             }
 
-            .swiper-slide {
-                text-align: center;
-                font-size: 18px;
-                background: #fff;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+            .swiper-slide .img-container {
+                min-width: 300px;
             }
 
-            .swiper-slide img {
-                display: block;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
+            .swiper-slide .img-container img {
+                border: none;
+                position: absolute;
+                opacity: inherit;
+                filter: inherit;
+                padding: 0px;
+                margin: 0px;
+                left: 359px;
+                top: 0px;
+                max-width: none;
+                max-height: none;
+                width: auto;
+                height: 765px;
             }
 
             .swiper {
@@ -72,16 +75,16 @@
 
 
         <section class="flex w-full justify-center gap-4 py-4 text-[.9rem]">
-            <div class="apae-container rounded-md bg-apae-white p-4 shadow-md shadow-apae-gray/10">
+            <div class="apae-container rounded-md bg-apae-white px-8 py-4 shadow-md shadow-apae-gray/10">
                 <div class="w-full">
                     <h3 class="font-bold">Data de Postagem: </h3>
-                    <time class="">{{ date('d/m/Y \à\s H\hm\m', strtotime($gallery->created_at)) }}</time>
+                    <time class="text-[.8rem]">Data: {{ date('d/m/Y', strtotime($gallery->created_at)) }}</time>
                 </div>
 
 
                 <div class="w-full">
                     <h3 class="mt-2 font-bold">Descrição: </h3>
-                    <p class="font[500] indent-4 text-[.9rem]">{{ $gallery->gallery_description }}</p>
+                    <p class="font[500] text-justify indent-4 text-[.9rem]">{{ $gallery->gallery_description }}</p>
                 </div>
             </div>
         </section>
@@ -106,9 +109,11 @@
                             @foreach ($photos as $photo)
                                 @php
                                 @endphp
-                                <div class="swiper-slide w-full">
-                                    <img src="{{ asset('images/photo-galery/albuns/' . $photo->filename) }}"
-                                        alt="{{ explode('-', $photo->filename)[0] }}" />
+                                <div class="swiper-slide">
+                                    <div class="img-container">
+                                        <img src="{{ asset('images/photo-galery/albuns/' . $photo->filename) }}"
+                                            alt="{{ explode('-', $photo->filename)[0] }}" />
+                                    </div>
                                 </div>
                             @endforeach
 
@@ -122,7 +127,7 @@
                     <div thumbsSlider="" class="swiper mySwiper">
                         <div class="swiper-wrapper">
                             @foreach ($photos as $photo)
-                                <div class="swiper-slide w-full">
+                                <div class="swiper-slide">
                                     <img src="{{ asset('images/photo-galery/albuns/' . $photo->filename) }}"
                                         alt="{{ explode('-', $photo->filename)[0] }}" />
                                 </div>
@@ -146,12 +151,23 @@
                 freeMode: true,
                 watchSlidesProgress: true,
             });
+
+
+
             var swiper2 = new Swiper(".mySwiper2", {
-                loop: true,
-                spaceBetween: 10,
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
+                effect: "coverflow",
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: "auto",
+                coverflowEffect: {
+                    rotate: 50,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 1,
+                    slideShadows: true,
+                },
+                pagination: {
+                    el: ".swiper-pagination",
                 },
                 thumbs: {
                     swiper: swiper,
