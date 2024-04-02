@@ -8,7 +8,6 @@ import {
 } from './styled';
 import { useForm, Controller } from 'react-hook-form';
 
-import 'react-quill/dist/quill.snow.css';
 import {
   getCategories,
   updatePost,
@@ -17,8 +16,7 @@ import {
 } from '../../services';
 
 export function EditorUpdatePost() {
-  const { handleSubmit, control, register, setValue, getValues, reset } =
-    useForm();
+  const { handleSubmit, control, register, setValue, reset } = useForm();
   const [formLoading, setFormLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [galleries, setGalleries] = useState([]);
