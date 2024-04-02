@@ -69,7 +69,6 @@ export function EditorNewPost() {
     try {
       const response = await getPhotoGallery();
 
-      console.log(response.data.data);
       setGalleries(response.data.data);
     } catch (e) {
       alert(e.message);
