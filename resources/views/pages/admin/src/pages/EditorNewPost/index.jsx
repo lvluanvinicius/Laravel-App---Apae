@@ -7,7 +7,6 @@ import {
 } from './styled';
 import { useForm, Controller } from 'react-hook-form';
 
-import 'react-quill/dist/quill.snow.css';
 import { getCategories, savePost, getPhotoGallery } from '../../services';
 
 export function EditorNewPost() {
