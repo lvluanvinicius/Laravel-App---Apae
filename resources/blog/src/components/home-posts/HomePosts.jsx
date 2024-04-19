@@ -3,41 +3,17 @@ import { Card } from './Card';
 
 export function HomePosts() {
   return (
-    <div className="w-[80%]">
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="col-span-1">
+    <div className="w-[90%] lg:w-[80%] mb-10">
+      <div className="w-full grid grid-cols-2 md:grid-cols-2 gap-4">
+        <div className="col-span-2 lg:col-span-1">
           <Card />
         </div>
 
-        <div className="col-span-1">
+        <div className="col-span-2 lg:col-span-1">
           <Card />
         </div>
 
-        <div className="col-span-1">
-          <Card />
-        </div>
-
-        <div className="col-span-1">
-          <Card />
-        </div>
-
-        <div className="col-span-1">
-          <Card />
-        </div>
-
-        <div className="col-span-1">
-          <Card />
-        </div>
-
-        <div className="col-span-1">
-          <Card />
-        </div>
-
-        <div className="col-span-1">
-          <Card />
-        </div>
-
-        <div className="col-span-1">
+        <div className="col-span-2 lg:col-span-1">
           <Card />
         </div>
       </div>

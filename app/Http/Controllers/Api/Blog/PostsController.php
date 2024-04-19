@@ -6,11 +6,21 @@ use App\Http\Controllers\Controller;
 
 class PostsController extends Controller
 {
+    use \App\Traits\ApiResponse;
+
+    /**
+     * Recupera todos os posts.
+     *
+     * @author Luan Santos <lvluansantos@gmail.com>
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return void
+     */
     public function index(\Illuminate\Http\Request $request)
     {
         // Variavel string.
         $query_string = "";
-        $paginate = 10;
+        $paginate = $request->get('per_page') ?? 20;
         $order = 'news_post_title';
 
         // Aplica filtro por string se houver o parametro search.
@@ -33,7 +43,7 @@ class PostsController extends Controller
 
         // Recuperando registros.
         $posts = \App\Repositories\Blog\PostsRepository::posts($query_string);
-        // dd($posts->paginate());
-        return response()->json($posts);
+
+        return $this->success('', $posts);
     }
 }

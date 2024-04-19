@@ -10,26 +10,24 @@ export function Home() {
   return (
     <>
       <Helmet title="Início" />
-      <div className="w-full flex flex-col items-center gap-4">
+      <div className="w-full flex flex-col justify-center items-center gap-4">
         {/* Cartão Padrão: Exibe a última publicação em destaque. */}
-        <div className="w-[80%] mt-[-50px] h-[250px] py-2 px-6 shadow-card-default shadow-apae-gray-dark/30 rounded-xl bg-apae-white">
-          <div className="flex justify-between h-full flex-wrap">
-            <div className="-max-w-[350px] h-full object-fill">
-              <img
-                className="h-full"
-                src={`${app_settings.APP_URL}/images/photo-galery/sendThumb-e5b2923da39343f135dc521963b70bf7.jpeg`}
-              />
-            </div>
-
-            {/* Início Exibição dos detalhes de um post. */}
-            <DetailsPosts />
-            {/* Final Exibição dos detalhes de um post. */}
+        <div className="bg-apae-white shadow-card-default !shadow-apae-dark/20 mt-[-50px] p-4 lg:flex lg:flex-nowrap flex-wrap w-[90%] lg:w-[80%]">
+          <div className="h-[250px] lg:h-[200px] lg:max-w-[300px] flex justify-center ">
+            <img
+              className="h-full"
+              src={`${app_settings.APP_URL}/images/photo-galery/sendThumb-e5b2923da39343f135dc521963b70bf7.jpeg`}
+            />
           </div>
+
+          {/* Início Exibição dos detalhes de um post. */}
+          <DetailsPosts />
+          {/* Final Exibição dos detalhes de um post. */}
         </div>
         {/* Final Cartão Padrão */}
 
         {/* Formulário de filtro */}
-        <div className="w-[80%]">
+        <div className="w-[90%] lg:w-[80%]">
           <form>
             <div className="w-full relative">
               <input

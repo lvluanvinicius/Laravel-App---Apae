@@ -31,5 +31,7 @@ Route::prefix('website')->as('website.')->group(function () {
 
 // middleware(['blog.protection'])->
 Route::prefix('blog')->as('blog.')->group(function () {
-    Route::get('', [PostsController::class, 'index'])->name('home');
+    Route::prefix('posts')->as('posts.')->group(function () {
+        Route::get('', [PostsController::class, 'index'])->name('index');
+    });
 });
