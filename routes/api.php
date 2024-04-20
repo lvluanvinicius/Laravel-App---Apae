@@ -33,5 +33,11 @@ Route::prefix('website')->as('website.')->group(function () {
 Route::prefix('blog')->as('blog.')->group(function () {
     Route::prefix('posts')->as('posts.')->group(function () {
         Route::get('', [PostsController::class, 'index'])->name('index');
+        Route::get('{slug}', [PostsController::class, 'getPostPerSlug'])->name('get-post-per-slug');
+
+        Route::prefix('comments')->as('comments.')->group(function () {
+            Route::get('{slug}', [PostsController::class, 'comments'])->name('comments');
+            Route::post('{slug}', [PostsController::class, 'createComment'])->name('createComment');
+        });
     });
 });

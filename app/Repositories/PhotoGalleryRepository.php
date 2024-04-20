@@ -33,4 +33,17 @@ class PhotoGalleryRepository implements \App\Interfaces\PhotoGalleryRepositoryIn
         })
             ->orderBy('gallery_name', 'asc')->paginate($perPage);
     }
+
+    /**
+     * Recupera os registros de galeria por ID.
+     *
+     * @author Luan Santos <lvluansantos@gmail.com>
+     *
+     * @param string $id
+     * @return \App\Models\PhotoGalleryAlbum
+     */
+    public static function getGalleryPerId(string $id): \App\Models\PhotoGalleryAlbum  | null
+    {
+        return \App\Models\PhotoGalleryAlbum::where('id', $id)->first();
+    }
 }

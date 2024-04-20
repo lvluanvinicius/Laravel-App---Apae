@@ -4,9 +4,17 @@ import { ApaeBlogContext } from '../contexts/blog';
 import { Search } from 'lucide-react';
 import { HomePosts } from '../components/home-posts/HomePosts';
 import { DetailsPosts } from '../components/DetailsPosts';
+import { useQuery } from '@tanstack/react-query';
+import { getPosts } from '../services/queries/get-posts';
 
 export function Home() {
   const { app_settings } = useContext(ApaeBlogContext);
+
+  const { data: posts } = useQuery({
+    queryKey: ['posts'],
+    queryFn: getPosts,
+  });
+
   return (
     <>
       <Helmet title="Início" />
@@ -45,7 +53,18 @@ export function Home() {
         {/* Final Formulário de filtro */}
 
         {/* Listagem de Posts */}
-        <HomePosts />
+        {posts?.data ? (
+          <>
+            <HomePosts posts={posts?.data} />
+            <div>Paginação aqui...</div>
+          </>
+        ) : (
+          <div className="w-[80%] justify-center flex">
+            <h2 className="text-[1.1rem] font-bold text-apae-gray-dark/80">
+              Nenhuma públicação encontrada!
+            </h2>
+          </div>
+        )}
         {/* Final Listagem de Posts */}
       </div>
     </>

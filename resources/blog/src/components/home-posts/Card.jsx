@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { ApaeBlogContext } from '../../contexts/blog';
 import { DetailsPosts } from '../DetailsPosts';
 
-export function Card() {
+export function Card({ post }) {
   const { app_settings } = useContext(ApaeBlogContext);
 
   return (
@@ -15,7 +15,7 @@ export function Card() {
       </div>
 
       {/* Início Exibição dos detalhes de um post. */}
-      <DetailsPosts />
+      <DetailsPosts post={post} />
       {/* Final Exibição dos detalhes de um post. */}
     </div>
   );
