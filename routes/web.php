@@ -138,16 +138,6 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
         });
     });
 
-    // Rotas para servir uma API interna.
-    ApiServicesRoutes();
-
-    // Efetua a alteração do tema.
-    Route::put('ui-theme', [SettingsController::class, 'iThemes'])->name('iThemes');
-});
-
-
-function ApiServicesRoutes()
-{
     Route::prefix('api-services')->as('api-services.')->group(function () {
         Route::prefix('news')->as('news.')->group(function () {
             Route::get('', [ApiServicesNewsController::class, 'index'])->name('index');
@@ -166,4 +156,7 @@ function ApiServicesRoutes()
             Route::get('', [ApiPhotoGalleryController::class, 'index'])->name('index');
         });
     });
-}
+
+    // Efetua a alteração do tema.
+    Route::put('ui-theme', [SettingsController::class, 'iThemes'])->name('iThemes');
+});
