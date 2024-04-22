@@ -215,7 +215,6 @@ export function EditorNewPost() {
               Palavras Chaves (Opcional)
             </label>
             <input
-              required
               type="text"
               id="news_post_tags"
               className="w-full rounded-[4px] !border-none bg-apae-gray/10 px-2 py-1 !outline-none"
@@ -231,7 +230,6 @@ export function EditorNewPost() {
               Galeria de Fotos (Opcional)
             </label>
             <input
-              required
               list={`galleries-datalist`}
               type="text"
               onInput={(e) => setAuxStringGalery(e.target.value)}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Services;
 use App\Exceptions\NewsException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewsRequest;
+use App\Http\Requests\NewsUpdateRequest;
 use HTMLPurifier;
 use HTMLPurifier_Config;
 use Illuminate\Http\Request;
@@ -136,7 +137,7 @@ class NewsController extends Controller
      * @param string $newsId
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(NewsRequest $request, string $newsId): \Illuminate\Http\JsonResponse
+    public function update(NewsUpdateRequest $request, string $newsId): \Illuminate\Http\JsonResponse
     {
         try {
             // Recuperando post
@@ -175,6 +176,28 @@ class NewsController extends Controller
             }
 
             throw new NewsException('Notícia não pode ser atualizado. Por favor, tente novamente.');
+        } catch (NewsException $error) {
+            return $this->success($error->getMessage(), [], \Illuminate\Http\Response::HTTP_OK);
+        } catch (\Exception $error) {
+            return $this->error($error->getMessage(), \Illuminate\Http\Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    /**
+     * Exclui um post.
+     *
+     * @author Luan Santos <lvluansantos@gmail.com>
+     *
+     * @param string $newsId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(string $newsId): \Illuminate\Http\JsonResponse
+    {
+        try {
+            // Recuperando post para edição.
+            \App\Repositories\NewsRepository::destroy($newsId);
+
+            return $this->success('Post excluído com sucesso.', []);
         } catch (NewsException $error) {
             return $this->success($error->getMessage(), [], \Illuminate\Http\Response::HTTP_OK);
         } catch (\Exception $error) {

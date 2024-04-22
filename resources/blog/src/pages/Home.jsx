@@ -6,14 +6,41 @@ import { HomePosts } from '../components/home-posts/HomePosts';
 import { DetailsPosts } from '../components/DetailsPosts';
 import { useQuery } from '@tanstack/react-query';
 import { getPosts } from '../services/queries/get-posts';
+import { useSearchParams } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 export function Home() {
   const { app_settings } = useContext(ApaeBlogContext);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const pageIndex = searchParams.get('page')
+    ? parseInt(searchParams.get('page'))
+    : 1;
+
+  const search = searchParams.get('search') ? searchParams.get('search') : '';
+
+  const { register, handleSubmit } = useForm({
+    values: {
+      search: search ?? '',
+    },
+  });
 
   const { data: posts } = useQuery({
-    queryKey: ['posts'],
-    queryFn: getPosts,
+    queryKey: ['posts', pageIndex, search],
+    queryFn: () => getPosts({ pageIndex, search }),
   });
+
+  async function handleSearchSubmit({ search }) {
+    setSearchParams((state) => {
+      if (search) {
+        state.set('search', search);
+      } else {
+        state.delete('search');
+      }
+
+      return state;
+    });
+  }
 
   return (
     <>
@@ -36,12 +63,13 @@ export function Home() {
 
         {/* Formulário de filtro */}
         <div className="w-[90%] lg:w-[80%]">
-          <form>
+          <form onSubmit={handleSubmit(handleSearchSubmit)}>
             <div className="w-full relative">
               <input
                 type="text"
                 className="w-full h-[50px] bg-apae-gray-dark/10 rounded-md flex-1 border-2 pl-4 pr-[62px] shadow-md shadow-apae-dark/10"
                 placeholder="Buscar publicação..."
+                {...register('search')}
               />
 
               <button className="w-[60px] flex absolute top-0 right-0 h-full items-center justify-center rounded-r-md bg-apae-gray-dark/10">

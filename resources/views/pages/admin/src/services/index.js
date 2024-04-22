@@ -95,3 +95,18 @@ export async function getPostEdit(newsId) {
       alert(error.message);
     });
 }
+
+/**
+ * Recupera um post apenas para edição.
+ * @author Luan Santos  <lvluansantos@gmail.com>
+ */
+export async function deletePostEdit(newsId) {
+  return await service
+    .delete(`/api-services/news/${newsId}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+}

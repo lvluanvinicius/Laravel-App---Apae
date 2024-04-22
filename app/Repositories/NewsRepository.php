@@ -91,4 +91,29 @@ class NewsRepository implements \App\Interfaces\NewsRepositoryInterface
 
         return $news;
     }
+
+    /**
+     * Excluí um registro.
+     *
+     * @author Luan Santos <lvluansantos@gmail.com>
+     *
+     * @param string $id
+     * @return bool
+     */
+    public static function destroy(string $id): bool
+    {
+        // Recuperando post.
+        $news = \App\Models\News::where('id', $id)->first();
+
+        // Valida se localizou o post.
+        if (!$news) {
+            throw new \App\Exceptions\NewsException("Notícia não encontrada.");
+        }
+
+        if ($news->delete()) {
+            return true;
+        } else {
+            return true;
+        }
+    }
 }

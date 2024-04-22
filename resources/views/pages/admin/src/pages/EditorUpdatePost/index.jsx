@@ -119,7 +119,11 @@ export function EditorUpdatePost() {
 
   async function handleSavePost(data) {
     try {
-      const response = await updatePost(data);
+      const newsId =
+        document.querySelector('div[data-news-id]').attributes['data-news-id']
+          .value;
+
+      const response = await updatePost(newsId, data);
 
       if (response && response.status) {
         alert(response.message);
@@ -180,12 +184,12 @@ export function EditorUpdatePost() {
                 })}
                 id="cod_category_fk"
                 className="w-full rounded-[4px] !border-none bg-apae-gray/10 px-2 py-1 !outline-none"
-                defaultValue={post.cod_category_fk}
+                value={post.cod_category_fk}
               >
                 <option defaultValue={''}>Selecione...</option>
                 {categories.map((item) => {
                   return (
-                    <option defaultValue={item.id} key={item.id}>
+                    <option key={item.id} value={item.id}>
                       {item.category} - {item.description}
                     </option>
                   );
@@ -251,7 +255,6 @@ export function EditorUpdatePost() {
               Palavras Chaves (Opcional)
             </label>
             <input
-              required
               type="text"
               id="news_post_tags"
               className="w-full rounded-[4px] !border-none bg-apae-gray/10 px-2 py-1 !outline-none"
@@ -272,7 +275,7 @@ export function EditorUpdatePost() {
               onInput={(e) => setAuxStringGalery(e.target.value)}
               id="cod_photo_gallery_fk"
               className="w-full rounded-[4px] !border-none bg-apae-gray/10 px-2 py-1 !outline-none"
-              {...register('cod_photo_gallery_fk', { required: false })}
+              {...register('cod_photo_gallery_fk')}
             />
             <datalist id={`galleries-datalist`}>
               {galleries &&

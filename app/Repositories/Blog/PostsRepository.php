@@ -13,24 +13,33 @@ class PostsRepository
      * @param integer $perPage
      * @return void
      */
-    public static function posts(string $query_filter, int $perPage = 20): \Illuminate\Pagination\LengthAwarePaginator
+    public static function posts(string $search, int $perPage = 20): \Illuminate\Pagination\LengthAwarePaginator
     {
-        return \App\Models\News::query($query_filter)
-            ->select([
-                "news.id",
-                "news.cod_user_fk",
-                "news.cod_category_fk",
-                "news.news_post_title",
-                "news.news_post_content",
-                "news.news_post_slug",
-                "news.news_post_summary",
-                "news.news_post_tags",
-                "news.news_post_views",
-                "news.news_post_status",
-                "news.news_post_active_comments",
-                "news.created_at",
-                "news.cod_photo_gallery_fk",
-            ])
+        return \App\Models\News::select([
+            "news.id",
+            "news.cod_user_fk",
+            "news.cod_category_fk",
+            "news.news_post_title",
+            "news.news_post_content",
+            "news.news_post_slug",
+            "news.news_post_summary",
+            "news.news_post_tags",
+            "news.news_post_views",
+            "news.news_post_status",
+            "news.news_post_active_comments",
+            "news.created_at",
+            "news.cod_photo_gallery_fk",
+        ])
+            ->where(function ($query) use ($search) {
+                $query->orWhereRaw("LOWER(news.news_post_title) LIKE LOWER(?)", [$search])
+                    ->orWhereRaw("LOWER(news.news_post_content) LIKE LOWER(?)", [$search])
+                    ->orWhereRaw("LOWER(news.news_post_slug) LIKE LOWER(?)", [$search])
+                    ->orWhereRaw("LOWER(news.news_post_summary) LIKE LOWER(?)", [$search])
+                    ->orWhereRaw("LOWER(news.news_post_tags) LIKE LOWER(?)", [$search])
+                    ->orWhereRaw("LOWER(news.news_post_views) LIKE LOWER(?)", [$search])
+                    ->orWhereRaw("LOWER(news.news_post_status) LIKE LOWER(?)", [$search])
+                    ->orWhereRaw("LOWER(news.news_post_active_comments) LIKE LOWER(?)", [$search]);
+            })
             ->paginate($perPage);
     }
 

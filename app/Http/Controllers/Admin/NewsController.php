@@ -43,7 +43,7 @@ class NewsController extends Controller
     {
         try {
             // Recuperando notícias.
-            $news = $this->news->get();
+            $news = $this->news->orderBy('created_at', 'desc')->get();
 
             return view("pages.admin.news.index")->with([
                 'title' => 'Notícias',
@@ -130,8 +130,6 @@ class NewsController extends Controller
                 "news_post_summary",
                 "news_post_tags",
             ]);
-
-            dd('teste');
 
             // Inserindo ID de usuário.
             $requestData['cod_user_fk'] = auth()->user()->id;
@@ -236,6 +234,7 @@ class NewsController extends Controller
 
             // Validando slug
             $newsslug = $this->news->where('news_post_slug', $requestData['news_post_slug'])->where('id', '!=', $newsId)->first();
+            dd($newsslug);
             // Valida se existe.
             if (!$newsslug) {
                 throw new NewsException('Esse slug já está em uso em outra notícia.');

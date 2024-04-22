@@ -163,6 +163,7 @@ function ApiServicesRoutes()
             Route::get('', [ApiServicesNewsController::class, 'index'])->name('index');
             Route::get('{newsId}/edit', [ApiServicesNewsController::class, 'edit'])->name('index');
             Route::put('{newsId}', [ApiServicesNewsController::class, 'update'])->name('update');
+            Route::delete('{newsId}', [ApiServicesNewsController::class, 'destroy'])->name('destroy');
         });
 
         // Gerenciamento de Galeria de Fotos.

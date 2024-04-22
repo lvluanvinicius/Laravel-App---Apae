@@ -48,10 +48,11 @@
                                                 class="text-apae-cyan" title="Editar Notícia: {{ $nw->news_post_title }}">
                                                 <i class="fa-solid fa-user-pen"></i>
                                             </a>
-                                            <button class="text-apae-danger"
+
+                                            <div class="button-delete-post-news"
                                                 title="Apagar Notícia: {{ $nw->news_post_title }}">
-                                                <i class="fa-solid fa-user-xmark"></i>
-                                            </button>
+                                                <div data-news-id="{{ $nw->id }}"></div>
+                                            </div>
 
                                         </div>
                                     </td>
