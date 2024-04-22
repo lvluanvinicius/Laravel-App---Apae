@@ -13,7 +13,7 @@ export const service = axios.create({
  */
 export async function getCategories() {
   return await service
-    .get('/news/categories/data')
+    .get('/api-services/category/data')
     .then((response) => {
       return response.data;
     })

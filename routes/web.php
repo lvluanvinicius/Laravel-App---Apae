@@ -145,17 +145,6 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
     Route::put('ui-theme', [SettingsController::class, 'iThemes'])->name('iThemes');
 });
 
-// Route::get('email', function () {
-//     return view('components.mails.complaints', [
-//         'data' => [
-//             "name" => "",
-//             "email" => "meuemail@teste.com",
-//             "tel" => "",
-//             'subject' => 'Assunto da denúncia',
-//             'message' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laborum corrupti alias quam itaque quidem, cupiditate natus exercitationem dolores labore inventore, ullam voluptatem odio quaerat minus! Quae voluptatibus sit ab ut!',
-//         ]
-//     ]);
-// })->name('email');
 
 function ApiServicesRoutes()
 {
@@ -168,6 +157,7 @@ function ApiServicesRoutes()
         });
 
         Route::prefix('category')->as('category.')->group(function () {
+            Route::get('data', [CategoryController::class, 'categories'])->name('categories');
             Route::delete('{newsId}', [ApiCategoryController::class, 'destroy'])->name('destroy');
         });
 
