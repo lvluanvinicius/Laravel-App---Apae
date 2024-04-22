@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\GeneralSettingsController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PartnersController;
 use App\Http\Controllers\Admin\PhotoGalleryController;
+use App\Http\Controllers\Admin\Services\CategoryController as ApiCategoryController;
 use App\Http\Controllers\Admin\Services\NewsController as ApiServicesNewsController;
 use App\Http\Controllers\Admin\Services\PhotoGalleryController as ApiPhotoGalleryController;
 use App\Http\Controllers\Admin\SettingsController;
@@ -164,6 +165,10 @@ function ApiServicesRoutes()
             Route::get('{newsId}/edit', [ApiServicesNewsController::class, 'edit'])->name('index');
             Route::put('{newsId}', [ApiServicesNewsController::class, 'update'])->name('update');
             Route::delete('{newsId}', [ApiServicesNewsController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('category')->as('category.')->group(function () {
+            Route::delete('{newsId}', [ApiCategoryController::class, 'destroy'])->name('destroy');
         });
 
         // Gerenciamento de Galeria de Fotos.

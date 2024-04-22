@@ -1,13 +1,58 @@
 import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { ApaeBlogContext } from '../contexts/blog';
-import { Search } from 'lucide-react';
 import { HomePosts } from '../components/home-posts/HomePosts';
 import { DetailsPosts } from '../components/DetailsPosts';
 import { useQuery } from '@tanstack/react-query';
 import { getPosts } from '../services/queries/get-posts';
 import { useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+
+import {
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from 'lucide-react';
+import styled from 'styled-components';
+
+const Paginate = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+
+  .controllers {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  & .buttons {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+
+    button {
+      cursor: pointer;
+      background: none;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 4px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background: var(--darker-100);
+      }
+    }
+  }
+`;
 
 export function Home() {
   const { app_settings } = useContext(ApaeBlogContext);
@@ -42,6 +87,16 @@ export function Home() {
     });
   }
 
+  function onChangePage(pageIndex) {
+    setSearchParams((state) => {
+      state.set('page', pageIndex.toString());
+      return state;
+    });
+  }
+
+  const pages =
+    Math.ceil(posts?.data.posts.total / posts?.data.posts.per_page) ?? 1;
+
   return (
     <>
       <Helmet title="Início" />
@@ -56,7 +111,7 @@ export function Home() {
           </div>
 
           {/* Início Exibição dos detalhes de um post. */}
-          <DetailsPosts />
+          <DetailsPosts post={posts?.data.last_news} />
           {/* Final Exibição dos detalhes de um post. */}
         </div>
         {/* Final Cartão Padrão */}
@@ -84,7 +139,55 @@ export function Home() {
         {posts?.data ? (
           <>
             <HomePosts posts={posts?.data} />
-            <div>Paginação aqui...</div>
+            <div className="w-[90%] lg:w-[80%] mb-10">
+              {pages > 1 && (
+                <Paginate className="">
+                  <span className="text-[1rem]">
+                    Total de {posts?.data.posts?.total} item(s)
+                  </span>
+
+                  <div className="controllers">
+                    <span className="text-[1rem]">
+                      Página {pageIndex} de {pages}
+                    </span>
+
+                    <div className="buttons">
+                      <button
+                        className="bg-apae-white shadow-md !shadow-apae-dark/20"
+                        disabled={pageIndex === 1 || pageIndex === 0}
+                        onClick={() => onChangePage(1)}
+                      >
+                        <ChevronsLeft className="h-6 w-6" />
+                      </button>
+
+                      <button
+                        className="bg-apae-white shadow-md !shadow-apae-dark/20"
+                        disabled={pageIndex === 1 || pageIndex === 0}
+                        onClick={() => onChangePage(pageIndex - 1)}
+                      >
+                        <ChevronLeft className="h-6 w-6" />
+                      </button>
+
+                      <button
+                        className="bg-apae-white shadow-md !shadow-apae-dark/20"
+                        disabled={pages === pageIndex}
+                        onClick={() => onChangePage(pageIndex + 1)}
+                      >
+                        <ChevronRight className="h-6 w-6" />
+                      </button>
+
+                      <button
+                        className="bg-apae-white shadow-md !shadow-apae-dark/20"
+                        disabled={pages === pageIndex}
+                        onClick={() => onChangePage(pages)}
+                      >
+                        <ChevronsRight className="h-6 w-6" />
+                      </button>
+                    </div>
+                  </div>
+                </Paginate>
+              )}
+            </div>
           </>
         ) : (
           <div className="w-[80%] justify-center flex">

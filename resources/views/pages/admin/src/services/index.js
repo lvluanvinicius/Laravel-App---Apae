@@ -97,12 +97,27 @@ export async function getPostEdit(newsId) {
 }
 
 /**
- * Recupera um post apenas para edição.
+ * Exclui um post.
  * @author Luan Santos  <lvluansantos@gmail.com>
  */
-export async function deletePostEdit(newsId) {
+export async function deletePostNews(newsId) {
   return await service
     .delete(`/api-services/news/${newsId}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+}
+
+/**
+ * Excluí uma categoria. .
+ * @author Luan Santos  <lvluansantos@gmail.com>
+ */
+export async function deletePostCategory(categoryId) {
+  return await service
+    .delete(`/api-services/category/${categoryId}`)
     .then((response) => {
       return response.data;
     })

@@ -161,41 +161,6 @@ class NewsController extends Controller
     }
 
     /**
-     * Exibe o display de edição.
-     *
-     * @param string $newsId
-     *
-     * @author Luan Santos <lvluansantos@gmail.com>
-     * @return View|RedirectResponse
-     */
-    // public function edit(string $newsId): View | RedirectResponse
-    // {
-    //     try {
-    //         // Recuperando notícia.
-    //         $news = $this->news->where('id', $newsId)->first();
-
-    //         // Valida se existe.
-    //         if (!$news) {
-    //             throw new NewsException('Notícia não encontrada para edição.');
-    //         }
-
-    //         // Recupera todas as categorias.
-    //         $categories = Category::get();
-
-    //         return view("pages.admin.news.edit")->with([
-    //             'title' => 'Nova Publicação',
-    //             'categories' => $categories,
-    //             'news' => $news,
-    //         ]);
-    //     } catch (NewsException $error) {
-    //         return $this->redirectError($error->getMessage(), \Illuminate\Http\Response::HTTP_OK);
-    //     } catch (Exception $error) {
-    //         return $this->redirectError($error->getMessage(), \Illuminate\Http\Response::HTTP_BAD_REQUEST);
-
-    //     }
-    // }
-
-    /**
      * Atualiza uma notícia.
      *
      * @author Luan Santos <lvluansantos@gmail.com>

@@ -22,21 +22,20 @@ class PostsController extends Controller
     public function index(\Illuminate\Http\Request $request)
     {
         // Variavel string.
-        $query_string = "";
         $paginate = $request->get('per_page') ?? 20;
         $search = $request->get('search') ?? null;
-        $order = 'news_post_title';
 
         // Inserindo porcentagem se não houver.
-        if (strpos($search, '%') === false) {
+        if ($search && strpos($search, '%') === false) {
             // Aplicando porcentagem.
             $search = '%' . $search . '%';
         }
 
         // Recuperando registros.
         $posts = \App\Repositories\Blog\PostsRepository::posts($search, $paginate);
+        $lastNews = \App\Repositories\Blog\PostsRepository::lastNews();
 
-        return $this->success('', $posts);
+        return $this->success('', ['posts' => $posts, 'last_news' => $lastNews]);
     }
 
     /**

@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { deletePostEdit } from '../../services';
+import { deletePostNews } from '../../services';
 
 function NewsDelete({ newsId }) {
   async function onDeleteNews() {
     if (confirm('Deseja realmente excluír essa notícia?')) {
-      const response = await deletePostEdit(newsId);
+      const response = await deletePostNews(newsId);
 
       if (response.status) {
         alert(response.message);

@@ -13,8 +13,13 @@ class PostsRepository
      * @param integer $perPage
      * @return void
      */
-    public static function posts(string $search, int $perPage = 20): \Illuminate\Pagination\LengthAwarePaginator
+    public static function posts(string | null $search, int $perPage = 20): \Illuminate\Pagination\LengthAwarePaginator
     {
+        if (!$search) {
+            return \App\Models\News::orderBy('news.created_at', 'DESC')
+                ->paginate($perPage);
+        }
+
         return \App\Models\News::select([
             "news.id",
             "news.cod_user_fk",
@@ -40,7 +45,20 @@ class PostsRepository
                     ->orWhereRaw("LOWER(news.news_post_status) LIKE LOWER(?)", [$search])
                     ->orWhereRaw("LOWER(news.news_post_active_comments) LIKE LOWER(?)", [$search]);
             })
+            ->orderBy('news.created_at', 'DESC')
             ->paginate($perPage);
+    }
+
+    /**
+     * Recupera o uúltimo registro.
+     *
+     * @author Luan Santos <lvluansantos@gmail.com>
+     *
+     * @return \App\Models\News
+     */
+    public static function lastNews(): \App\Models\News
+    {
+        return \App\Models\News::orderBy('news.created_at', 'DESC')->first();
     }
 
     /**

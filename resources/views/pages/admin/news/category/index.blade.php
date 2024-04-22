@@ -18,7 +18,8 @@
                 </div>
 
 
-                <div class="table-apae-content col-span-12 rounded bg-apae-white px-8 pb-8 pt-4 shadow-md dark:bg-apae-gray-dark">
+                <div
+                    class="table-apae-content col-span-12 rounded bg-apae-white px-8 pb-8 pt-4 shadow-md dark:bg-apae-gray-dark">
                     <table class="table-apae" id="table-users">
                         <thead>
                             <tr class="text-left">
@@ -36,14 +37,17 @@
                                     <td>
 
                                         <div class="flex items-center justify-end gap-4">
-                                            <a href="{{ route('admin.news.categories.edit', ['categoryId' => $category->id]) }}" class="text-apae-cyan"
+                                            <a href="{{ route('admin.news.categories.edit', ['categoryId' => $category->id]) }}"
+                                                class="text-apae-cyan"
                                                 title="Editar Categoria: {{ $category->description }}">
                                                 <i class="fa-solid fa-user-pen"></i>
                                             </a>
-                                            <button class="text-apae-danger"
+
+                                            <div class="button-delete-post-category"
                                                 title="Apagar Categoria: {{ $category->description }}">
-                                                <i class="fa-solid fa-user-xmark"></i>
-                                            </button>
+                                                <div data-category-id="{{ $category->id }}"></div>
+                                            </div>
+
 
                                         </div>
                                     </td>
