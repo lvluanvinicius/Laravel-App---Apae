@@ -4,7 +4,7 @@ export const service = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  baseURL: `${import.meta.env.VITE_APP_URL}/admin/`,
+  baseURL: `${import.meta.env.VITE_APP_URL}/novo/admin/`,
 });
 
 /**
