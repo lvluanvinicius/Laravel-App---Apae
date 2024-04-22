@@ -8,14 +8,14 @@ export const router = createBrowserRouter([
   {
     path: '/blog',
     element: <Blog />,
-    // errorElement: <div>Página solicitada, não existe.</div>,
+    errorElement: <div>Página solicitada, não existe.</div>,
     children: [
       {
         path: '',
         element: <Home />,
       },
       {
-        path: ':slug',
+        path: ':postId',
         element: <ViewPost />,
       },
     ],

@@ -6,7 +6,7 @@ export function Blog() {
   const { app_settings } = useContext(ApaeBlogContext);
   return (
     <>
-      <header className="text-apae-white bg-apae-teal  h-[150px] flex justify-center items-center">
+      <header className="text-apae-white bg-apae-teal h-[150px] flex justify-center items-center">
         <nav className="">
           <div className="w-44 mt-[-40px]">
             <img
