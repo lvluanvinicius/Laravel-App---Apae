@@ -4,7 +4,7 @@
 
         <div class="mb-2 flex flex-col gap-3 px-2">
             @foreach ($news as $ns)
-                <a href="#" class="flex">
+                <a href="{{ route('app.blog') . '/' . $ns->id }}" class="flex">
                     <div class="flex h-[5rem] w-[5rem] items-center justify-center px-2">
                         <img class="w-full" src="https://avatars.githubusercontent.com/u/44438249?v=4" alt="">
                     </div>
