@@ -19,6 +19,8 @@
 
     </div>
 
-    <a href="#" class="rounded-[4px] bg-apae-orange px-4 py-2 text-apae-white shadow-md">Ver Todas</a>
+    <a href="{{ route('app.blog') }}" class="rounded-[4px] bg-apae-orange px-4 py-2 text-apae-white shadow-md">
+        Ver Todas
+    </a>
 
 </div>
