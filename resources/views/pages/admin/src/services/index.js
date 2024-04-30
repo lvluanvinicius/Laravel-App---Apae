@@ -4,7 +4,7 @@ export const service = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  baseURL: `${import.meta.env.VITE_APP_URL}/novo/admin/`,
+  baseURL: `${import.meta.env.VITE_APP_URL}/admin/`,
 });
 
 /**
@@ -118,6 +118,31 @@ export async function deletePostNews(newsId) {
 export async function deletePostCategory(categoryId) {
   return await service
     .delete(`/api-services/category/${categoryId}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+}
+
+/**
+ * Recupera os usuários para gerenciamento.
+ * @author Luan Santos  <lvluansantos@gmail.com>
+ */
+export async function getUsers(
+  search = null,
+  pageIndex = null,
+  perPage = null
+) {
+  return await service
+    .get(`/api-services/users`, {
+      params: {
+        search: search ?? null,
+        page: pageIndex ?? null,
+        per_page: perPage ?? null,
+      },
+    })
     .then((response) => {
       return response.data;
     })

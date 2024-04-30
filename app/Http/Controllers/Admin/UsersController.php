@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -13,11 +12,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy("created_at","asc")->paginate(10);
-
         return view("pages.admin.users.index")->with([
-            'title'     => 'Usuários',       
-            'users'     => $users,
+            'title' => 'Usuários',
         ]);
     }
 

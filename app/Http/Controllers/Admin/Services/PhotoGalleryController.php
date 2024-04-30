@@ -28,8 +28,8 @@ class PhotoGalleryController extends Controller
             $galleries = \App\Repositories\PhotoGalleryRepository::galleries($search, $perPage);
 
             return $this->success('Galerias recuperadas com sucesso.', $galleries);
-        } catch (\Exception $error) {
-            return $this->error($error->getMessage(), \Illuminate\Http\Response::HTTP_BAD_REQUEST);
+        } catch (\App\Exceptions\PhotoGalleryException $error) {
+            return $this->error($error->getMessage(), \Illuminate\Http\Response::HTTP_OK);
         } catch (\Exception $error) {
             return $this->error($error->getMessage(), \Illuminate\Http\Response::HTTP_BAD_REQUEST);
         }

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\PhotoGalleryController;
 use App\Http\Controllers\Admin\Services\CategoryController as ApiCategoryController;
 use App\Http\Controllers\Admin\Services\NewsController as ApiServicesNewsController;
 use App\Http\Controllers\Admin\Services\PhotoGalleryController as ApiPhotoGalleryController;
+use App\Http\Controllers\Admin\Services\UsersController as ApiUsersController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SlidersController;
 use App\Http\Controllers\Admin\TransparencyController;
@@ -154,6 +155,10 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
         // Gerenciamento de Galeria de Fotos.
         Route::prefix('photos-gallery')->as('photos-gallery.')->group(function () {
             Route::get('', [ApiPhotoGalleryController::class, 'index'])->name('index');
+        });
+
+        Route::prefix('users')->as('users.')->group(function () {
+            Route::get('', [ApiUsersController::class, 'index'])->name('index');
         });
     });
 
