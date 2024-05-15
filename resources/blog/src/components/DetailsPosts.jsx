@@ -19,7 +19,7 @@ export function DetailsPosts({ post }) {
           </Link>
         </div>
 
-        <div className="w-full flex-1">
+        <div className="w-full flex-1 py-2">
           <p
             className="text-justify text-[.8rem] lg:text-[1rem]"
             style={{

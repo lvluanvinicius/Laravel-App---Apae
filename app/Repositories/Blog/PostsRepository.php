@@ -83,6 +83,7 @@ class PostsRepository
             "news.news_post_status",
             "news.news_post_active_comments",
             "news.cod_photo_gallery_fk",
+            "news.created_at",
 
             "users.name as users_name",
             "category.description as category_description",

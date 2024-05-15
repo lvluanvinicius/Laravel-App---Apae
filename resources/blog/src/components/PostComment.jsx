@@ -18,7 +18,7 @@ export function PostComment() {
 
   console.log();
   return (
-    <div className="w-[80%] flex flex-col gap-4 mt-4 border-t pt-4 mb-10">
+    <div className="w-[95%] md:w-[80%] flex flex-col gap-4 mt-4 border-t pt-4 mb-10">
       {postComments?.data &&
         postComments.data?.data.map((comment) => {
           return (

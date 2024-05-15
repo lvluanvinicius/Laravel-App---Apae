@@ -32,7 +32,7 @@ export function FormPostComment() {
   }
 
   return (
-    <div className="w-[80%] bg-apae-white shadow-card-default shadow-apae-gray/40 rounded-md p-4">
+    <div className="w-[95%] md:w-[80%] bg-apae-white shadow-card-default shadow-apae-gray/40 rounded-md p-4">
       <div className="mb-2">
         <h4 className="font-bold text-[1.1rem]">Novo Comentário</h4>
       </div>
@@ -61,7 +61,7 @@ export function FormPostComment() {
 
         <button
           type="submit"
-          className="bg-apae-teal text-apae-white px-2 w-[200px] h-[40px] rounded-md text-[1rem]"
+          className=" bg-apae-teal text-apae-white px-2 w-full md:w-[200px] h-[40px] rounded-md text-[1rem]"
         >
           Comentar
         </button>
