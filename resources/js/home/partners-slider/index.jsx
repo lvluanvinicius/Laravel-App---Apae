@@ -47,6 +47,10 @@ export function PartnersSlider() {
     ],
   };
 
+  // const loadData = async () => {
+  //   // await
+  // };
+
   return (
     <PartnersSliderContainer>
       <PartnersSliderContent>
@@ -57,90 +61,6 @@ export function PartnersSlider() {
         </PartnersSliderTitle>
 
         <ReactSlick {...settings} className="react-slick-component">
-          <ReactSlickItem>
-            <img
-              src={`${SOURCES_PARTNERS}/Aramifício Chavantes-c537a201868ff1f4fd56b68621c25469.jpg`}
-            />
-          </ReactSlickItem>
-
-          <ReactSlickItem>
-            <img
-              src={`${SOURCES_PARTNERS}/Aramifício Chavantes-c537a201868ff1f4fd56b68621c25469.jpg`}
-            />
-          </ReactSlickItem>
-
-          <ReactSlickItem>
-            <img
-              src={`${SOURCES_PARTNERS}/Aramifício Chavantes-c537a201868ff1f4fd56b68621c25469.jpg`}
-            />
-          </ReactSlickItem>
-
-          <ReactSlickItem>
-            <img
-              src={`${SOURCES_PARTNERS}/Aramifício Chavantes-c537a201868ff1f4fd56b68621c25469.jpg`}
-            />
-          </ReactSlickItem>
-
-          <ReactSlickItem>
-            <img
-              src={`${SOURCES_PARTNERS}/Aramifício Chavantes-c537a201868ff1f4fd56b68621c25469.jpg`}
-            />
-          </ReactSlickItem>
-
-          <ReactSlickItem>
-            <img
-              src={`${SOURCES_PARTNERS}/Aramifício Chavantes-c537a201868ff1f4fd56b68621c25469.jpg`}
-            />
-          </ReactSlickItem>
-
-          <ReactSlickItem>
-            <img
-              src={`${SOURCES_PARTNERS}/Aramifício Chavantes-c537a201868ff1f4fd56b68621c25469.jpg`}
-            />
-          </ReactSlickItem>
-
-          <ReactSlickItem>
-            <img
-              src={`${SOURCES_PARTNERS}/Aramifício Chavantes-c537a201868ff1f4fd56b68621c25469.jpg`}
-            />
-          </ReactSlickItem>
-
-          <ReactSlickItem>
-            <img
-              src={`${SOURCES_PARTNERS}/Aramifício Chavantes-c537a201868ff1f4fd56b68621c25469.jpg`}
-            />
-          </ReactSlickItem>
-
-          <ReactSlickItem>
-            <img
-              src={`${SOURCES_PARTNERS}/Aramifício Chavantes-c537a201868ff1f4fd56b68621c25469.jpg`}
-            />
-          </ReactSlickItem>
-
-          <ReactSlickItem>
-            <img
-              src={`${SOURCES_PARTNERS}/Aramifício Chavantes-c537a201868ff1f4fd56b68621c25469.jpg`}
-            />
-          </ReactSlickItem>
-
-          <ReactSlickItem>
-            <img
-              src={`${SOURCES_PARTNERS}/Aramifício Chavantes-c537a201868ff1f4fd56b68621c25469.jpg`}
-            />
-          </ReactSlickItem>
-
-          <ReactSlickItem>
-            <img
-              src={`${SOURCES_PARTNERS}/Aramifício Chavantes-c537a201868ff1f4fd56b68621c25469.jpg`}
-            />
-          </ReactSlickItem>
-
-          <ReactSlickItem>
-            <img
-              src={`${SOURCES_PARTNERS}/Aramifício Chavantes-c537a201868ff1f4fd56b68621c25469.jpg`}
-            />
-          </ReactSlickItem>
-
           <ReactSlickItem>
             <img
               src={`${SOURCES_PARTNERS}/Aramifício Chavantes-c537a201868ff1f4fd56b68621c25469.jpg`}

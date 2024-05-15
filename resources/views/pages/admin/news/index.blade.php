@@ -45,8 +45,11 @@
 
                                         <div class="flex items-center justify-end gap-4">
                                             <a href="{{ route('admin.news.edit', ['newsId' => $nw->id]) }}"
-                                                class="text-apae-cyan" title="Editar Notícia: {{ $nw->news_post_title }}">
-                                                <i class="fa-solid fa-user-pen"></i>
+                                                class="text-apae-white" title="Editar Notícia: {{ $nw->news_post_title }}">
+                                                <span class="rounded-md bg-apae-cyan px-4 py-1">
+                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                                    Editar
+                                                </span>
                                             </a>
 
                                             <div class="button-delete-post-news"

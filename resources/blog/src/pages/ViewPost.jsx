@@ -43,7 +43,7 @@ export function ViewPost() {
             </div>
             {post?.data ? (
               <div
-                className="text-justify md:text-[1rem] text-[14px]"
+                className=""
                 dangerouslySetInnerHTML={{ __html: cleanedContent }}
               />
             ) : (

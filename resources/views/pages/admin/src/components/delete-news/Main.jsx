@@ -18,8 +18,12 @@ function NewsDelete({ newsId }) {
   }
 
   return (
-    <button onClick={onDeleteNews} className="text-apae-danger">
-      <i className="fa-solid fa-trash"></i>
+    <button
+      onClick={onDeleteNews}
+      style={{ background: '#dc3545' }}
+      className="text-apae-white rounded-md px-4 py-1"
+    >
+      <i className="fa-solid fa-trash"></i> Apagar
     </button>
   );
 }
