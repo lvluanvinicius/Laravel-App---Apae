@@ -13,7 +13,7 @@ export default defineConfig({
         'resources/css/app-mobile.css',
         'resources/js/app.js',
         'resources/js/website.js',
-        'resources/blog/app.js',
+        'resources/blog/app.jsx',
       ],
       refresh: true,
     }),
