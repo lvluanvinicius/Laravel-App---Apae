@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PostComment } from '../components/PostComment';
 import { dateExtFormatter } from '../utils/formatter';
 import { FormPostComment } from '../components/comments/post-form-comments';
@@ -6,6 +6,9 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { getPostView } from '../services/queries/get-post-view';
 import DOMPurify from 'dompurify';
+
+import { FacebookIcon, FacebookShareButton } from 'react-share';
+import { FaceMask, FacebookLogo, ShareNetwork } from '@phosphor-icons/react';
 
 export function ViewPost() {
   const { slug } = useParams();
@@ -16,6 +19,10 @@ export function ViewPost() {
   } = useQuery({
     queryKey: ['post-view'],
     queryFn: () => getPostView(slug),
+  });
+
+  const [postUrl] = useState(function () {
+    return document.location.href;
   });
 
   if (isError || !post) {
@@ -35,7 +42,7 @@ export function ViewPost() {
               <h1 className="w-full font-bold md:text-[1.6rem]">
                 {post?.data?.news_post_title}
               </h1>
-              <div className="w-full text-[14px] flex items-center gap-2">
+              <div className="w-full text-[14px] flex items-center just gap-2">
                 <span className="text-[12px]">
                   Publicado em {dateExtFormatter(post?.data?.created_at)}
                 </span>
@@ -49,6 +56,21 @@ export function ViewPost() {
             ) : (
               <h1>Conteúdo não carregado!</h1>
             )}
+
+            <div className="flex gap-4 flex-col flex-wrap">
+              <div className="w-full">
+                <span className="font-semibold !text-[1.1rem]">
+                  Compartilhar
+                </span>
+              </div>
+              <div className="flex items-center gap-1 ">
+                <FacebookShareButton url={postUrl}>
+                  <span className="bg-apae-primary text-apae-white px-3 py-1 rounded-md flex items-center gap-1">
+                    <ShareNetwork size={16} weight="bold" /> Facebook
+                  </span>
+                </FacebookShareButton>
+              </div>
+            </div>
           </div>
 
           <FormPostComment />
