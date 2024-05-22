@@ -12,7 +12,8 @@
     <div class="mt-5 w-full">
         <ul>
             <a href="{{ route('admin.index') }}" class="">
-                <li class="border-l-2 border-transparent py-2 pl-4 text-[.8rem] hover:border-apae-white">
+                <li
+                    class="border-l-2 border-transparent py-3 pl-4 text-[.8rem] hover:border-apae-white hover:bg-apae-teal/20">
                     <i class="fa-solid fa-house mr-1"></i>
                     Painel
                 </li>
@@ -22,36 +23,48 @@
         <ul>
             <li class="py-2 pl-2 text-[.9rem]">Website</li>
             <a href="{{ route('admin.photos-gallery.index') }}" class="">
-                <li class="border-l-2 border-transparent py-2 pl-4 text-[.8rem] hover:border-apae-white">
+                <li
+                    class="border-l-2 border-transparent py-3 pl-4 text-[.8rem] hover:border-apae-white hover:bg-apae-teal/20">
                     <i class="fa-solid fa-images mr-1"></i>
                     Galeria de Fotos
                 </li>
             </a>
 
             <a href="{{ route('admin.transparency.index') }}" class="">
-                <li class="border-l-2 border-transparent py-2 pl-4 text-[.8rem] hover:border-apae-white">
+                <li
+                    class="border-l-2 border-transparent py-3 pl-4 text-[.8rem] hover:border-apae-white hover:bg-apae-teal/20">
                     <i class="fa-solid fa-eye mr-1"></i>
                     Transparência
                 </li>
             </a>
 
             <a href="{{ route('admin.partners.index') }}" class="">
-                <li class="border-l-2 border-transparent py-2 pl-4 text-[.8rem] hover:border-apae-white">
+                <li
+                    class="border-l-2 border-transparent py-3 pl-4 text-[.8rem] hover:border-apae-white hover:bg-apae-teal/20">
                     <i class="fa-regular fa-handshake mr-1"></i>
                     Parceiros
                 </li>
             </a>
             <a href="{{ route('admin.news.index') }}" class="">
-                <li class="border-l-2 border-transparent py-2 pl-4 text-[.8rem] hover:border-apae-white">
+                <li
+                    class="border-l-2 border-transparent py-3 pl-4 text-[.8rem] hover:border-apae-white hover:bg-apae-teal/20">
                     <i class="fa-solid fa-newspaper mr-1"></i>
                     Notícias
                 </li>
             </a>
 
             <a href="{{ route('admin.sliders.index') }}" class="">
-                <li class="border-l-2 border-transparent py-2 pl-4 text-[.8rem] hover:border-apae-white">
+                <li
+                    class="border-l-2 border-transparent py-3 pl-4 text-[.8rem] hover:border-apae-white hover:bg-apae-teal/20">
                     <i class="fa-regular fa-images mr-1"></i>
                     Sliders
+                </li>
+            </a>
+            <a href="{{ route('admin.statute.index') }}" class="">
+                <li
+                    class="border-l-2 border-transparent py-3 pl-4 text-[.8rem] hover:border-apae-white hover:bg-apae-teal/20">
+                    <i class="fa-solid fa-hands mr-1"></i>
+                    Estatuto
                 </li>
             </a>
         </ul>
@@ -59,13 +72,15 @@
         <ul>
             <li class="py-2 pl-2 text-[.9rem]">Administração</li>
             <a href="{{ route('admin.settings.general.index') }}" class="">
-                <li class="border-l-2 border-transparent py-2 pl-4 text-[.8rem] hover:border-apae-white">
+                <li
+                    class="border-l-2 border-transparent py-3 pl-4 text-[.8rem] hover:border-apae-white hover:bg-apae-teal/20">
                     <i class="fa-solid fa-gear"></i>
                     Configurações
                 </li>
             </a>
             <a href="{{ route('admin.users.index') }}" class="">
-                <li class="border-l-2 border-transparent py-2 pl-4 text-[.8rem] hover:border-apae-white">
+                <li
+                    class="border-l-2 border-transparent py-3 pl-4 text-[.8rem] hover:border-apae-white hover:bg-apae-teal/20">
                     <i class="fa-solid fa-users mr-1"></i>
                     Usuários
                 </li>

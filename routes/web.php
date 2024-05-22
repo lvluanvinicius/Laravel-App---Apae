@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\Services\PhotoGalleryController as ApiPhotoGaller
 use App\Http\Controllers\Admin\Services\UsersController as ApiUsersController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SlidersController;
+use App\Http\Controllers\Admin\StatuteController;
 use App\Http\Controllers\Admin\TransparencyController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Auth\AuthController;
@@ -160,6 +161,11 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
         Route::prefix('users')->as('users.')->group(function () {
             Route::get('', [ApiUsersController::class, 'index'])->name('index');
         });
+    });
+
+    Route::prefix('statute')->as('statute.')->group(function () {
+        Route::get('', [StatuteController::class, 'index'])->name('index');
+        Route::post('', [StatuteController::class, 'store'])->name('store');
     });
 
     // Efetua a alteração do tema.
