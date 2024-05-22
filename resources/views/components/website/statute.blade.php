@@ -2,7 +2,9 @@
     <div class="apae-container">
 
         <div class="statute-page w-full">
-            <iframe src="https://jucisrs.rs.gov.br/upload/arquivos/201710/30150625-criacao-de-pdf-a.pdf"></iframe>
+            @if ($statute)
+                <iframe class="h-[100vh] w-full" src="{{ asset('storage/statute/' . $statute->file_name) }}"></iframe>
+            @endif
         </div>
 
     </div>

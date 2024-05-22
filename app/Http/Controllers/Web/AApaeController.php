@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\View\View ;
+use Illuminate\Contracts\View\View;
 
 class AApaeController extends Controller
 {
