@@ -53,7 +53,7 @@
             </a>
 
 
-            <li class="flex cursor-pointer items-center px-2 py-2" id="lgpd-link">
+            {{-- <li class="flex cursor-pointer items-center px-2 py-2" id="lgpd-link">
                 LGPD
                 <i class="fa-solid fa-chevron-down ml-4 text-[.7rem]"></i>
             </li>
@@ -64,7 +64,7 @@
                 <a href="#">
                     <div class="py-2 pl-2 text-[1.1rem]">Termos de Uso</div>
                 </a>
-            </li>
+            </li> --}}
 
             <a href="{{ route('contact.index') }}">
                 <li class="py-2 pl-2 text-[1.1rem]">Contato</li>

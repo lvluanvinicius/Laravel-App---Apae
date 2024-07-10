@@ -13,6 +13,11 @@
                         <i class="ph ph-list text-[1.8rem]"></i>
                     </li>
                 </button>
+                <a href="{{ route('home') }}" class="h-full">
+                    <li
+                        class="flex h-full cursor-pointer items-center justify-center border-b-[4px] border-transparent px-4 transition-all duration-700 hover:border-apae-orange">
+                        Início</li>
+                </a>
                 <a href="{{ route('transparency.index') }}" class="h-full">
                     <li
                         class="flex h-full cursor-pointer items-center justify-center border-b-[4px] border-transparent px-4 transition-all duration-700 hover:border-apae-orange">
