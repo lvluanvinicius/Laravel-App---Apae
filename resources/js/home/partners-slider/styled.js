@@ -45,20 +45,17 @@ export const PartnersSliderTitle = styled.div`
   }
 `;
 
-export const ReactSlickItem = styled.div`
-  width: 170px;
-  height: 110px;
-  padding: 0 0.5em;
-  border-radius: 8px;
+export const PartnersSliderItems = styled.div`
+  display: flex;
+  gap: 1rem;
 
-  img {
-    border: 2px solid rgba(0, 0, 0, 0.3);
-    width: 100%;
-    height: 100%;
-    border-radius: inherit;
-  }
+  .slide-item {
+    border: 2px solid red;
+    max-height: 200px;
 
-  @media (max-width: 480px) {
-    height: 160px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 `;

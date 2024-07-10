@@ -9,12 +9,17 @@
                     <x-website.empty-container description="Ainda não existem arquivos." icon="fas fa-file" />
                 @else
                     @foreach ($files as $file)
-                        <div class="relative col-span-4 flex h-40 flex-col items-center justify-center gap-2 md:col-span-1">
+                        <div class="relative col-span-4 flex !h-64 flex-col items-center justify-center gap-2 md:col-span-1">
                             @if ($file->ext === 'pdf')
-                                <i class="fas fa-file-pdf text-[7rem] text-red-400"></i>
+                            <iframe src="{{ asset('/storage/transparency/' . $file->filename) }}"
+                                class="w-full h-full shadow"
+                                frameborder="0"></iframe>
                             @elseif ($file->ext === 'png' || $file->ext === 'jpg' || $file->ext === 'webp' || $file->ext === 'jpeg')
-                                <i class="fas fa-file-image text-[7rem] text-blue-400"></i>
+                            <img src="{{ asset('/storage/transparency/' . $file->filename) }}"
+                                class="w-full h-full shadow-md"/>
                             @endif
+
+                            <h3 class="w-full text-center">{{$file->filename}}</h3>
                             <a target="_blank" href="{{ asset('/storage/transparency/' . $file->filename) }}"
                                 class="w-[50%] rounded-md border bg-apae-green px-2 py-0.5 text-center text-apae-white shadow-md shadow-apae-dark/20">
                                 Vizualizar

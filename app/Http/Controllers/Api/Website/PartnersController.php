@@ -14,6 +14,11 @@ class PartnersController extends Controller
         try {
             $partners = \App\Models\Partners::get();
 
+            // Configurando URL de exibição de imagem.
+            for ($ind = 0; $ind < count($partners); $ind++) {
+                $partners[$ind]->partner_image = env('APP_URL') . "/images/partners/" . $partners[$ind]->partner_image;
+            }
+
             return $this->success('Parceiros recuperados com sucesso.', $partners);
         } catch (PartnersException $error) {
             return $this->error($error->getMessage(), \Illuminate\Http\Response::HTTP_OK);

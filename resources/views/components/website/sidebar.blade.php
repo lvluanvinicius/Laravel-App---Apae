@@ -52,13 +52,6 @@
                 <li class="py-2 pl-2 text-[1.1rem]">Galeria de Fotos</li>
             </a>
 
-            <a href="#">
-                <li class="py-2 pl-2 text-[1.1rem]">Notícias</li>
-            </a>
-
-            <a href="#">
-                <li class="py-2 pl-2 text-[1.1rem]">Parceiros</li>
-            </a>
 
             <li class="flex cursor-pointer items-center px-2 py-2" id="lgpd-link">
                 LGPD
