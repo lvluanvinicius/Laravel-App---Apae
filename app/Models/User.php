@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'ui_theme',
+        'rule',
     ];
 
     /**

@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('donate_nows', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('rule', [
+                'admin', 'user',
+            ])->default('admin');
         });
     }
 
@@ -22,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('donate_nows');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('rule');
+        });
     }
 };

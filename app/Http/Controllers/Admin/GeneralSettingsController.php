@@ -24,6 +24,7 @@ class GeneralSettingsController extends Controller
      */
     public function __construct()
     {
+
         $this->settings = new Settings();
     }
 
@@ -33,9 +34,13 @@ class GeneralSettingsController extends Controller
      * @author Luan Santos <lvluansantos@gmail.com>
      * @return View|RedirectResponse
      */
-    public function index(): View|RedirectResponse
+    public function index(): View | RedirectResponse
     {
         try {
+            if (auth()->user()->rule !== 'admin') {
+                return redirect()->route('admin.index');
+            }
+
             // Recupeta todas as configurações.
             $settings = Settings::get();
 
@@ -212,7 +217,7 @@ class GeneralSettingsController extends Controller
                         "MAIL_TIMEOUT" => $requestData['MAIL_TIMEOUT'],
                         "URL" => $requestData['URL'],
                         "TRANSPORT" => $requestData['TRANSPORT'],
-                        "MAIL_MAILER" => $requestData['MAIL_MAILER']
+                        "MAIL_MAILER" => $requestData['MAIL_MAILER'],
                     ],
                 ])
 

@@ -68,23 +68,27 @@
                 </li>
             </a>
         </ul>
-        <hr class="py-1 opacity-10" />
-        <ul>
-            <li class="py-2 pl-2 text-[.9rem]">Administração</li>
-            <a href="{{ route('admin.settings.general.index') }}" class="">
-                <li
-                    class="border-l-2 border-transparent py-3 pl-4 text-[.8rem] hover:border-apae-white hover:bg-apae-teal/20">
-                    <i class="fa-solid fa-gear"></i>
-                    Configurações
-                </li>
-            </a>
-            <a href="{{ route('admin.users.index') }}" class="">
-                <li
-                    class="border-l-2 border-transparent py-3 pl-4 text-[.8rem] hover:border-apae-white hover:bg-apae-teal/20">
-                    <i class="fa-solid fa-users mr-1"></i>
-                    Usuários
-                </li>
-            </a>
-        </ul>
+
+        @if (auth()->user()->rule === 'admin')
+            <hr class="py-1 opacity-10" />
+            <ul>
+                <li class="py-2 pl-2 text-[.9rem]">Administração</li>
+                <a href="{{ route('admin.settings.general.index') }}" class="">
+                    <li
+                        class="border-l-2 border-transparent py-3 pl-4 text-[.8rem] hover:border-apae-white hover:bg-apae-teal/20">
+                        <i class="fa-solid fa-gear"></i>
+                        Configurações
+                    </li>
+                </a>
+                <a href="{{ route('admin.users.index') }}" class="">
+                    <li
+                        class="border-l-2 border-transparent py-3 pl-4 text-[.8rem] hover:border-apae-white hover:bg-apae-teal/20">
+                        <i class="fa-solid fa-users mr-1"></i>
+                        Usuários
+                    </li>
+                </a>
+            </ul>
+        @endif
+
     </div>
 </aside>
