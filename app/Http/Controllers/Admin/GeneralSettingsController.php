@@ -37,6 +37,7 @@ class GeneralSettingsController extends Controller
     public function index(): View | RedirectResponse
     {
         try {
+            // Valida se o usuário tem a regra de admin para poder acessar a página de configurações.
             if (auth()->user()->rule !== 'admin') {
                 return redirect()->route('admin.index');
             }
@@ -241,5 +242,49 @@ class GeneralSettingsController extends Controller
                 'type' => 'Error',
             ])->withInput();
         }
+    }
+
+    public function updateQrCode(Request $request): RedirectResponse
+    {
+        try {
+            // Recuperando dados da requisição.
+            $requestData = $request->only(['description']);
+
+            // Recuperando arquivo.
+            $requestFile = $request->file('image_name');
+
+            // Recuperando path nas configurações.
+            $settings = \App\Models\Settings::where('setting_name', 'application_qrcode_path')->first('setting_value');
+
+            // Validando se existe as configurações.
+            if (!$settings) {
+                throw new Exception('Configurações de path para a imagem não foi localizada.');
+            }
+
+            if (!$settings->setting_value) {
+                throw new Exception('Configurações de path para a imagem está vazia.');
+            }
+
+            $data = [
+                "description" => $requestData['description'],
+                "image_name" => $requestFile->getClientOriginalName(),
+            ];
+
+            dd($data);
+
+        } catch (GeneralSettingsException $error) {
+            return redirect()->back()->with([
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
+            ])->withInput();
+        } catch (Exception $error) {
+            return redirect()->back()->with([
+                'status' => false,
+                'message' => $error->getMessage(),
+                'type' => 'Error',
+            ])->withInput();
+        }
+
     }
 }

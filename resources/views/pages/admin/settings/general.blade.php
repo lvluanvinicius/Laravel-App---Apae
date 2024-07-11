@@ -65,7 +65,7 @@
 
                 <div class="col-span-2 md:col-span-1">
                     <div
-                        class="rounded-md bg-apae-white p-6 text-apae-gray-dark shadow-md dark:bg-apae-gray-dark dark:text-apae-white">
+                        class="w-full rounded-md bg-apae-white p-6 text-apae-gray-dark shadow-md dark:bg-apae-gray-dark dark:text-apae-white">
                         <h1 class="mb-2 text-[1.4rem] font-bold">Servidor de E-mail</h1>
                         <form action="{{ route('admin.settings.general.update-mail-server') }}" method="post"
                             class="flex flex-wrap gap-4">
@@ -99,6 +99,40 @@
                                     @endforeach
                                 @endif
                             @endforeach
+
+                            <div class="flex w-full flex-wrap justify-center gap-4 py-3">
+                                <button type="submit"
+                                    class="w-full rounded-sm bg-apae-green px-6 py-1 text-apae-white shadow-md dark:bg-apae-gray">
+                                    Salvar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-span-2 w-full md:col-span-1">
+                    <div
+                        class="rounded-md bg-apae-white p-6 text-apae-gray-dark shadow-md dark:bg-apae-gray-dark dark:text-apae-white">
+                        <h1 class="mb-2 text-[1.4rem] font-bold">Pix (QRCode)</h1>
+                        <form action="{{ route('admin.settings.general.update-qrcode') }}" method="post"
+                            enctype="multipart/form-data" class="flex flex-wrap gap-4">
+                            @csrf
+                            @method('PUT')
+                            <div class="flex w-full flex-wrap p-1">
+                                <label for="description" class="w-full text-[1rem]">Descrição</label>
+                                <input type="text" name="description" value="" id="image_name"
+                                    class="w-full rounded-[4px] !border-none bg-apae-gray/10 px-2 py-1 !outline-none">
+                            </div>
+                            <div class="flex w-full flex-wrap p-1">
+                                <label for="image_name" class="w-full text-[1rem]">QRcode (imagem)</label>
+                                <input type="file" name="image_name" value="" id="image_name"
+                                    class="w-full rounded-[4px] !border-none bg-apae-gray/10 px-2 py-1 !outline-none">
+                            </div>
+
+                            <div class="justify-left flex w-full flex-wrap items-center p-1">
+                                <img src="{{ env('APP_URL') }}/images/qrcode/QR CODE PIX DA APAE.jpeg.jpg"
+                                    class="h-52 w-52">
+                            </div>
 
                             <div class="flex w-full flex-wrap justify-center gap-4 py-3">
                                 <button type="submit"

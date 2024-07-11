@@ -137,6 +137,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
             Route::put('extensions', [GeneralSettingsController::class, 'updateExtensions'])->name('update-extensions');
             Route::put('paths', [GeneralSettingsController::class, 'updatePaths'])->name('update-paths');
             Route::put('mail-server', [GeneralSettingsController::class, 'updateMailServer'])->name('update-mail-server');
+            Route::put('qrcode', [GeneralSettingsController::class, 'updateQrCode'])->name('update-qrcode');
         });
     });
 

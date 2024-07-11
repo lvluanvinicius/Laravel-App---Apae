@@ -17,7 +17,7 @@
             </div>
 
             <div class="z-10 flex h-full w-full items-center justify-center">
-                <img src="{{ asset('images/qrcode/exemplo.png') }}" alt="" class="w-[50%]" />
+                <img src="{{ asset('images/qrcode/QR CODE PIX DA APAE.jpeg.jpg') }}" alt="" class="w-[50%]" />
             </div>
         </div>
 
