@@ -27,14 +27,14 @@ class UserRepository extends \App\Interfaces\UserRepositoryInterface
     }
 
     /**
-     * 
-     * Recupera todos os usuários. 
-     * 
+     *
+     * Recupera todos os usuários.
+     *
      * @author Luan VP Santos <lvluansantos@gmail.com>
-     * 
+     *
      * @param string|null $search
      * @param int $perPage
-     * 
+     *
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function getUsers(string | null $search, int $perPage): \Illuminate\Pagination\LengthAwarePaginator
@@ -59,6 +59,29 @@ class UserRepository extends \App\Interfaces\UserRepositoryInterface
         });
 
         return $userQuery->paginate($perPage);
+
+    }
+
+    /**
+     * Cria um novo registro de usuário.
+     *
+     * @author Luan Santos <lvluansantos@gmail.com>
+     *
+     * @param array $attr
+     * @throws \Exception
+     * @return \App\Models\User
+     */
+    public function createUser(array $attr): \App\Models\User
+    {
+        // Criando registro de usuário.
+        $user = $this->user->create($attr);
+
+        // Valida se o registro foi inserido corretamente.
+        if (!$user) {
+            throw new \Exception("Erro ao tentar criar o usuário.");
+        }
+
+        return $user;
 
     }
 }

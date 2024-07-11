@@ -150,3 +150,13 @@ export async function getUsers(
       alert(error.message);
     });
 }
+
+export async function createUser(data) {
+  const response = await service.post('/api-services/users/create', data);
+
+  if (response.data) {
+    return response.data;
+  }
+
+  throw new Error('Erro ao tentar criar um novo usuário.');
+}

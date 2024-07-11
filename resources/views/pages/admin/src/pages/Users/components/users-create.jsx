@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import * as Dialog from '@radix-ui/react-alert-dialog';
 import { colors } from '../../../../../../../../styles';
 import { useForm } from 'react-hook-form';
+import { createUser } from '../../../services';
 
 const CreateUserRoot = styled(Dialog.Root)``;
 
@@ -72,7 +73,7 @@ const CreateUserTitle = styled(Dialog.Title)`
 `;
 
 export function CreateUser() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const { handleSubmit, reset, register } = useForm({});
 
@@ -81,8 +82,19 @@ export function CreateUser() {
     reset();
   }
 
-  function handleCreateUser(data) {
-    console.log(data);
+  async function handleCreateUser(data) {
+    try {
+      const create = await createUser(data);
+
+      if (create.message) {
+        alert(create.message);
+        window.location.reload();
+      }
+    } catch (err) {
+      const { data } = err.response;
+
+      alert(data.message);
+    }
   }
 
   return (
@@ -124,8 +136,17 @@ export function CreateUser() {
                 className=""
                 {...register('is_client', { required: true })}
               >
-                <option value={0}>Administrador</option>
+                <option value={0}>Usuário Interno</option>
                 <option value={1}>Cliente/Usuário</option>
+              </select>
+            </div>
+            <div className="col-span-2">
+              <select className="" {...register('rule', { required: true })}>
+                <option value="" selected>
+                  Selecione uma Regra
+                </option>
+                <option value="admin">Administrador</option>
+                <option value="user">Colaborador</option>
               </select>
             </div>
             <div className="col-span-2 flex justify-between items-center">

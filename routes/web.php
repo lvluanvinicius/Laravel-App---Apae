@@ -160,6 +160,7 @@ Route::prefix('admin')->as('admin.')->middleware('auth:web')->group(function () 
 
         Route::prefix('users')->as('users.')->group(function () {
             Route::get('', [ApiUsersController::class, 'index'])->name('index');
+            Route::post('create', [ApiUsersController::class, 'store'])->name('store');
         });
     });
 

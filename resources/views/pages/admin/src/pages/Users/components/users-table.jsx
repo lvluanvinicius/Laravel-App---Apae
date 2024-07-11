@@ -26,10 +26,10 @@ export function UsersTable() {
     <div className="table-apae-content col-span-12 rounded bg-apae-white px-8 pb-8 pt-4 shadow-md dark:bg-apae-gray-dark">
       <div className="mb-4 flex w-full justify-between">
         <form>
-          <input
+          {/* <input
             placeholder="Buscar usuário..."
             className="!border !border-apae-gray-dark"
-          />
+          /> */}
         </form>
         <CreateUser />
       </div>

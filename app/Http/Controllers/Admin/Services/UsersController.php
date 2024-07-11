@@ -57,19 +57,24 @@ class UsersController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Cria um novo usuário.
+     *
+     * @author Luan Santos <lvluansantos@gmail.com>
+     *
+     * @param \App\Http\Requests\Admin\ServiceCresteUserRequest $request
      */
-    public function create()
+    public function store(\App\Http\Requests\Admin\ServiceCresteUserRequest $request)
     {
-        //
-    }
+        try {
+            // Recuperando dados da requisição.
+            $requestData = $request->only(["name", "rule", "email", "password", "is_client"]);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+            $users = $this->userRepository->createUser($requestData);
+
+            return $this->success("Usuário criado com sucesso.", $users);
+        } catch (\Exception $error) {
+            return $this->error($error->getMessage(), \Illuminate\Http\Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
