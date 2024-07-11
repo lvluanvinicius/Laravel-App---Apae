@@ -2,7 +2,7 @@
     <div class="apae-container flex h-full justify-between">
         <div class="flex items-center justify-start gap-2">
             <i class="ph-fill ph-envelope-simple"></i>
-            contato@apaechavantes.com.br
+            contato@apaechavantes.org.br
         </div>
 
         <div class="mx-10 flex h-full flex-1 items-center justify-center rounded-md">
