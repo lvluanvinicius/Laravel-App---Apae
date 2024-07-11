@@ -3,7 +3,6 @@
     <div class="mb-4 py-1 opacity-90">
         <p class="text-[.9rem] font-normal leading-3">Endereço: Avenida João Martins, 91,</p>
         <p class="text-[.9rem] font-normal">Chavantes Novo - Chavantes - SP</p>
-        <p class="mt-0.5 text-[.9rem] font-normal leading-5">Telefone: (14) 3342-2304</p>
         <p class="text-[.9rem] font-normal">E-mail: contato@apaechavantes.org.br</p>
     </div>
     <div class="h-[20rem]">
