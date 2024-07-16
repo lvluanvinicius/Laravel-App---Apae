@@ -49,6 +49,18 @@ export const PartnersSliderItems = styled.div`
   display: flex;
   gap: 1rem;
 
+  [class^='slide-item'],
+  [class*=' slide-item'] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    color: #fff;
+    font-weight: 500;
+    height: 100px;
+    max-height: 100vh;
+  }
+
   .slide-item {
     /* max-width: 200px !important;
     max-height: 200px !important; */
