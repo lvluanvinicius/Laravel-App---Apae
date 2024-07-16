@@ -50,12 +50,12 @@ export const PartnersSliderItems = styled.div`
   gap: 1rem;
 
   .slide-item {
-    border: 2px solid red;
-    max-height: 200px;
+    /* max-width: 200px !important;
+    max-height: 200px !important; */
 
     img {
-      width: 100%;
-      height: 100%;
+      /* width: 100%;
+      height: 100%; */
     }
   }
 `;

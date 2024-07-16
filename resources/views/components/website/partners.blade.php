@@ -1,1 +1,1 @@
-{{-- <div id="partners-slider"></div> --}}
+<div id="partners-slider"></div>

@@ -57,7 +57,12 @@ export function PartnersSlider() {
           {partners.map((partner) => {
             return (
               <div key={partner.id} className="keen-slider__slide slide-item">
-                <img src={partner.partner_image} alt="" />
+                <img
+                  src={partner.partner_image}
+                  alt=""
+                  width={100}
+                  height={100}
+                />
               </div>
             );
           })}
