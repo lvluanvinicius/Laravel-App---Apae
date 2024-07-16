@@ -14,6 +14,7 @@ const animation = { duration: 20000, easing: (t) => t };
 
 export function PartnersSlider() {
   const [partners, setPartners] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [sliderRef] = useKeenSlider({
     loop: true,
@@ -34,16 +35,22 @@ export function PartnersSlider() {
   });
 
   async function loadSliders() {
+    setIsLoading(true);
     const response = await api.get('website/partners-slider');
     if (!response.data) return null;
     const { data } = response.data;
 
     setPartners(data);
+    setIsLoading(false);
   }
 
   useEffect(() => {
     loadSliders();
   }, []);
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <PartnersSliderContainer>
